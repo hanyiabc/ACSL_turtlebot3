@@ -9,6 +9,7 @@
 
   <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch"/>
 
+  <include file="$(find turtlebot3_navigation)/launch/bot_control.launch"/>
 
   <!-- Turtlebot3 -->
   <!-- <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
