@@ -14,6 +14,16 @@
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu11",
             "cppStandard": "gnu++14"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\AngelofDeath\\AppData\\Local\\Arduino15\\packages\\OpenCR\\tools\\**",
+                "C:\\Users\\AngelofDeath\\AppData\\Local\\Arduino15\\packages\\OpenCR\\hardware\\OpenCR\\1.4.15\\**"
+            ],
+            "forcedInclude": [
+                "C:\\Users\\AngelofDeath\\AppData\\Local\\Arduino15\\packages\\OpenCR\\hardware\\OpenCR\\1.4.15\\cores\\arduino\\Arduino.h"
+            ]
         }
     ],
     "version": 4
