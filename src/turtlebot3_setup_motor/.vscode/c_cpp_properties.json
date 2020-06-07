@@ -1,21 +1,6 @@
 {
     "configurations": [
         {
-            "browse": {
-                "databaseFilename": "",
-                "limitSymbolsToIncludedHeaders": true
-            },
-            "includePath": [
-                "/opt/ros/melodic/include/**",
-                "/usr/include/**"
-            ],
-            "name": "ROS",
-            "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu11",
-            "cppStandard": "gnu++14"
-        },
-        {
             "name": "Win32",
             "includePath": [
                 "C:\\Users\\AngelofDeath\\AppData\\Local\\Arduino15\\packages\\OpenCR\\tools\\**",
@@ -23,7 +8,11 @@
             ],
             "forcedInclude": [
                 "C:\\Users\\AngelofDeath\\AppData\\Local\\Arduino15\\packages\\OpenCR\\hardware\\OpenCR\\1.4.15\\cores\\arduino\\Arduino.h"
-            ]
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.25.28610/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4
