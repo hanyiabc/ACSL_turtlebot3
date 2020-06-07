@@ -34,6 +34,11 @@ void setup()
   nh.subscribe(motor_power_sub);
   nh.subscribe(reset_sub);
 
+  //subscribers for left and right effort
+  nh.subscribe(left_effort_sub);
+  nh.subscribe(right_effort_sub);
+
+
   nh.advertise(sensor_state_pub);  
   nh.advertise(version_info_pub);
   nh.advertise(imu_pub);
@@ -79,9 +84,9 @@ void loop()
   updateVariable(nh.connected());
   updateTFPrefix(nh.connected());
 
-  if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_SPEED_FREQUENCY))
+  if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_EFFORT_FREQUENCY))
   {
-    updateGoalVelocity();
+    updateGoalEffort();
     if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
     {
       motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_velocity);
@@ -91,6 +96,19 @@ void loop()
     }
     tTime[0] = t;
   }
+
+  // if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_SPEED_FREQUENCY))
+  // {
+  //   updateGoalVelocity();
+  //   if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
+  //   {
+  //     motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_velocity);
+  //   } 
+  //   else {
+  //     motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, goal_velocity);
+  //   }
+  //   tTime[0] = t;
+  // }
 
   if ((t-tTime[1]) >= (1000 / CMD_VEL_PUBLISH_FREQUENCY))
   {
@@ -159,6 +177,21 @@ void loop()
 
   // Wait the serial link time to process
   waitForSerialLink(nh.connected());
+}
+
+void updateGoalEffort(void)
+{
+  
+}
+
+void leftWheelEffortCallback(const std_msgs::Float64& effort_msg)
+{
+  effort[LEFT] = effort_msg->data;
+}
+
+void rightWheelEffortCallback(const std_msgs::Float64& effort_msg)
+{
+  effort[RIGHT] = effort_msg->data;
 }
 
 /*******************************************************************************

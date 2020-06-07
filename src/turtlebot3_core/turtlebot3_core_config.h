@@ -46,6 +46,8 @@
 #define FIRMWARE_VER "1.2.3"
 
 #define CONTROL_MOTOR_SPEED_FREQUENCY          30   //hz
+#define CONTROL_MOTOR_EFFORT_FREQUENCY         120   //hz
+
 #define CONTROL_MOTOR_TIMEOUT                  500  //ms
 #define IMU_PUBLISH_FREQUENCY                  200  //hz
 #define CMD_VEL_PUBLISH_FREQUENCY              30   //hz
@@ -73,6 +75,11 @@
 #define DEBUG_SERIAL                     SerialBT2
 
 // Callback function prototypes
+
+void leftWheelEffortCallback(const std_msgs::Float64 & effort_msg);
+void rightWheelEffortCallback(const std_msgs::Float64 & effort_msg);
+void updateGoalEffort(void);
+
 void commandVelocityCallback(const geometry_msgs::Twist& cmd_vel_msg);
 void soundCallback(const turtlebot3_msgs::Sound& sound_msg);
 void motorPowerCallback(const std_msgs::Bool& power_msg);
@@ -139,6 +146,11 @@ ros::Subscriber<turtlebot3_msgs::Sound> sound_sub("sound", soundCallback);
 ros::Subscriber<std_msgs::Bool> motor_power_sub("motor_power", motorPowerCallback);
 
 ros::Subscriber<std_msgs::Empty> reset_sub("reset", resetCallback);
+
+ros::Subscriber<std_msgs::Float64> left_effort_sub("left_effort", leftWheelEffortCallback);
+ros::Subscriber<std_msgs::Float64> right_effort_sub("right_effort", rightWheelEffortCallback);
+
+
 
 /*******************************************************************************
 * Publisher
@@ -218,6 +230,7 @@ float goal_velocity[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_button[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_cmd[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_rc100[WHEEL_NUM] = {0.0, 0.0};
+float effort[WHEEL_NUM] = {0.0, 0.0};
 
 /*******************************************************************************
 * Declaration for diagnosis
