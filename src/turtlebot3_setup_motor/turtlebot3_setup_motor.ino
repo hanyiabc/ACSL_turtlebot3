@@ -60,7 +60,13 @@ bool requestConfirm(void);
 bool findMotor(int id);
 bool setupMotorLeft(void);
 bool setupMotorRight(void);
+bool setupMotorLeftCurrentControl();
+bool setupMotorRightCurrentControl();
+
+
+
 void testMotor(uint8_t id);
+void testMotorCurrentControl(uint8_t id);
 
 
 void      write(dynamixel::PortHandler *portHandler, dynamixel::PacketHandler *packetHandler, uint8_t id, uint16_t addr, uint16_t length, uint32_t value);
@@ -143,6 +149,42 @@ void loop()
       CMD_SERIAL.println("test.... right");
       testMotor(2);
     }
+    if (ch == '5')
+    {
+      flushCmd();
+      if (requestConfirm() == true)
+      {
+      CMD_SERIAL.println("setup current control.... left");
+      if (findMotor(1) == true)
+      {
+        setupMotorLeftCurrentControl();
+      }
+      }
+    }
+    if (ch == '6')
+    {
+      flushCmd();
+      if (requestConfirm() == true)
+      {
+      CMD_SERIAL.println("setup current control.... right");
+      if (findMotor(2) == true)
+      {
+        setupMotorRightCurrentControl();
+      }
+      }
+    }
+    if (ch == '7')
+    {
+      flushCmd();
+      CMD_SERIAL.println("test current control.... left");
+      testMotorCurrentControl(1);
+    }
+    if (ch == '8')
+    {
+      flushCmd();
+      CMD_SERIAL.println("test current control.... right");
+      testMotorCurrentControl(2);
+    }
 
     drawTitle();
     flushCmd();
@@ -157,6 +199,11 @@ void drawTitle(void)
   CMD_SERIAL.println("2. setup right motor");
   CMD_SERIAL.println("3. test  left  motor");
   CMD_SERIAL.println("4. test  right motor");
+  //added options
+  CMD_SERIAL.println("5. setup left  motor for current control");
+  CMD_SERIAL.println("6. setup right  motor for current control");
+  CMD_SERIAL.println("7. test left  motor for current control");
+  CMD_SERIAL.println("8. test right  motor for current control");
   CMD_SERIAL.print(">> ");
 }
 
@@ -316,6 +363,7 @@ bool setupMotorLeft(void)
     write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
     portHandler->setBaudRate(1000000);
     write(portHandler, packetHandler2, tb3_id, 10, 1, 0);
+    //this sets the operating mode
     write(portHandler, packetHandler2, tb3_id, 11, 1, 1);
     CMD_SERIAL.println("    ok");
   }
@@ -338,6 +386,7 @@ bool setupMotorRight(void)
     write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
     portHandler->setBaudRate(1000000);
     write(portHandler, packetHandler2, tb3_id, 10, 1, 1);
+    //this sets the operating mode
     write(portHandler, packetHandler2, tb3_id, 11, 1, 1);
     CMD_SERIAL.println("    ok");
   }
@@ -400,6 +449,120 @@ void testMotor(uint8_t id)
     CMD_SERIAL.printf("    dxl motor ID:%d not found\n", id);
   }
 }
+
+void testMotorCurrentControl(uint8_t id)
+{
+  uint32_t pre_time;
+  uint8_t  toggle = 0;
+
+  if (id == 1)
+  {
+    CMD_SERIAL.printf("Test Motor Left...");
+  }
+  else
+  {
+    CMD_SERIAL.printf("Test Motor Right...");
+  }
+  // We run at 1000000
+  portHandler->setBaudRate(1000000);
+
+  uint16_t model_number;
+  int dxl_comm_result = packetHandler2->ping(portHandler, id, &model_number);
+  if (dxl_comm_result == COMM_SUCCESS)
+  {
+    CMD_SERIAL.printf(" found type: %d\n", model_number);
+    write(portHandler, packetHandler2, id, 64, 1, 1);
+
+    toggle = 0;
+    pre_time = millis();
+    write(portHandler, packetHandler2, id, 102, 2, 100);
+    while (1)
+    {
+      if (CMD_SERIAL.available())
+      {
+        flushCmd();
+        break;
+      }
+
+      if (millis() - pre_time > 1000)
+      {
+        pre_time = millis();
+
+        toggle ^= 1;
+
+        if (toggle)
+        {
+          write(portHandler, packetHandler2, id, 102, 2, 0);
+        }
+        else
+        {
+          write(portHandler, packetHandler2, id, 102, 2, 100);
+        }
+      }
+    }
+    write(portHandler, packetHandler2, id, 102, 2, 0);
+  }
+  else
+  {
+    CMD_SERIAL.printf("    dxl motor ID:%d not found\n", id);
+  }
+}
+
+bool setupMotorLeftCurrentControl(void)
+{
+  CMD_SERIAL.println("Setup Motor Left for current control...");
+
+
+  if (tb3_id < 0)
+  {
+    CMD_SERIAL.println("    no dxl motors");
+  }
+  else
+  {
+    write(portHandler, packetHandler2, tb3_id, 64, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 7, 1, 1);
+    tb3_id = 1;
+    write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
+    portHandler->setBaudRate(1000000);
+    write(portHandler, packetHandler2, tb3_id, 10, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 11, 1, 0);
+
+    // this set the limit to half
+    write(portHandler, packetHandler2, tb3_id, 38, 2, 596);
+    CMD_SERIAL.println("    Warning: Current limit is set to half to protect the motor!");
+    CMD_SERIAL.println("    ok");
+  }
+}
+
+bool setupMotorRightCurrentControl(void)
+{
+  CMD_SERIAL.println("Setup Motor Right for current control...");
+
+
+  if (tb3_id < 0)
+  {
+    CMD_SERIAL.println("    no dxl motors");
+  }
+  else
+  {
+    write(portHandler, packetHandler2, tb3_id, 64, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 7, 1, 2);
+    tb3_id = 2;
+    write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
+    portHandler->setBaudRate(1000000);
+    write(portHandler, packetHandler2, tb3_id, 10, 1, 1);
+    write(portHandler, packetHandler2, tb3_id, 11, 1, 0);
+
+     // this set the limit to half
+    write(portHandler, packetHandler2, tb3_id, 38, 2, 596);
+    CMD_SERIAL.println("    Warning: Current limit is set to half to protect the motor!");
+    CMD_SERIAL.println("    ok");
+  }
+}
+
+
+
+
 
 void write(dynamixel::PortHandler *portHandler, dynamixel::PacketHandler *packetHandler, uint8_t id, uint16_t addr, uint16_t length, uint32_t value)
 {
