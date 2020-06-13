@@ -1,7 +1,7 @@
 
-#include "turtlebot3_motor_effort_driver.h"
+#include "turtlebot3_motor_torque_driver.h"
 
-TurtleBot3MotorEffortDriver::TurtleBot3MotorEffortDriver()
+TurtleBot3MotorTorqueDriver::TurtleBot3MotorTorqueDriver()
     : baudrate_(BAUDRATE),
       protocol_version_(PROTOCOL_VERSION),
       left_wheel_id_(DXL_LEFT_ID),
@@ -9,15 +9,15 @@ TurtleBot3MotorEffortDriver::TurtleBot3MotorEffortDriver()
 {
     torque_ = false;
     // dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
-    dynamixel_limit_max_effort_ = WAFFLE_DXL_LIMIT_MAX_EFFORT;
+    dynamixel_limit_max_current_ = WAFFLE_DXL_LIMIT_MAX_CURRENT;
 }
 
-TurtleBot3MotorEffortDriver::~TurtleBot3MotorEffortDriver()
+TurtleBot3MotorTorqueDriver::~TurtleBot3MotorTorqueDriver()
 {
     close();
 }
 
-bool TurtleBot3MotorEffortDriver::init(String turtlebot3)
+bool TurtleBot3MotorTorqueDriver::init(String turtlebot3)
 {
     DEBUG_SERIAL.begin(57600);
     portHandler_ = dynamixel::PortHandler::getPortHandler(DEVICENAME);
@@ -42,7 +42,7 @@ bool TurtleBot3MotorEffortDriver::init(String turtlebot3)
 
     groupSyncWriteVelocity_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_VELOCITY, LEN_X_GOAL_VELOCITY);
     groupSyncReadEncoder_ = new dynamixel::GroupSyncRead(portHandler_, packetHandler_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
-    groupSyncWriteEffort_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_VELOCITY, LEN_X_GOAL_VELOCITY);
+    groupSyncWriteTorque_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_CURRENT, LEN_X_GOAL_CURRENT);
     // if (turtlebot3 == "Burger")
     //     dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
     // else if (turtlebot3 == "Waffle or Waffle Pi")
@@ -54,7 +54,7 @@ bool TurtleBot3MotorEffortDriver::init(String turtlebot3)
     return true;
 }
 
-bool TurtleBot3MotorEffortDriver::setTorque(bool onoff)
+bool TurtleBot3MotorTorqueDriver::setTorque(bool onoff)
 {
     uint8_t dxl_error = 0;
     int dxl_comm_result = COMM_TX_FAIL;
@@ -88,12 +88,12 @@ bool TurtleBot3MotorEffortDriver::setTorque(bool onoff)
     return true;
 }
 
-bool TurtleBot3MotorEffortDriver::getTorque()
+bool TurtleBot3MotorTorqueDriver::getTorque()
 {
     return torque_;
 }
 
-void TurtleBot3MotorEffortDriver::close(void)
+void TurtleBot3MotorTorqueDriver::close(void)
 {
     // Disable Dynamixel Torque
     setTorque(false);
@@ -103,7 +103,7 @@ void TurtleBot3MotorEffortDriver::close(void)
     DEBUG_SERIAL.end();
 }
 
-bool TurtleBot3MotorEffortDriver::readEncoder(int32_t &left_value, int32_t &right_value)
+bool TurtleBot3MotorTorqueDriver::readEncoder(int32_t &left_value, int32_t &right_value)
 {
     int dxl_comm_result = COMM_TX_FAIL; // Communication result
     bool dxl_addparam_result = false;   // addParam result
@@ -140,7 +140,7 @@ bool TurtleBot3MotorEffortDriver::readEncoder(int32_t &left_value, int32_t &righ
     return true;
 }
 
-bool TurtleBot3MotorEffortDriver::writeVelocity(int64_t left_value, int64_t right_value)
+bool TurtleBot3MotorTorqueDriver::writeVelocity(int64_t left_value, int64_t right_value)
 {
     bool dxl_addparam_result;
     int8_t dxl_comm_result;
@@ -181,7 +181,33 @@ bool TurtleBot3MotorEffortDriver::writeVelocity(int64_t left_value, int64_t righ
     return true;
 }
 
-bool TurtleBot3MotorEffortDriver::controlMotor(const float wheel_radius, const float wheel_separation, float *value)
+bool TurtleBot3MotorTorqueDriver::writeTorque(int16_t left_value, int16_t right_value)
+{
+    bool dxl_addparam_result;
+    int8_t dxl_comm_result;
+
+    dxl_addparam_result = groupSyncWriteVelocity_->addParam(left_wheel_id_, (uint8_t *)&left_value);
+    if (dxl_addparam_result != true)
+        return false;
+
+    dxl_addparam_result = groupSyncWriteVelocity_->addParam(right_wheel_id_, (uint8_t *)&right_value);
+    if (dxl_addparam_result != true)
+        return false;
+
+    dxl_comm_result = groupSyncWriteVelocity_->txPacket();
+    if (dxl_comm_result != COMM_SUCCESS)
+    {
+        Serial.println(packetHandler_->getTxRxResult(dxl_comm_result));
+        return false;
+    }
+
+    groupSyncWriteVelocity_->clearParam();
+    return true;
+}
+
+
+
+bool TurtleBot3MotorTorqueDriver::controlMotor(const float wheel_radius, const float wheel_separation, float *value)
 {
     bool dxl_comm_result = false;
 
@@ -201,4 +227,22 @@ bool TurtleBot3MotorEffortDriver::controlMotor(const float wheel_radius, const f
         return false;
 
     return true;
+}
+
+bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
+{
+        bool dxl_comm_result = false;
+
+        uint16_t wheel_current_cmd[2];
+        wheel_current_cmd[LEFT] = CURRENT_TO_OUTPUT(TORQUE_TO_CURRENT(torque[LEFT]));
+        wheel_current_cmd[RIGHT] = CURRENT_TO_OUTPUT(TORQUE_TO_CURRENT(torque[RIGHT]));
+
+        wheel_current_cmd[LEFT] = constrain(wheel_current_cmd[LEFT], -dynamixel_limit_max_current_, dynamixel_limit_max_current_);
+        wheel_current_cmd[RIGHT] = constrain(wheel_current_cmd[RIGHT], -dynamixel_limit_max_current_, dynamixel_limit_max_current_);
+
+        dxl_comm_result = writeTorque((int16_t)wheel_current_cmd[LEFT], (int16_t)wheel_current_cmd[RIGHT]);
+        if (dxl_comm_result == false)
+            return false;
+
+        return true;
 }

@@ -20,20 +20,33 @@
 
 #include <TurtleBot3.h>
 #include <stdint.h>
-#define WAFFLE_DXL_LIMIT_MAX_EFFORT 3
+#define WAFFLE_DXL_LIMIT_MAX_CURRENT   780
+#define ADDR_X_GOAL_CURRENT            102
+#define LEN_X_GOAL_CURRENT             2
 
-class TurtleBot3MotorEffortDriver
+#define MAX_CURRENT_11V1                 2.1
+#define MAX_TORQUE_11V1                  2.7
+
+#define CURRENT_GOAL_UNIT                2.69
+#define TORQUE_TO_CURRENT(t)             t * (MAX_CURRENT_11V1 /  MAX_TORQUE_11V1)// convert torque to current in amp
+#define CURRENT_TO_OUTPUT(a)             (uint16_t)(a * 1000 /  CURRENT_GOAL_UNIT)
+
+class TurtleBot3MotorTorqueDriver
 {
 public:
-    TurtleBot3MotorEffortDriver();
-    ~TurtleBot3MotorEffortDriver();
+    TurtleBot3MotorTorqueDriver();
+    ~TurtleBot3MotorTorqueDriver();
     bool init(String turtlebot3);
     void close(void);
     bool setTorque(bool onoff);
     bool getTorque();
     bool readEncoder(int32_t &left_value, int32_t &right_value);
     bool writeVelocity(int64_t left_value, int64_t right_value);
+    
+    bool writeTorque(int16_t left_value, int16_t right_value);
     bool controlMotor(const float wheel_radius, const float wheel_separation, float *value);
+    bool controlMotor(float *torque);
+
 
 private:
     uint32_t baudrate_;
@@ -43,6 +56,7 @@ private:
     bool torque_;
 
     uint16_t dynamixel_limit_max_velocity_;
+    uint16_t dynamixel_limit_max_current_;
 
     dynamixel::PortHandler *portHandler_;
     dynamixel::PacketHandler *packetHandler_;
@@ -50,9 +64,6 @@ private:
     dynamixel::GroupSyncWrite *groupSyncWriteVelocity_;
     dynamixel::GroupSyncRead *groupSyncReadEncoder_;
 
-
-
-    double dynamixel_limit_max_effort_;
-    dynamixel::GroupSyncWrite *groupSyncWriteEffort_;
+    dynamixel::GroupSyncWrite *groupSyncWriteTorque_;
 };
 

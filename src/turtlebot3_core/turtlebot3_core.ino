@@ -34,9 +34,9 @@ void setup()
   nh.subscribe(motor_power_sub);
   nh.subscribe(reset_sub);
 
-  //subscribers for left and right effort
-  nh.subscribe(left_effort_sub);
-  nh.subscribe(right_effort_sub);
+  //subscribers for left and right torque
+  nh.subscribe(left_torque_sub);
+  nh.subscribe(right_torque_sub);
 
 
   nh.advertise(sensor_state_pub);  
@@ -84,12 +84,12 @@ void loop()
   updateVariable(nh.connected());
   updateTFPrefix(nh.connected());
 
-  if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_EFFORT_FREQUENCY))
+  if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
   {
-    updateGoalEffort();
+    updateGoalTorque();
     if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
     {
-      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_velocity);
+      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_torque);
     } 
     else {
       motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, goal_velocity);
@@ -179,19 +179,19 @@ void loop()
   waitForSerialLink(nh.connected());
 }
 
-void updateGoalEffort(void)
+void updateGoalTorque(void)
 {
   
 }
 
-void leftWheelEffortCallback(const std_msgs::Float64& effort_msg)
+void leftWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
-  effort[LEFT] = effort_msg->data;
+  torque[LEFT] = torque_msg.data;
 }
 
-void rightWheelEffortCallback(const std_msgs::Float64& effort_msg)
+void rightWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
-  effort[RIGHT] = effort_msg->data;
+  torque[RIGHT] = torque_msg.data;
 }
 
 /*******************************************************************************
