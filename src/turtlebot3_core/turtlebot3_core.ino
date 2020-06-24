@@ -186,12 +186,12 @@ void updateGoalEffort(void)
 
 void leftWheelEffortCallback(const std_msgs::Float64& effort_msg)
 {
-  effort[LEFT] = effort_msg->data;
+  effort[LEFT] = effort_msg.data;
 }
 
 void rightWheelEffortCallback(const std_msgs::Float64& effort_msg)
 {
-  effort[RIGHT] = effort_msg->data;
+  effort[RIGHT] = effort_msg.data;
 }
 
 /*******************************************************************************
