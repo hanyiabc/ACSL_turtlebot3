@@ -186,22 +186,22 @@ bool TurtleBot3MotorTorqueDriver::writeTorque(int16_t left_value, int16_t right_
     bool dxl_addparam_result;
     int8_t dxl_comm_result;
 
-    dxl_addparam_result = groupSyncWriteVelocity_->addParam(left_wheel_id_, (uint8_t *)&left_value);
+    dxl_addparam_result = groupSyncWriteTorque_->addParam(left_wheel_id_, (uint8_t *)&left_value);
     if (dxl_addparam_result != true)
         return false;
 
-    dxl_addparam_result = groupSyncWriteVelocity_->addParam(right_wheel_id_, (uint8_t *)&right_value);
+    dxl_addparam_result = groupSyncWriteTorque_->addParam(right_wheel_id_, (uint8_t *)&right_value);
     if (dxl_addparam_result != true)
         return false;
 
-    dxl_comm_result = groupSyncWriteVelocity_->txPacket();
+    dxl_comm_result = groupSyncWriteTorque_->txPacket();
     if (dxl_comm_result != COMM_SUCCESS)
     {
         Serial.println(packetHandler_->getTxRxResult(dxl_comm_result));
         return false;
     }
 
-    groupSyncWriteVelocity_->clearParam();
+    groupSyncWriteTorque_->clearParam();
     return true;
 }
 

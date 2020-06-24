@@ -87,12 +87,13 @@ void loop()
   if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
   {
     updateGoalTorque();
+    //this timeout will stop the motor if no message comes in
     if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
     {
-      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_torque);
+      motor_driver.controlMotor(zero_torque);
     } 
     else {
-      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, goal_velocity);
+      motor_driver.controlMotor(torque);
     }
     tTime[0] = t;
   }
