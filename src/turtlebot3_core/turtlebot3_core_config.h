@@ -22,6 +22,7 @@
 #include <ros.h>
 #include <ros/time.h>
 #include <std_msgs/Bool.h>
+#include <std_msgs/Float64.h>
 #include <std_msgs/Empty.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Float64.h>
@@ -42,12 +43,14 @@
 #include <TurtleBot3.h>
 #include "turtlebot3_waffle.h"
 
+#include "turtlebot3_motor_torque_driver.h"
+
 #include <math.h>
 
 #define FIRMWARE_VER "1.2.3"
 
 #define CONTROL_MOTOR_SPEED_FREQUENCY          30   //hz
-#define CONTROL_MOTOR_EFFORT_FREQUENCY         120   //hz
+#define CONTROL_MOTOR_TORQUE_FREQUENCY         120   //hz
 
 #define CONTROL_MOTOR_TIMEOUT                  500  //ms
 #define IMU_PUBLISH_FREQUENCY                  200  //hz
@@ -72,14 +75,16 @@
 #define TEST_DISTANCE                    0.300     // meter
 #define TEST_RADIAN                      3.14      // 180 degree
 
+
+
 // #define DEBUG                            
 #define DEBUG_SERIAL                     SerialBT2
 
 // Callback function prototypes
 
-void leftWheelEffortCallback(const std_msgs::Float64 & effort_msg);
-void rightWheelEffortCallback(const std_msgs::Float64 & effort_msg);
-void updateGoalEffort(void);
+void leftWheelTorqueCallback(const std_msgs::Float64 & effort_msg);
+void rightWheelTorqueCallback(const std_msgs::Float64 & effort_msg);
+void updateGoalTorque(void);
 
 void commandVelocityCallback(const geometry_msgs::Twist& cmd_vel_msg);
 void soundCallback(const turtlebot3_msgs::Sound& sound_msg);
@@ -148,8 +153,8 @@ ros::Subscriber<std_msgs::Bool> motor_power_sub("motor_power", motorPowerCallbac
 
 ros::Subscriber<std_msgs::Empty> reset_sub("reset", resetCallback);
 
-ros::Subscriber<std_msgs::Float64> left_effort_sub("left_effort", leftWheelEffortCallback);
-ros::Subscriber<std_msgs::Float64> right_effort_sub("right_effort", rightWheelEffortCallback);
+ros::Subscriber<std_msgs::Float64> left_torque_sub("left_torque", leftWheelTorqueCallback);
+ros::Subscriber<std_msgs::Float64> right_torque_sub("right_torque", rightWheelTorqueCallback);
 
 
 
@@ -203,7 +208,7 @@ static uint32_t tTime[10];
 /*******************************************************************************
 * Declaration for motor
 *******************************************************************************/
-Turtlebot3MotorDriver motor_driver;
+TurtleBot3MotorTorqueDriver motor_driver;
 
 /*******************************************************************************
 * Calculation for odometry
@@ -231,7 +236,10 @@ float goal_velocity[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_button[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_cmd[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_rc100[WHEEL_NUM] = {0.0, 0.0};
-float effort[WHEEL_NUM] = {0.0, 0.0};
+
+float goal_current[WHEEL_NUM] = {0.0};
+float torque[WHEEL_NUM] = {0.0, 0.0};
+float zero_torque[WHEEL_NUM] = {0.0, 0.0};
 
 /*******************************************************************************
 * Declaration for diagnosis

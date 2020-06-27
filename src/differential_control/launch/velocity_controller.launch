@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <param name="/bot/robot_description" command="$(find xacro)/xacro --inorder '$(find ros_control)/bot.xacro'" />
+
+    <include file="$(find ros_control)/bot_world.launch" />
+
+    <rosparam file="$(find differential_control)/diff_drive.yaml" command="load" />
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+          respawn="false" output="screen" ns="/bot" args="mobile_base_controller" />
+
+
+</launch>
