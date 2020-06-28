@@ -84,6 +84,7 @@ void loop()
   updateVariable(nh.connected());
   updateTFPrefix(nh.connected());
 
+  
   if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
   {
     updateGoalTorque();
@@ -182,17 +183,19 @@ void loop()
 
 void updateGoalTorque(void)
 {
-  
+    sensors.setLedPattern(torque[LINEAR], torque[ANGULAR]);
 }
 
 void leftWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
   torque[LEFT] = torque_msg.data;
+  tTime[6] = millis();
 }
 
 void rightWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
   torque[RIGHT] = torque_msg.data;
+  tTime[6] = millis();
 }
 
 /*******************************************************************************
