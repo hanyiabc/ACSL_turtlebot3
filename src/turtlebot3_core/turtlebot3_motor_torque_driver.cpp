@@ -43,6 +43,8 @@ bool TurtleBot3MotorTorqueDriver::init(String turtlebot3)
     groupSyncWriteVelocity_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_VELOCITY, LEN_X_GOAL_VELOCITY);
     groupSyncReadEncoder_ = new dynamixel::GroupSyncRead(portHandler_, packetHandler_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
     groupSyncWriteTorque_ = new dynamixel::GroupSyncWrite(portHandler_, packetHandler_, ADDR_X_GOAL_CURRENT, LEN_X_GOAL_CURRENT);
+    groupSyncReadTorque_ = new dynamixel::GroupSyncRead(portHandler_, packetHandler_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
+
     // if (turtlebot3 == "Burger")
     //     dynamixel_limit_max_velocity_ = BURGER_DXL_LIMIT_MAX_VELOCITY;
     // else if (turtlebot3 == "Waffle or Waffle Pi")
@@ -137,6 +139,48 @@ bool TurtleBot3MotorTorqueDriver::readEncoder(int32_t &left_value, int32_t &righ
     right_value = groupSyncReadEncoder_->getData(right_wheel_id_, ADDR_X_PRESENT_POSITION, LEN_X_PRESENT_POSITION);
 
     groupSyncReadEncoder_->clearParam();
+    return true;
+}
+
+bool TurtleBot3MotorTorqueDriver::readTorque(float &left_torque, float &right_torque)
+{
+    int16_t left_value, right_value;
+    int dxl_comm_result = COMM_TX_FAIL; // Communication result
+    bool dxl_addparam_result = false;   // addParam result
+    bool dxl_getdata_result = false;    // GetParam result
+
+    // Set parameter
+    dxl_addparam_result = groupSyncReadTorque_->addParam(left_wheel_id_);
+    if (dxl_addparam_result != true)
+        return false;
+
+    dxl_addparam_result = groupSyncReadTorque_->addParam(right_wheel_id_);
+    if (dxl_addparam_result != true)
+        return false;
+
+    // Syncread present position
+    dxl_comm_result = groupSyncReadTorque_->txRxPacket();
+    if (dxl_comm_result != COMM_SUCCESS)
+        Serial.println(packetHandler_->getTxRxResult(dxl_comm_result));
+
+    // Check if groupSyncRead data of Dynamixels are available
+    dxl_getdata_result = groupSyncReadTorque_->isAvailable(left_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
+    if (dxl_getdata_result != true)
+        return false;
+
+    dxl_getdata_result = groupSyncReadTorque_->isAvailable(right_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
+    if (dxl_getdata_result != true)
+        return false;
+
+    // Get data
+    left_value = groupSyncReadTorque_->getData(left_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
+    right_value = groupSyncReadTorque_->getData(right_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
+
+    // Convert register value to torque
+    left_torque = CURRENT_TO_TORQUE(OUTPUT_TO_CURRENT(left_value));
+    right_torque = CURRENT_TO_TORQUE(OUTPUT_TO_CURRENT(right_value));
+
+    groupSyncReadTorque_->clearParam();
     return true;
 }
 

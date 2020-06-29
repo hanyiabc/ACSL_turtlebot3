@@ -215,7 +215,7 @@ TurtleBot3MotorTorqueDriver motor_driver;
 *******************************************************************************/
 bool init_encoder = true;
 int32_t last_diff_tick[WHEEL_NUM] = {0, 0};
-double  last_rad[WHEEL_NUM]       = {0.0, 0.0};
+double  last_rad[WHEEL_NUM]       = {0.0, 0.0}; 
 
 /*******************************************************************************
 * Update Joint State
@@ -238,6 +238,7 @@ float goal_velocity_from_cmd[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_rc100[WHEEL_NUM] = {0.0, 0.0};
 
 float torque[WHEEL_NUM] = {0.0, 0.0};
+float last_torque[WHEEL_NUM] = {0.0, 0.0};
 float zero_torque[WHEEL_NUM] = {0.0};
 
 /*******************************************************************************
