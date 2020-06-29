@@ -1,4 +1,4 @@
-/*******************************************************************************
+  /*******************************************************************************
 * Copyright 2016 ROBOTIS CO., LTD.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,15 +84,17 @@ void loop()
   updateVariable(nh.connected());
   updateTFPrefix(nh.connected());
 
+  
   if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
   {
     updateGoalTorque();
+    //this timeout will stop the motor if no message comes in
     if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
     {
-      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, zero_torque);
+      motor_driver.controlMotor(zero_torque);
     } 
     else {
-      motor_driver.controlMotor(WHEEL_RADIUS, WHEEL_SEPARATION, goal_velocity);
+      motor_driver.controlMotor(torque);
     }
     tTime[0] = t;
   }
@@ -181,17 +183,19 @@ void loop()
 
 void updateGoalTorque(void)
 {
-  
+    sensors.setLedPattern(torque[LINEAR], torque[ANGULAR]);
 }
 
 void leftWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
   torque[LEFT] = torque_msg.data;
+  tTime[6] = millis();
 }
 
 void rightWheelTorqueCallback(const std_msgs::Float64& torque_msg)
 {
   torque[RIGHT] = torque_msg.data;
+  tTime[6] = millis();
 }
 
 /*******************************************************************************
@@ -291,12 +295,14 @@ void publishMagMsg(void)
 void publishSensorStateMsg(void)
 {
   bool dxl_comm_result = false;
+  bool dxl_comm_result_torque = false;
 
   sensor_state_msg.header.stamp = rosNow();
   sensor_state_msg.battery = sensors.checkVoltage();
 
   dxl_comm_result = motor_driver.readEncoder(sensor_state_msg.left_encoder, sensor_state_msg.right_encoder);
-
+  dxl_comm_result_torque = motor_driver.readTorque(last_torque[LEFT], last_torque[RIGHT]);
+  
   if (dxl_comm_result == true)
     updateMotorInfo(sensor_state_msg.left_encoder, sensor_state_msg.right_encoder);
   else
@@ -463,7 +469,7 @@ void updateJointStates(void)
 {
   static float joint_states_pos[WHEEL_NUM] = {0.0, 0.0};
   static float joint_states_vel[WHEEL_NUM] = {0.0, 0.0};
-  //static float joint_states_eff[WHEEL_NUM] = {0.0, 0.0};
+  static float joint_states_eff[WHEEL_NUM] = {0.0, 0.0};
 
   joint_states_pos[LEFT]  = last_rad[LEFT];
   joint_states_pos[RIGHT] = last_rad[RIGHT];
@@ -471,8 +477,12 @@ void updateJointStates(void)
   joint_states_vel[LEFT]  = last_velocity[LEFT];
   joint_states_vel[RIGHT] = last_velocity[RIGHT];
 
+  joint_states_eff[LEFT]  = last_torque[LEFT];
+  joint_states_eff[RIGHT] = last_torque[RIGHT];
+
   joint_states.position = joint_states_pos;
   joint_states.velocity = joint_states_vel;
+  joint_states.effort   = joint_states_eff;
 }
 
 /*******************************************************************************
@@ -505,6 +515,7 @@ void updateMotorInfo(int32_t left_tick, int32_t right_tick)
       last_rad[index]       = 0.0;
 
       last_velocity[index]  = 0.0;
+      last_torque[index] = 0.0;
     }  
 
     last_tick[LEFT] = left_tick;
@@ -599,7 +610,8 @@ void driveTest(uint8_t buttons)
   int32_t current_tick[2] = {0, 0};
 
   motor_driver.readEncoder(current_tick[LEFT], current_tick[RIGHT]);
-
+  motor_driver.readTorque(last_torque[LEFT], last_torque[RIGHT]);
+  
   if (buttons & (1<<0))  
   {
     move[LINEAR] = true;
@@ -877,6 +889,7 @@ void sendDebuglog(void)
 
   int32_t encoder[WHEEL_NUM] = {0, 0};
   motor_driver.readEncoder(encoder[LEFT], encoder[RIGHT]);
+  motor_driver.readTorque(last_torque[LEFT], last_torque[RIGHT]);
   
   DEBUG_SERIAL.println("Encoder(left) : " + String(encoder[LEFT]));
   DEBUG_SERIAL.println("Encoder(right) : " + String(encoder[RIGHT]));

@@ -25,6 +25,7 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Empty.h>
 #include <std_msgs/Int32.h>
+#include <std_msgs/Float64.h>
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/JointState.h>
 #include <sensor_msgs/BatteryState.h>
@@ -214,7 +215,7 @@ TurtleBot3MotorTorqueDriver motor_driver;
 *******************************************************************************/
 bool init_encoder = true;
 int32_t last_diff_tick[WHEEL_NUM] = {0, 0};
-double  last_rad[WHEEL_NUM]       = {0.0, 0.0};
+double  last_rad[WHEEL_NUM]       = {0.0, 0.0}; 
 
 /*******************************************************************************
 * Update Joint State
@@ -236,9 +237,9 @@ float goal_velocity_from_button[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_cmd[WHEEL_NUM] = {0.0, 0.0};
 float goal_velocity_from_rc100[WHEEL_NUM] = {0.0, 0.0};
 
-float goal_current[WHEEL_NUM] = {0.0};
 float torque[WHEEL_NUM] = {0.0, 0.0};
-float zero_torque[WHEEL_NUM] = {0.0, 0.0};
+float last_torque[WHEEL_NUM] = {0.0, 0.0};
+float zero_torque[WHEEL_NUM] = {0.0};
 
 /*******************************************************************************
 * Declaration for diagnosis
