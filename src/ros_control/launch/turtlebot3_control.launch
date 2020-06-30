@@ -1,0 +1,35 @@
+<launch>
+  <node name="message_redirect" pkg="ros_control" type="ros_control_node" />
+  
+  <node name="pid_left_node" pkg="pid" type="controller" ns="left_wheel">
+      <param name="Kp" value="0.56" />
+      <param name="Ki" value="0.84" />
+      <param name="Kd" value="0.0" />
+      <param name="upper_limit" value="2.7" />
+      <param name="lower_limit" value="-2.7" />
+      <param name="windup_limit" value="10" />
+      <param name="max_loop_frequency" value="300.0" />
+      <param name="min_loop_frequency" value="150.0" />
+      <param name="node_name" value="pid_left_node" />
+      <param name="topic_from_controller" value="/left_torque"/>
+      <param name="setpoint_topic" value="/left_vel"/>
+      <param name="topic_from_plant" value="/left_vel_fb"/>
+
+  </node>
+
+  <node name="pid_right_node" pkg="pid" type="controller" ns="right_wheel">
+      <param name="Kp" value="0.56" />
+      <param name="Ki" value="0.84" />
+      <param name="Kd" value="0.0" />
+      <param name="upper_limit" value="2.7" />
+      <param name="lower_limit" value="-2.7" />
+      <param name="windup_limit" value="10" />
+      <param name="max_loop_frequency" value="300.0" />
+      <param name="min_loop_frequency" value="150.0" />
+      <param name="node_name" value="pid_right_node" />
+      <param name="topic_from_controller" value="/right_torque"/>
+      <param name="setpoint_topic" value="/right_vel"/>
+      <param name="topic_from_plant" value="/right_vel_fb"/>
+
+  </node>
+</launch>

@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation_no_map.launch"/>
+    <include file="$(find ros_control)/launch/turtlebot3_control.launch"/>
+</launch>
