@@ -7,7 +7,7 @@
     <rosparam file="$(find differential_control)/diff_drive.yaml" command="load" />
 
     <node name="controller_spawner" pkg="controller_manager" type="spawner"
-          respawn="false" output="screen" ns="/bot" args="mobile_base_controller" />
+          respawn="false" output="screen" ns="/bot" args="joint_state_controller  joint_right_velocity_controller joint_left_velocity_controller" />
 
 
 </launch>
