@@ -1,4 +1,7 @@
 <launch>
+
+  <node name="differential_driver" pkg="ros_control" type="differential_driver.py" />
+
   <node name="message_redirect" pkg="ros_control" type="ros_control_node" />
   
   <node name="pid_left_node" pkg="pid" type="controller" ns="left_wheel">
