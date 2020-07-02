@@ -8,7 +8,7 @@
   <arg name="robot_model"                   default="$(arg robot_name)"/>
   <arg name="use_default_gripper_bar"       default="true"/>
   <arg name="use_default_gripper_fingers"   default="true"/>
-  <arg name="use_world_frame"               default="true"/>
+  <arg name="use_world_frame"               default="true">/>
   <arg name="external_urdf_loc"             default=""/>
   <arg name="use_default_rviz"              default="false"/>
   <arg name="gui"                           default="true"/>
