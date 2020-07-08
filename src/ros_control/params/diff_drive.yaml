@@ -1,0 +1,24 @@
+bot:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  joint_right_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: wheel_right_joint
+
+  joint_left_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: wheel_left_joint
+
+  gazebo_ros_control:
+    pid_gains:
+      wheel_right_joint:
+        p: 0.008
+        i: 0.002
+        d: 0.0
+
+      wheel_left_joint:
+        p: 0.008
+        i: 0.002
+        d: 0.0
