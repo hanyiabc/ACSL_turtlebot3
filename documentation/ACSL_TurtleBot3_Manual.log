@@ -1,0 +1,384 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  8 JUL 2020 13:56
+entering extended mode
+**"e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
+("e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-06-18> ("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+("C:\Program Files\MiKTeX\tex/latex/base\size10.clo"
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+) ("C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty"
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+ ("C:\Program Files\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty"
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+) ("C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty"
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+) ("C:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty"
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ ("C:\Program Files\MiKTeX\tex/generic/infwarerr\infwarerr.sty"
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) ("C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+) ("C:\Program Files\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.sty"
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+) ("C:\Program Files\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty"
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) ("C:\Program Files\MiKTeX\tex/generic/pdfescape\pdfescape.sty"
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) ("C:\Program Files\MiKTeX\tex/latex/hycolor\hycolor.sty"
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) ("C:\Program Files\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty"
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) ("C:\Program Files\MiKTeX\tex/latex/auxhook\auxhook.sty"
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) ("C:\Program Files\MiKTeX\tex/latex/kvoptions\kvoptions.sty"
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+)
+\@linkdim=\dimen135
+\Hy@linkcounter=\count175
+\Hy@pagecounter=\count176
+ ("C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def"
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) ("C:\Program Files\MiKTeX\tex/generic/intcalc\intcalc.sty"
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+) ("C:\Program Files\MiKTeX\tex/generic/etexcmds\etexcmds.sty"
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count177
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count178
+ ("C:\Program Files\MiKTeX\tex/latex/url\url.sty"
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen136
+ ("C:\Program Files\MiKTeX\tex/generic/bitset\bitset.sty"
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ ("C:\Program Files\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty"
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count179
+\Field@Width=\dimen137
+\Fld@charsize=\dimen138
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+ ("C:\Program Files\MiKTeX\tex/generic/atbegshi\atbegshi.sty"
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count180
+\c@Item=\count181
+\c@Hfootnote=\count182
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ ("C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def"
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+ ("C:\Program Files\MiKTeX\tex/latex/atveryend\atveryend.sty"
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+)
+\Fld@listcount=\count183
+\c@bookmark@seq@number=\count184
+ ("C:\Program Files\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty"
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+ ("C:\Program Files\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty"
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+)
+\Hy@SectionHShift=\skip49
+) ("C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+ ("C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty"
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+ ("C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) ("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+ ("C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+) ("C:\Program Files\MiKTeX\tex/latex/listings\listings.sty"
+\lst@mode=\count185
+\lst@gtempboxa=\box45
+\lst@token=\toks16
+\lst@length=\count186
+\lst@currlwidth=\dimen141
+\lst@column=\count187
+\lst@pos=\count188
+\lst@lostspace=\dimen142
+\lst@width=\dimen143
+\lst@newlines=\count189
+\lst@lineno=\count190
+\lst@maxwidth=\dimen144
+ ("C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty"
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count191
+\lst@skipnumbers=\count192
+\lst@framebox=\box46
+) ("C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg"
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ ("C:\Program Files\MiKTeX\tex/latex/graphics\color.sty"
+Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
+ ("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+) ("C:\Program Files\MiKTeX\tex/latex/xcolor\xcolor.sty"
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ ("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 709.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) ("C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty"
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+) ("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdfmode.def"
+File: l3backend-pdfmode.def 2020-06-29 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count193
+\l__pdf_internal_box=\box47
+)
+
+LaTeX Warning: Unused global option(s):
+    [12].
+
+("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux")
+\openout1 = `ACSL_TurtleBot3_Manual.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+\AtBeginShipoutBox=\box48
+Package hyperref Info: Link coloring OFF on input line 41.
+ ("C:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty"
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+ ("C:\Program Files\MiKTeX\tex/latex/refcount\refcount.sty"
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) ("C:\Program Files\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty"
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count194
+)
+LaTeX Info: Redefining \ref on input line 41.
+LaTeX Info: Redefining \pageref on input line 41.
+LaTeX Info: Redefining \nameref on input line 41.
+ ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out") ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out")
+\@outlinefile=\write3
+\openout3 = `ACSL_TurtleBot3_Manual.out'.
+
+ ("C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count195
+\scratchdimen=\dimen145
+\scratchbox=\box49
+\nofMPsegments=\count196
+\nofMParguments=\count197
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count198
+\MPscratchDim=\dimen146
+\MPnumerator=\count199
+\makeMPintoPDFobject=\count266
+\everyMPtoPDFconversion=\toks18
+) ("C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty"
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+)
+\c@lstlisting=\count267
+<images/ACSL_Logo.jpg, id=35, 44.0847pt x 30.1125pt>
+File: images/ACSL_Logo.jpg Graphic file (type jpg)
+<use images/ACSL_Logo.jpg>
+Package pdftex.def Info: images/ACSL_Logo.jpg  used on input line 46.
+(pdftex.def)             Requested size: 241.49895pt x 164.98233pt.
+ [1
+
+{C:/Users/AngelofDeath/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/ACSL_Logo.jpg>] ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.toc"
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
+)
+\tf@toc=\write4
+\openout4 = `ACSL_TurtleBot3_Manual.toc'.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.54 \newpage
+              [1] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+<images/tb3_architecture.png, id=61, 714.2685pt x 192.72pt>
+File: images/tb3_architecture.png Graphic file (type png)
+<use images/tb3_architecture.png>
+Package pdftex.def Info: images/tb3_architecture.png  used on input line 70.
+(pdftex.def)             Requested size: 241.49895pt x 65.15927pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+[3 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/tb3_architecture.png>]
+Overfull \hbox (11.24702pt too wide) in paragraph at lines 96--97
+[][]$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / platform / turtlebot3 / pc _ setup /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
+
+Overfull \hbox (16.49698pt too wide) in paragraph at lines 104--105
+[][]$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / platform / turtlebot3 / raspberry _
+ []
+
+[4]
+Overfull \hbox (58.99661pt too wide) in paragraph at lines 138--139
+[][]$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / parts / controller / opencr10 / #arduino-[]ide$[] 
+ []
+
+[5]
+Overfull \hbox (37.62485pt too wide) in paragraph at lines 163--164
+[]\OT1/cmr/m/n/10 Not all pack-ages are catkin pack-age. simulink, turtle-bot3[]core turtle-bot3[]setup[]motor
+ []
+
+[6]
+Overfull \hbox (26.73413pt too wide) in paragraph at lines 197--200
+[]\OT1/cmr/m/n/10 For Waf-fle Pi, turtle-bot3[]waffle[]pi.gazebo.xacro and turtle-bot3[]waffle[]pi.urdf.xacro
+ []
+
+
+Overfull \hbox (17.8885pt too wide) in paragraph at lines 204--205
+\OT1/cmr/m/n/10 OpenCR com-mu-ni-cates with Dy-namixel us-ing packet com-mu-ni-ca-tion via TTL/RS45
+ []
+
+[7]
+<images/dxl_eeprom.png, id=107, 428.802pt x 500.46976pt>
+File: images/dxl_eeprom.png Graphic file (type png)
+<use images/dxl_eeprom.png>
+Package pdftex.def Info: images/dxl_eeprom.png  used on input line 214.
+(pdftex.def)             Requested size: 241.49895pt x 281.85718pt.
+ [8 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/dxl_eeprom.png>]
+<images/dxl_control_table.png, id=113, 483.60675pt x 357.7365pt>
+File: images/dxl_control_table.png Graphic file (type png)
+<use images/dxl_control_table.png>
+Package pdftex.def Info: images/dxl_control_table.png  used on input line 222.
+(pdftex.def)             Requested size: 345.0pt x 255.2065pt.
+ [9 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/dxl_control_table.png>]
+<images/xm430_performance.png, id=134, 274.626pt x 247.52475pt>
+File: images/xm430_performance.png Graphic file (type png)
+<use images/xm430_performance.png>
+Package pdftex.def Info: images/xm430_performance.png  used on input line 264.
+(pdftex.def)             Requested size: 345.0pt x 310.9537pt.
+ [10] [11 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/xm430_performance.png>] [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 319.
+ [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 319.
+ ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux")
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 319.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 319.
+Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
+(rerunfilecheck)             Checksum: C7FC86C58C2FBDD87C6C85827C34B629;499.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 319.
+ ) 
+Here is how much of TeX's memory you used:
+ 7619 strings out of 480790
+ 113027 string characters out of 2907035
+ 577201 words of memory out of 3000000
+ 23424 multiletter control sequences out of 15000+200000
+ 535264 words of font info for 35 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 37i,6n,60p,624b,1836s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on "e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.pdf" (14 pages, 464960 bytes).
+PDF statistics:
+ 252 PDF objects out of 1000 (max. 8388607)
+ 102 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+
