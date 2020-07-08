@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{xcolor}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -23,6 +24,12 @@
   breaklines=true,
   breakatwhitespace=true,
   tabsize=3
+}
+
+\lstdefinestyle{bash}
+{
+    backgroundcolor=\color{white},
+    basicstyle=\scriptsize\color{black}\ttfamily
 }
 
 \title{ACSL TurtleBot3 e-Manual}
@@ -77,15 +84,16 @@ There is a one time setup that needs to be performed on the Remote PC, Raspberry
  
 \subsection{Remote PC Setup}
 
-To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic which is backwards compatible with ROS Kinetic (The Distribution we will flash on the Turtlebot's on board computer).
+To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023). 
+The single board computer on Turtlebot3 will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. No problem has been found on the communication between these 2 releases. 
 
-The following page from the ROBOTIS E manual describes the process for adding and installing all necessary packages to your ROS Environment.
+The following page from ros.org describes the process for adding and installing all necessary packages to your ROS Environment.
 
-\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration} \\\\
+\url{http://wiki.ros.org/melodic/Installation/Ubuntu} \\\\
 
 The next step is to configure network settings for permanent use. The Remote PC will be controlling the turtlebot pc via wifi using SSH protocol. Steps for configuring the wifi on the remote pc can be found here.
 
-\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#install-ros-1-on-remote-pc} \\
+\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration} \\
 
 For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.\\\\
 
@@ -95,6 +103,28 @@ Now it is time to look at the turtlebot SBC. For the turtlebot 3 Waffle Pi model
 
 \url {https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}
 
+To use the Raspberry PI without a HDMI connection, use SSH. Example SSH command:
+
+\begin{lstlisting}[style=bash]
+ssh pi@RASPBERRY_PI_IP
+\end{lstlisting}
+
+For the ease of use, VNC configuration is recommended. This provide remote desktop funtionality. In case of Debian Stretch (the version that the manual will use), install Real VNC by running this command on the Raspberry PI:
+\begin{lstlisting}[style=bash]
+sudo apt update
+sudo apt install realvnc-vnc-server realvnc-vnc-viewer
+\end{lstlisting}
+Enable VNC server by 
+\begin{lstlisting}[style=bash]
+sudo raspi-config
+\end{lstlisting}
+Then navigate to Interfacing Options.
+Scroll down and select VNC - Yes.
+
+
+Ubuntu Desktop 18.04 comes with VNC client. 
+On Windows, use VNC viewer
+\url{https://www.realvnc.com/en/connect/download/viewer/}
 \subsection{OpenCR Setup}
 
 The original source code for TurtleBot3 used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
@@ -108,7 +138,67 @@ Arduino IDE can be used to burn the turtlebot3\_core.ino file located in ACSL\_t
 \url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
 
 \newpage
+\section{Repository Directory Structure Introduction}
+The repository is a catkin workspace. A catkin workspace has a src folder that contains all the packages. The worth mentioning packages are:
+\begin{itemize}
+	\item[--] hls\_lfcd\_lds\_driver
+    \item[--] raspicam\_node
+    \item[--] ros\_control
+    \item[--] simulink
+    \item[--] turtlebot3
+    \begin{itemize}
+        \item[--] turtlebot3\_bringup
+        \item[--] turtlebot3\_navigation
+        \item[--] turtlebot3\_slam
+        \item[--] turtlebot3\_teleop
+    \end {itemize}
+    \item[--] turtlebot3\_core
+    \item[--] turtlebot3\_setup\_motor
+    \item[--] turtlebot3\_simulations
+    \begin{itemize}
+        \item[--] turtlebot3\_gazebo
+    \end{itemize}
+\end{itemize} 
 
+Not all packages are catkin package. simulink, turtlebot3\_core turtlebot3\_setup\_motor are all just directories. All the rest are properly configured as catkin packages
+
+\begin{lstlisting}[style=bash]
+
+\end{lstlisting}
+\newpage
+
+hls\_lfcd\_lds\_driver and raspicam\_node are drivers for the PI Camera and lidar. 
+These will be running in the single board computer. 
+
+ros\_control contains all the configuration and nodes necessary to control the robot. 
+It contains the PID controller configurationl, PID gains, etc.
+Two launch files are included for controlling the robot in either the simulations or in the physical world. They are:
+
+\begin{itemize}
+	\item[--] turtlebot3\_control.launch
+	\item[--] turtlebot3\_control\_simulation.launch
+\end{itemize}  
+These launch file are not ran directly, instead they are inlcuded by other launch file that we will introduce later.
+The PID gains can be tuned by either changing the parameters in the launch file or use a ros package called rqt\_reconfiture to adjust the slider at runtime. 
+There are 2 nodes under the ros\_control package. They are differential\_driver.py and ros\_control\_node. 
+The differential\_driver.py is a Python ros node that split the incoming \/cmd\_vel topics into left and right velocity for the differential drive robot. 
+The \/cmd\_vel is the standard topic that ROS nav stack used to output the velocity command. It commands the robot in terms of translational velocity and orientation. 
+The ros\_control\_node is a C++ ros node compiled from the soruce file: message\_redirect.cpp. 
+This node simply takes the left and right wheel velocities from \/joint\_states and publish them into 2 Float64 messages for the PID controller. 
+
+The directory simulink contains all the MATLAB scrips and Simulink models for controlling the robot with MATLAB 
+
+turtlebot3\_bringup contains all the launch file for bringing up the turtlebot3 in the SBC and the remote PC. 
+turtlebot3\_physical\_nav\_control.launch was added to the bringup package to provide a convinient one-file launch that will handles everything. 
+This launch file brings up the turtlebot on the remote PC, runs the velocity control and the navigation stack with SLAM. A simulation version will be provided in the future.
+
+turtlebot3\_description contains the 3D model and URDF descripion of the turtlebot. 
+
+For Waffle Pi, turtlebot3\_waffle\_pi.gazebo.xacro and turtlebot3\_waffle\_pi.urdf.xacro are provided by the turtlebot package, however, for effort control, we added 2 more files. 
+They are: turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro and turtlebot3\_waffle\_pi\_effort\_controller.urdf.xacro
+These files are derived from the original descriptions and added ability to control effort in both the simulation and the physical robot. 
+
+turtlebot3\_navigation contains --------
 \section{Torque Control using Dynamixel}
        
 Dynamixel is a microcontroller based actuator with in-built PID controller. OpenCR communicates with Dynamixel using packet communication via TTL/RS45 ports. 
@@ -126,7 +216,7 @@ Following is a snapshot of the Dynamixel EEPROM Control Table. Each data in the 
 
 For the purpose of torque control, the operating mode of the dynamixel motor needs to be set to \textbf{MODE 0}. This can be done using the motor setup code in the git repository.
 
-Once the operating mode is set. The OpenCR code is change to write torque values to the Dynamixel RAM addresses, when the robot is live. The addresses that are useful for this purpose are given in the image below.
+Once the operating mode is set. The OpenCR code is changed to write torque values to the Dynamixel RAM addresses, when the robot is live. The addresses that are useful for this purpose are given in the image below.
 
 \begin{center}
 	\includegraphics[width=\linewidth]{images/dxl_control_table.png}\\
@@ -153,12 +243,28 @@ bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
         return true;
 }
 \end{lstlisting}
+CURRENT\_TO\_OUTPUT and TORQUE\_TO\_CURRENT are macro functions that does the conversions from torque to current and current to a 2 byte value that the microcontroller undertand. 
+All the necessary macros are defined as
+\begin{lstlisting}
+#define MAX_CURRENT_11V1      2.1
+#define MAX_TORQUE_11V1       2.7
+
+#define CURRENT_GOAL_UNIT     2.69 //in miliamps
+#define TORQUE_TO_CURRENT(t)  t * (MAX_CURRENT_11V1 /  MAX_TORQUE_11V1)
+// convert torque to current in amp
+#define CURRENT_TO_OUTPUT(a)  (uint16_t)(a * 1000 /  CURRENT_GOAL_UNIT)
+#define CURRENT_TO_TORQUE(t)  t / (MAX_CURRENT_11V1 /  MAX_TORQUE_11V1)
+// convert current in amp to torque in N-m
+#define OUTPUT_TO_CURRENT(a)  a / 1000 *  CURRENT_GOAL_UNIT
+\end{lstlisting}
 
 This conversion is based on a linear approximation of the actuator performance graph.
 
 \begin{center}
 	\includegraphics[width=\linewidth]{images/xm430_performance.png}\\
 \end{center}
+
+This function below takes the converted value and write to both motors using the Dynamixel SDK APIs. 
 
 \begin{lstlisting}
 bool TurtleBot3MotorTorqueDriver::writeTorque(int16_t left_value, int16_t right_value)
@@ -183,6 +289,26 @@ bool TurtleBot3MotorTorqueDriver::writeTorque(int16_t left_value, int16_t right_
 
     groupSyncWriteTorque_->clearParam();
     return true;
+}
+\end{lstlisting}
+
+Subscribers are added to subscribe to the topics \/left\_torque \/right\_torque. 
+The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. When there is no new message, it will timeout and write zeros to both motors. 
+
+
+\begin{lstlisting}
+if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
+{
+    updateGoalTorque();
+    //this timeout will stop the motor if no message comes in
+    if ((t-tTime[6]) > CONTROL_MOTOR_TIMEOUT) 
+    {
+    motor_driver.controlMotor(zero_torque);
+    } 
+    else {
+    motor_driver.controlMotor(torque);
+    }
+    tTime[0] = t;
 }
 \end{lstlisting}
 
