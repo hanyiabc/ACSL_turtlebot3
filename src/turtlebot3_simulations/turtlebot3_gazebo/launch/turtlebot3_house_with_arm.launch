@@ -8,7 +8,7 @@
   <arg name="robot_model"                   default="$(arg robot_name)"/>
   <arg name="use_default_gripper_bar"       default="true"/>
   <arg name="use_default_gripper_fingers"   default="true"/>
-  <arg name="use_world_frame"               default="true">/>
+  <arg name="use_world_frame"               default="true"/>
   <arg name="external_urdf_loc"             default=""/>
   <arg name="use_default_rviz"              default="false"/>
   <arg name="gui"                           default="true"/>
@@ -33,8 +33,8 @@
   <arg name="z_pos" default="0.0"/>
 
   <arg name="x_pos_" default="-3.0"/>
-  <arg name="y_pos_" default="1.0"/>
-  <arg name="z_pos_" default="0.2"/>
+  <arg name="y_pos_" default="1.05"/>
+  <arg name="z_pos_" default="0.142"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/>
@@ -45,7 +45,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-    <include file="$(find interbotix_descriptions)/launch/description.launch">
+  <include file="$(find interbotix_descriptions)/launch/description.launch">
     <arg name="robot_name"                    value="$(arg robot_name)"/>
     <arg name="robot_model"                   value="$(arg robot_model)"/>
     <arg name="use_default_gripper_bar"       value="$(arg use_default_gripper_bar)"/>
