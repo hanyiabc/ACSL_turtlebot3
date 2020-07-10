@@ -175,7 +175,6 @@ bool TurtleBot3MotorTorqueDriver::readTorque(float &left_torque, float &right_to
     // Get data
     left_value = groupSyncReadTorque_->getData(left_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
     right_value = groupSyncReadTorque_->getData(right_wheel_id_, ADDR_X_PRESENT_CURRENT, LEN_X_PRESENT_CURRENT);
-
     // Convert register value to torque
     left_torque = CURRENT_TO_TORQUE(OUTPUT_TO_CURRENT(left_value));
     right_torque = CURRENT_TO_TORQUE(OUTPUT_TO_CURRENT(right_value));

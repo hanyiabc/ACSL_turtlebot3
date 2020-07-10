@@ -83,7 +83,6 @@ void loop()
   updateTime();
   updateVariable(nh.connected());
   updateTFPrefix(nh.connected());
-
   
   if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
   {
@@ -889,10 +888,23 @@ void sendDebuglog(void)
 
   int32_t encoder[WHEEL_NUM] = {0, 0};
   motor_driver.readEncoder(encoder[LEFT], encoder[RIGHT]);
-  motor_driver.readTorque(last_torque[LEFT], last_torque[RIGHT]);
-  
   DEBUG_SERIAL.println("Encoder(left) : " + String(encoder[LEFT]));
   DEBUG_SERIAL.println("Encoder(right) : " + String(encoder[RIGHT]));
+
+  DEBUG_SERIAL.println("Torque (current): "+ String());
+  float torque_current[2] = {0.0};
+  
+  if(!motor_driver.readTorque(torque_current[LEFT], torque_current[RIGHT]))
+  {
+    DEBUG_SERIAL.println("EEEEEERRORRRR!!");
+  }
+  else
+  {
+      DEBUG_SERIAL.println("Torque(left) : " + String(torque_current[LEFT]));
+      DEBUG_SERIAL.println("Torque(right) : " + String(torque_current[RIGHT]));
+  }
+  
+
 
   DEBUG_SERIAL.println("---------------------------------------");
   DEBUG_SERIAL.println("TurtleBot3");
