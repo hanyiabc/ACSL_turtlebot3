@@ -4,12 +4,14 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{xcolor}
-
+\usepackage[margin=1.0in]{geometry}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{frame=tb,
+\lstdefinestyle{C++}
+{
+  frame=tb,
   language=C++,
   aboveskip=3mm,
   belowskip=3mm,
@@ -28,6 +30,11 @@
 
 \lstdefinestyle{bash}
 {
+    frame=tb,
+    language=bash,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
     backgroundcolor=\color{white},
     basicstyle=\scriptsize\color{black}\ttfamily
 }
@@ -85,28 +92,48 @@ There is a one time setup that needs to be performed on the Remote PC, Raspberry
 \subsection{Remote PC Setup}
 
 To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023). 
-The single board computer on Turtlebot3 will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. No problem has been found on the communication between these 2 releases. 
+The single board computer on Turtlebot3 will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. 
+No problem has yet been found by us on the communication between these 2 releases. 
 
 The following page from ros.org describes the process for adding and installing all necessary packages to your ROS Environment.
 
-\url{http://wiki.ros.org/melodic/Installation/Ubuntu} \\\\
+\url{http://wiki.ros.org/melodic/Installation/Ubuntu} 
 
-The next step is to configure network settings for permanent use. The Remote PC will be controlling the turtlebot pc via wifi using SSH protocol. Steps for configuring the wifi on the remote pc can be found here.
+Note that please do not follow the Turtlebot3 guide to configure the ROS environment on the remote PC \textbf{(Step 6.1.1-6.1.3)}. 
+Instead, simply follow the instructions in the link above.
+
+Then, install required dependencies
+\begin{lstlisting}[style=bash]
+sudo apt install ros-melodic-joy ros-melodic-teleop-twist-joy ros-melodic-teleop-twist-keyboard ros-melodic-laser-proc ros-melodic-rgbd-launch ros-melodic-depthimage-to-laserscan ros-melodic-rosserial-arduino ros-melodic-rosserial-python ros-melodic-rosserial-server ros-melodic-rosserial-client ros-melodic-rosserial-msgs ros-melodic-amcl ros-melodic-map-server ros-melodic-move-base ros-melodic-urdf ros-melodic-xacro ros-melodic-compressed-image-transport ros-melodic-rqt-image-view ros-melodic-gmapping ros-melodic-navigation ros-melodic-interactive-markers
+\end{lstlisting}
+
+\textbf{Warning! We have used other dependencies but we didn't keep documentation, we need to figure out all the deps that we have used.}
+
+The next step is to configure network settings for permanent use. 
+The Remote PC will be controlling the turtlebot pc via wifi using SSH protocol. 
+Steps for configuring the wifi on the remote pc can be found here.
 
 \url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration} \\
 
 For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.\\\\
 
+Then, clone and build the git repository. 
+\begin{lstlisting}[style=bash]
+git clone https://github.com/hanyiabc/ASCL_turtlebot3.git
+\end{lstlisting}
+
+
 \subsection{Rasberry Pi SBC Setup}
 
-Now it is time to look at the turtlebot SBC. For the turtlebot 3 Waffle Pi model, the on board PC is a raspberry PI. This step requires a micro SD card with adapter, a monitor with an HDMI input, a USB keyboard and mouse, and a power source for the turtlebot. ROBOTIS provides a prebuilt desktop environment for the turtlebot with ROS kinetic. Instructions for flashing this distribution can be found here (\textbf{Step 6.2.1.2 Install Linux Based on Raspbian, Do not use the other two methods.}).\\
-
+Now it is time to look at the turtlebot SBC. For the turtlebot 3 Waffle Pi model, the on board PC is a raspberry PI. 
+This step requires a micro SD card with adapter, a monitor with an HDMI input, a USB keyboard and mouse, and a power source for the turtlebot. 
+ROBOTIS provides a prebuilt desktop environment for the turtlebot with ROS kinetic. Instructions for flashing this distribution can be found here (\textbf{Step 6.2.1.2 Install Linux Based on Raspbian, Do not use the other two methods.}).\\
 \url {https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}
 
-To use the Raspberry PI without a HDMI connection, use SSH. Example SSH command:
+To use the Raspberry PI without a physical access, use SSH. Example SSH command:
 
 \begin{lstlisting}[style=bash]
-ssh pi@RASPBERRY_PI_IP
+ssh pi@YOUR_RASPBERRY_PI_IP
 \end{lstlisting}
 
 For the ease of use, VNC configuration is recommended. This provide remote desktop funtionality. In case of Debian Stretch (the version that the manual will use), install Real VNC by running this command on the Raspberry PI:
@@ -114,7 +141,7 @@ For the ease of use, VNC configuration is recommended. This provide remote deskt
 sudo apt update
 sudo apt install realvnc-vnc-server realvnc-vnc-viewer
 \end{lstlisting}
-Enable VNC server by 
+THen enable VNC server by 
 \begin{lstlisting}[style=bash]
 sudo raspi-config
 \end{lstlisting}
@@ -122,7 +149,7 @@ Then navigate to Interfacing Options.
 Scroll down and select VNC - Yes.
 
 
-Ubuntu Desktop 18.04 comes with VNC client. 
+Ubuntu Desktop 18.04 comes with VNC client Remmina.
 On Windows, use VNC viewer
 \url{https://www.realvnc.com/en/connect/download/viewer/}
 \subsection{OpenCR Setup}
@@ -133,13 +160,13 @@ The source code for OpenCR can be downloaded by cloning the following repository
 
 \url {https://github.com/hanyiabc/ASCL_turtlebot3.git}
 
-Arduino IDE can be used to burn the turtlebot3\_core.ino file located in ACSL\_turtlebot3/src/turtlebot3\_core directory. Instructions for setting up the Arduino IDE for TurtleBot3 can be found in the following link.
+Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for TurtleBot3 can be found in the following link.
 
 \url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
 
 \newpage
-\section{Repository Directory Structure Introduction}
-The repository is a catkin workspace. A catkin workspace has a src folder that contains all the packages. The worth mentioning packages are:
+\section{Repository Introduction}
+The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentioning packages are:
 \begin{itemize}
 	\item[--] hls\_lfcd\_lds\_driver
     \item[--] raspicam\_node
@@ -155,22 +182,15 @@ The repository is a catkin workspace. A catkin workspace has a src folder that c
     \item[--] turtlebot3\_core
     \item[--] turtlebot3\_setup\_motor
     \item[--] turtlebot3\_simulations
-    \begin{itemize}
-        \item[--] turtlebot3\_gazebo
-    \end{itemize}
 \end{itemize} 
 
-Not all packages are catkin package. simulink, turtlebot3\_core turtlebot3\_setup\_motor are all just directories. All the rest are properly configured as catkin packages
+Not all packages are catkin package. \textbf{simulink}, \textbf{turtlebot3\_core} \textbf{turtlebot3\_setup\_motor} are all just directories. 
+All the rests are properly configured as catkin packages, meaning all the nodes defined under the package will be compiled when running the \textbf{catkain\_make} command. 
 
-\begin{lstlisting}[style=bash]
-
-\end{lstlisting}
-\newpage
-
-hls\_lfcd\_lds\_driver and raspicam\_node are drivers for the PI Camera and lidar. 
+\textbf{hls\_lfcd\_lds\_driver} and \textbf{raspicam\_node} are drivers for the PI Camera and lidar. 
 These will be running in the single board computer. 
 
-ros\_control contains all the configuration and nodes necessary to control the robot. 
+\textbf{ros\_control} contains all the configuration and nodes necessary to control the robot. 
 It contains the PID controller configurationl, PID gains, etc.
 Two launch files are included for controlling the robot in either the simulations or in the physical world. They are:
 
@@ -179,26 +199,35 @@ Two launch files are included for controlling the robot in either the simulation
 	\item[--] turtlebot3\_control\_simulation.launch
 \end{itemize}  
 These launch file are not ran directly, instead they are inlcuded by other launch file that we will introduce later.
-The PID gains can be tuned by either changing the parameters in the launch file or use a ros package called rqt\_reconfiture to adjust the slider at runtime. 
-There are 2 nodes under the ros\_control package. They are differential\_driver.py and ros\_control\_node. 
-The differential\_driver.py is a Python ros node that split the incoming \/cmd\_vel topics into left and right velocity for the differential drive robot. 
-The \/cmd\_vel is the standard topic that ROS nav stack used to output the velocity command. It commands the robot in terms of translational velocity and orientation. 
-The ros\_control\_node is a C++ ros node compiled from the soruce file: message\_redirect.cpp. 
-This node simply takes the left and right wheel velocities from \/joint\_states and publish them into 2 Float64 messages for the PID controller. 
+The PID gains can be tuned by either changing the parameters in the launch file or use a ros package called rqt\_reconfiture to adjust parameters with sliders at runtime. 
+There are 2 nodes under the \textbf{ros\_control} package. They are \textbf{differential\_driver.py} and \textbf{ros\_control\_node}. 
+The \textbf{differential\_driver.py} is a Python ros node that split the incoming \textbf{\//cmd\_vel} messages into left and right velocity for the differential drive robot based on vehicle geometry. 
+The \textbf{\/cmd\_vel} is the standard topic that ROS nav stack used to output the velocity command. It commands the robot in terms of translational velocity and orientation. 
+The \textbf{ros\_control\_node} is a C++ ros node compiled from the soruce file: \textbf{message\_redirect.cpp}. 
+This node simply takes the left and right wheel angular velocities feedbacks from \/joint\_states converts them to linear velocities and publish them into 2 Float64 messages for the PID controller to read.
 
-The directory simulink contains all the MATLAB scrips and Simulink models for controlling the robot with MATLAB 
 
-turtlebot3\_bringup contains all the launch file for bringing up the turtlebot3 in the SBC and the remote PC. 
-turtlebot3\_physical\_nav\_control.launch was added to the bringup package to provide a convinient one-file launch that will handles everything. 
+The directory \textbf{simulink} contains all the MATLAB scrips and Simulink models for controlling the robot with MATLAB 
+
+\textbf{turtlebot3\_bringup} contains all the launch file for bringing up the Turtlebot in the SBC and the remote PC. 
+\textbf{turtlebot3\_physical\_nav\_control.launch} was added to the bringup package to provide a convinient one-file launch that will handles everything. 
 This launch file brings up the turtlebot on the remote PC, runs the velocity control and the navigation stack with SLAM. A simulation version will be provided in the future.
 
-turtlebot3\_description contains the 3D model and URDF descripion of the turtlebot. 
+\textbf{turtlebot3\_description} contains the URDF and Gazebo descripion of the turtlebot for both simulation and physical robot. 
 
-For Waffle Pi, turtlebot3\_waffle\_pi.gazebo.xacro and turtlebot3\_waffle\_pi.urdf.xacro are provided by the turtlebot package, however, for effort control, we added 2 more files. 
-They are: turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro and turtlebot3\_waffle\_pi\_effort\_controller.urdf.xacro
+For Waffle Pi, \textbf{turtlebot3\_waffle\_pi.gazebo.xacro}
+and \textbf{turtlebot3\_waffle\_pi.urdf.xacro}
+are provided by the turtlebot package, however, for effort control, we added 2 more files. 
+They are: \textbf{turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro}
+and \textbf{turtlebot3\_waffle\_pi\_effort\_controller.urdf.xacro}
 These files are derived from the original descriptions and added ability to control effort in both the simulation and the physical robot. 
 
-turtlebot3\_navigation contains --------
+\textbf{turtlebot3\_navigation} contains the default configuration for running the ROS navigation stack with the Turtlebot.
+A new launch file \textbf{turtlebot3\_navigation\_no\_map.launch} was created. This launch file derived from the original navigation launch file, but the difference is that this configuration doesn't need a SLAM map for localizatin. 
+The localizatin is provide by SLAM instaed of Adaptive Monte Carlo Localizatin. The default launch file \textbf{turtlebot3\_navigation.launch} will run navigation assuming that a SLAM map has been drawn by running SLAM before. In this configuration, 
+localizatin is provided by AMCL. 
+
+
 \section{Torque Control using Dynamixel}
        
 Dynamixel is a microcontroller based actuator with in-built PID controller. OpenCR communicates with Dynamixel using packet communication via TTL/RS45 ports. 
@@ -215,16 +244,150 @@ Following is a snapshot of the Dynamixel EEPROM Control Table. Each data in the 
 \end{center}
 
 For the purpose of torque control, the operating mode of the dynamixel motor needs to be set to \textbf{MODE 0}. This can be done using the motor setup code in the git repository.
-
+To change the operating mode to \textbf{MODE 0}, flash the turtlebot3\_setup\_motor firmware to the OpenCR board while the motors are connected to the board. 
+Open up a serial terminal with Arduino or Terraterm, under the serial termianl, you will see the following options:
+\begin{lstlisting}[style=bash]
+    1. setup left  motor
+    2. setup right motor
+    3. test  left  motor
+    4. test  right motor
+    5. setup left  motor for current control
+    6. setup right  motor for current control
+    7. test left  motor for current control
+    8. test right  motor for current control
+>> 
+\end{lstlisting}
+The first 4 options comes with the OpenCR Arduino library. The last 4 options are added based on the first 4 options and they configure the left and right motors for torque control.
+For now, the current is limited to half of the highest value to avoid damage to the hardware. If changes are needed, the source code needs to be modified and the motors has to be setup again. 
+To setup the left motor, simply put 5 in the termianl and press enter. Wait until it says it's finished. Then use option 6 for the right motor.
+After the setup is done, use option 7 and 8 to test the motor. The test option apply a small torque to the motor for one second and stops for one second. Make sure both motors are tested then, flash the turtlebot3\_core firmware back.
 Once the operating mode is set. The OpenCR code is changed to write torque values to the Dynamixel RAM addresses, when the robot is live. The addresses that are useful for this purpose are given in the image below.
 
 \begin{center}
 	\includegraphics[width=\linewidth]{images/dxl_control_table.png}\\
 \end{center}
 
+The code that change the operating mode of the motor is below. 
+
+\begin{lstlisting}[style=c++]
+bool setupMotorLeftCurrentControl(void)
+{
+  CMD_SERIAL.println("Setup Motor Left for current control...");
+
+
+  if (tb3_id < 0)
+  {
+    CMD_SERIAL.println("    no dxl motors");
+  }
+  else
+  {
+    write(portHandler, packetHandler2, tb3_id, 64, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 7, 1, 1);
+    tb3_id = 1;
+    write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
+    portHandler->setBaudRate(1000000);
+    write(portHandler, packetHandler2, tb3_id, 10, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 11, 1, 0);
+
+    // this set the limit to half
+    write(portHandler, packetHandler2, tb3_id, 38, 2, 596);
+    CMD_SERIAL.println("    Warning: Current limit is set to half to protect the motor!");
+    CMD_SERIAL.println("    ok");
+  }
+}
+
+bool setupMotorRightCurrentControl(void)
+{
+  CMD_SERIAL.println("Setup Motor Right for current control...");
+
+
+  if (tb3_id < 0)
+  {
+    CMD_SERIAL.println("    no dxl motors");
+  }
+  else
+  {
+    write(portHandler, packetHandler2, tb3_id, 64, 1, 0);
+    write(portHandler, packetHandler2, tb3_id, 7, 1, 2);
+    tb3_id = 2;
+    write(portHandler, packetHandler2, tb3_id, 8, 1, 3);
+    portHandler->setBaudRate(1000000);
+    write(portHandler, packetHandler2, tb3_id, 10, 1, 1);
+    write(portHandler, packetHandler2, tb3_id, 11, 1, 0);
+
+     // this set the limit to half
+    write(portHandler, packetHandler2, tb3_id, 38, 2, 596);
+    CMD_SERIAL.println("    Warning: Current limit is set to half to protect the motor!");
+    CMD_SERIAL.println("    ok");
+  }
+}
+\end{lstlisting}
+
+The code used to test the torque control after setup is below. 
+
+\begin{lstlisting}[style=C++]
+    void testMotorCurrentControl(uint8_t id)
+    {
+      uint32_t pre_time;
+      uint8_t  toggle = 0;
+    
+      if (id == 1)
+      {
+        CMD_SERIAL.printf("Test Motor Left...");
+      }
+      else
+      {
+        CMD_SERIAL.printf("Test Motor Right...");
+      }
+      // We run at 1000000
+      portHandler->setBaudRate(1000000);
+    
+      uint16_t model_number;
+      int dxl_comm_result = packetHandler2->ping(portHandler, id, &model_number);
+      if (dxl_comm_result == COMM_SUCCESS)
+      {
+        CMD_SERIAL.printf(" found type: %d\n", model_number);
+        write(portHandler, packetHandler2, id, 64, 1, 1);
+    
+        toggle = 0;
+        pre_time = millis();
+        write(portHandler, packetHandler2, id, 102, 2, 100);
+        while (1)
+        {
+          if (CMD_SERIAL.available())
+          {
+            flushCmd();
+            break;
+          }
+    
+          if (millis() - pre_time > 1000)
+          {
+            pre_time = millis();
+    
+            toggle ^= 1;
+    
+            if (toggle)
+            {
+              write(portHandler, packetHandler2, id, 102, 2, 0);
+            }
+            else
+            {
+              write(portHandler, packetHandler2, id, 102, 2, 100);
+            }
+          }
+        }
+        write(portHandler, packetHandler2, id, 102, 2, 0);
+      }
+      else
+      {
+        CMD_SERIAL.printf("    dxl motor ID:%d not found\n", id);
+      }
+    }
+\end{lstlisting}
+
 The following method is added to the TurtleBot3MotorDriver class, which takes in input torque value and converts it into appropriate register values for writing to the appropriate addresses.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=C++]
 bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
 {
         bool dxl_comm_result = false;
@@ -245,7 +408,7 @@ bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
 \end{lstlisting}
 CURRENT\_TO\_OUTPUT and TORQUE\_TO\_CURRENT are macro functions that does the conversions from torque to current and current to a 2 byte value that the microcontroller undertand. 
 All the necessary macros are defined as
-\begin{lstlisting}
+\begin{lstlisting}[style=C++]
 #define MAX_CURRENT_11V1      2.1
 #define MAX_TORQUE_11V1       2.7
 
@@ -266,7 +429,7 @@ This conversion is based on a linear approximation of the actuator performance g
 
 This function below takes the converted value and write to both motors using the Dynamixel SDK APIs. 
 
-\begin{lstlisting}
+\begin{lstlisting}[style=C++]
 bool TurtleBot3MotorTorqueDriver::writeTorque(int16_t left_value, int16_t right_value)
 {
     bool dxl_addparam_result;
@@ -296,7 +459,7 @@ Subscribers are added to subscribe to the topics \/left\_torque \/right\_torque.
 The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. When there is no new message, it will timeout and write zeros to both motors. 
 
 
-\begin{lstlisting}
+\begin{lstlisting}[style=C++]
 if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
 {
     updateGoalTorque();
@@ -311,6 +474,23 @@ if ((t-tTime[0]) >= (1000 / CONTROL_MOTOR_TORQUE_FREQUENCY))
     tTime[0] = t;
 }
 \end{lstlisting}
+
+\newpage
+
+\section{Bring up the Turtlebot}
+Once the remote PC and Raspberry PI are setup according to the instructions provieded in the previous sections, 
+Follow the instructions below to bring up turtlebot.  \\
+On Remote PC
+\begin{lstlisting}[style=bash]
+    roscore
+\end{lstlisting}
+On SBC
+\begin{lstlisting}[style=bash]
+    roslaunch turtlebot3_bringup turtlebot3_robot.launch
+\end{lstlisting}
+
+On Remote PC\\
+Clone the 
 
 \newpage
 

@@ -78,12 +78,12 @@ INPUT C:\Program Files\MiKTeX\tex\latex\xcolor\xcolor.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\xcolor\xcolor.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-cfg\color.cfg
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
-INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux
@@ -129,6 +129,10 @@ INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentat
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt8.tfm
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_eeprom.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_eeprom.png
@@ -140,6 +144,12 @@ INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentat
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_control_table.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_control_table.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_control_table.png
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt9.tfm
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
