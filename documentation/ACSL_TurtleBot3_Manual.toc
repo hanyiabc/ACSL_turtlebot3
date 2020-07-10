@@ -3,6 +3,7 @@
 \contentsline {subsection}{\numberline {1.1}Remote PC Setup}{3}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Rasberry Pi SBC Setup}{4}{subsection.1.2}%
 \contentsline {subsection}{\numberline {1.3}OpenCR Setup}{4}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Repository Directory Structure Introduction}{6}{section.2}%
-\contentsline {section}{\numberline {3}Torque Control using Dynamixel}{7}{section.3}%
-\contentsline {section}{\numberline {4}Custom controller in Simulink}{13}{section.4}%
+\contentsline {section}{\numberline {2}Repository Introduction}{5}{section.2}%
+\contentsline {section}{\numberline {3}Torque Control using Dynamixel}{6}{section.3}%
+\contentsline {section}{\numberline {4}Bring up the Turtlebot}{13}{section.4}%
+\contentsline {section}{\numberline {5}Custom controller in Simulink}{14}{section.5}%
