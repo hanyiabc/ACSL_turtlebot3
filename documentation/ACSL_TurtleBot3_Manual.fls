@@ -150,13 +150,34 @@ INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt9.tfm
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
+INPUT ..\src\turtlebot3_setup_motor\turtlebot3_setup_motor.ino
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.h
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\xm430_performance.png
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_motor_torque_driver.cpp
+INPUT ..\src\turtlebot3_core\turtlebot3_core.ino
+INPUT ..\src\turtlebot3_core\turtlebot3_core.ino
+INPUT ..\src\turtlebot3_core\turtlebot3_core.ino
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out

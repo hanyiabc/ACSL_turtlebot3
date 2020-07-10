@@ -5,5 +5,5 @@
 \contentsline {subsection}{\numberline {1.3}OpenCR Setup}{4}{subsection.1.3}%
 \contentsline {section}{\numberline {2}Repository Introduction}{5}{section.2}%
 \contentsline {section}{\numberline {3}Torque Control using Dynamixel}{6}{section.3}%
-\contentsline {section}{\numberline {4}Bring up the Turtlebot}{13}{section.4}%
-\contentsline {section}{\numberline {5}Custom controller in Simulink}{14}{section.5}%
+\contentsline {section}{\numberline {4}Bring up the Turtlebot}{14}{section.4}%
+\contentsline {section}{\numberline {5}Custom controller in Simulink}{15}{section.5}%
