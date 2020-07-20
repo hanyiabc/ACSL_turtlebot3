@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <Arduino.h>
 #include <TurtleBot3.h>
 #include <stdint.h>
 #define WAFFLE_DXL_LIMIT_MAX_CURRENT   780
@@ -31,7 +32,7 @@
 
 #define CURRENT_GOAL_UNIT                2.69
 #define TORQUE_TO_CURRENT(t)             t * (MAX_CURRENT_11V1 /  MAX_TORQUE_11V1)// convert torque to current in amp
-#define CURRENT_TO_OUTPUT(a)             (uint16_t)(a * 1000 /  CURRENT_GOAL_UNIT)
+#define CURRENT_TO_OUTPUT(a)             (int16_t)(a * 1000 /  CURRENT_GOAL_UNIT)
 #define CURRENT_TO_TORQUE(t) 			 t / (MAX_CURRENT_11V1 /  MAX_TORQUE_11V1)// convert current in amp to torque in N-m
 #define OUTPUT_TO_CURRENT(a)			 a / 1000 *  CURRENT_GOAL_UNIT
 

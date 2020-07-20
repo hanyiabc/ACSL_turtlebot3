@@ -8,5 +8,6 @@
         "string": "cpp",
         "string_view": "cpp"
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "ros.distro": "melodic"
 }

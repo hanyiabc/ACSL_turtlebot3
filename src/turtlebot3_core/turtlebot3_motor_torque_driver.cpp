@@ -276,7 +276,7 @@ bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
 {
         bool dxl_comm_result = false;
 
-        uint16_t wheel_current_cmd[2];
+        int16_t wheel_current_cmd[2];
         wheel_current_cmd[LEFT] = CURRENT_TO_OUTPUT(TORQUE_TO_CURRENT(torque[LEFT]));
         wheel_current_cmd[RIGHT] = CURRENT_TO_OUTPUT(TORQUE_TO_CURRENT(torque[RIGHT]));
 
@@ -284,6 +284,7 @@ bool TurtleBot3MotorTorqueDriver::controlMotor(float *torque)
         wheel_current_cmd[RIGHT] = constrain(wheel_current_cmd[RIGHT], -dynamixel_limit_max_current_, dynamixel_limit_max_current_);
 
         dxl_comm_result = writeTorque((int16_t)wheel_current_cmd[LEFT], (int16_t)wheel_current_cmd[RIGHT]);
+
         if (dxl_comm_result == false)
             return false;
 

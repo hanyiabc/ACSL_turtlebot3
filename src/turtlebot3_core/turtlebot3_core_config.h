@@ -57,7 +57,7 @@
 #define CMD_VEL_PUBLISH_FREQUENCY              30   //hz
 #define DRIVE_INFORMATION_PUBLISH_FREQUENCY    500   //hz
 #define VERSION_INFORMATION_PUBLISH_FREQUENCY  1    //hz 
-#define DEBUG_LOG_FREQUENCY                    10   //hz 
+#define DEBUG_LOG_FREQUENCY                    1   //hz 
 
 #define WHEEL_NUM                        2
 
@@ -77,8 +77,8 @@
 
 
 
-// #define DEBUG                            
-#define DEBUG_SERIAL                     SerialBT2
+#define DEBUG                            
+#define DEBUG_SERIAL                     SerialBT1
 
 // Callback function prototypes
 
