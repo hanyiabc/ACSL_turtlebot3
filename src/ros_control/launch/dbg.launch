@@ -1,0 +1,3 @@
+<launch>
+<node name="odom_pub" pkg="ros_control" type="ros_control_odom_pub" />
+</launch>
