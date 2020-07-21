@@ -12,8 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   sensor_msgs
-  controller_manager
-  hardware_interface
+  tf
+  nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -137,7 +137,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME}_node src/message_redirect.cpp)
-
+add_executable(${PROJECT_NAME}_odom_pub src/odom_publisher.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -152,7 +152,9 @@ add_executable(${PROJECT_NAME}_node src/message_redirect.cpp)
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(${PROJECT_NAME}_odom_pub
+  ${catkin_LIBRARIES}
+)
 #############
 ## Install ##
 #############
