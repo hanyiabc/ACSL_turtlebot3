@@ -3,6 +3,8 @@
 
 <node name="message_redirect" pkg="ros_control" type="ros_control_node" />
 
+<node name="odom_pub" pkg="ros_control" type="ros_control_odom_pub" />
+
 <rosparam file="$(find ros_control)/params/bot_control.yaml" command="load" />
 
 <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"

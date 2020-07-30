@@ -1,11 +1,13 @@
 
 
 #include <ros/ros.h>
+#include <ros/console.h>
 #include <sensor_msgs/JointState.h>
 #include <sensor_msgs/Imu.h>
 #include <math.h>
 #include <std_msgs/Float64.h>
 #include <tf/transform_broadcaster.h>
+#include <geometry_msgs/Quaternion.h>
 #include <nav_msgs/Odometry.h>
 #include <vector>
 #include <string>
@@ -22,6 +24,7 @@ using std::endl;
 sensor_msgs::Imu imu;
 sensor_msgs::JointState lastJointState;
 sensor_msgs::JointState currJointState = lastJointState;
+geometry_msgs::Quaternion q;
 nav_msgs::Odometry odom;
 ros::Publisher odom_pub;
 geometry_msgs::TransformStamped odom_tf;
@@ -70,22 +73,14 @@ bool calcOdometry()
     wheel_r = 0.0;
 
   delta_s     = WHEEL_RADIUS * (wheel_r + wheel_l) / 2.0;
-
-  orientation[0] = imu.orientation.x;
-  orientation[1] = imu.orientation.y;
-  orientation[2] = imu.orientation.z;
-  orientation[3] = imu.orientation.w;
-
-  theta       = atan2f(orientation[1]*orientation[2] + orientation[0]*orientation[3], 
-                0.5f - orientation[2]*orientation[2] - orientation[3]*orientation[3]);
-
+  q = imu.orientation;
+  theta = tf::getYaw(q);
   delta_theta = theta - last_theta;
 
   // compute odometric pose
   odom_pose[0] += delta_s * cos(odom_pose[2] + (delta_theta / 2.0));
   odom_pose[1] += delta_s * sin(odom_pose[2] + (delta_theta / 2.0));
   odom_pose[2] += delta_theta;
-
   v = delta_s / step_time;
   w = delta_theta / step_time;
 
@@ -171,12 +166,11 @@ void init(ros::NodeHandle n)
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "sim_odom_pub");
-  // std::this_thread::sleep_for(std::chrono::milliseconds(20000));
   ros::NodeHandle n;
   init(n);
   ros::Subscriber sub = n.subscribe("joint_states", 100 ,jointStateCallback);
   ros::Subscriber subImu = n.subscribe("imu", 100 , imuCallback);
   odom_pub = n.advertise<nav_msgs::Odometry>("odom", 50);
-  cout << "init fin" << endl;
+  // cout << "init fin" << endl;
   ros::spin();
 }
