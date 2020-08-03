@@ -8,7 +8,6 @@
 #define WHEEL_RADIUS                     0.033
 
 
-
 std_msgs::Float64 velL;
 std_msgs::Float64 velR;
 // double pos[2];
@@ -37,7 +36,7 @@ void jointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
 int main(int argc, char *argv[])
 {
     
-    ros::init(argc, argv, "joint_hw_interface_node");
+    ros::init(argc, argv, "message_redirect_node");
     ros::NodeHandle n;
 
     ros::Subscriber sub = n.subscribe("joint_states", 100 ,jointStateCallback);

@@ -380,6 +380,130 @@ rosrun map_server map_saver -f ~/map
 \end{lstlisting}
 % TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
 % TODO: add graph from tf view_frams to illustrate the TF tree 
-\section{Custom controller in Simulink}
+
+\section{Syncing Time using NTP Server and Client}
+
+Raspberry Pi does not have a hardware clock, and therefore it relies on an active internet connection to fetch the accurate time from Ubuntu time server. However, this is not possible as Linksys router, which the raspberry pi will connect to over WiFi, will not have internet access.
+
+Every time pi boots up, the time has to be updated. The time on the Remote PC and the Raspeberry Pi have to be synced up in order for the various transformations to work for the purpose of running SLAM and Navigation in the ACSL Lab Environment. Hence, to sync up time between these two machines, NTP protocol is being used.
+
+NTP or Network Time Protocol is a protocol that is used to synchronize all system clocks in a network to use the same time. When we use the term NTP, we are referring to the protocol itself and also the client and server programs running on the networked computers. NTP belongs to the traditional TCP/IP protocol suite and can easily be classified as one of its oldest parts.
+
+When you are initially setting up the clock, it takes six exchanges within 5 to 10 minutes before the clock is set up. Once the clocks in a network are synchronized, the client(s) update their clocks with the server once every 10 minutes. This is usually done through a single exchange of message(transaction). These transactions use port number 123 of your system.
+
+In this section, a step-by-step procedure is described on how to:
+
+\begin{itemize}
+	\item{Install and configure the NTP server on a Ubuntu machine.}
+	\item{Configure the NTP Client to be time synced with the server.}
+\end{itemize}
+
+\subsection{Install and configure NTP Server on the host computer} 
+
+Open Terminal and run the following commands
+
+\begin{lstlisting}
+    sudo apt-get update
+    sudo apt-get install ntp
+\end{lstlisting}
+
+Most likely ntp will already be installed on the machine. After installation, the configuration file needs to be altered and server pools closest to the PC location needs to be added. This step is optional, as most likely the servers will be configured correctly.
+
+\begin{lstlisting}
+    sudo gedit /etc/ntp.conf
+\end{lstlisting}
+
+Replace the server pools with the following.
+
+\begin{lstlisting}
+    server 0.us.pool.ntp.org
+	server 1.us.pool.ntp.org
+	server 2.us.pool.ntp.org
+	server 3.us.pool.ntp.org
+\end{lstlisting}
+
+Save and close the configuration file. In order for the above changes to take effect, you need to restart the NTP server. 
+
+
+\begin{lstlisting}
+    sudo service ntp restart
+    sudo service ntp status
+\end{lstlisting}
+
+Finally, the system’s UFW firewall needs to be configured so that incoming connections can access the NTP server at UDP Port number 123.
+
+
+\begin{lstlisting}
+    sudo ufw allow from any to any port 123 proto udp
+\end{lstlisting}
+
+Now the Ubuntu host machine is configured to be used as an NTP server.
+
+\subsection{Configure NTP Client to be Time Synced with the NTP Server}
+
+The ntpdate command will let you manually check your connection configuration with the NTP-server. Only in this case, the server would be the one that we specify. It should already be installed on the SBC, but in case it is not, we need to run the following command.
+
+\begin{lstlisting}
+    sudo apt-get install ntpdate
+\end{lstlisting}
+
+As the SBC will be a client to the host we set up on the remote PC, we need to modify the hosts file for NTP.
+
+\begin{lstlisting}
+    sudo gedit /etc/hosts
+\end{lstlisting}
+
+Now add your NTP server’s IP and specify a hostname as follows in this file:
+
+\begin{lstlisting}
+    192.168.1.183 ACSLServer
+\end{lstlisting}
+
+Save and close the NTP hosts file. Running the following command will show the offset between server and client times.
+
+\begin{lstlisting}
+    sudo ntpdate ACSLServer
+\end{lstlisting}
+
+First we need to disable time sync on the client
+\begin{lstlisting}
+	systemctl stop systemd-timesyncd
+	systemctl disable systemd-timesyncd
+\end{lstlisting}
+
+Now to correct this time offset we need to configure NTP on the client machine. 
+
+If ntp is not installed install it using the following command.
+
+\begin{lstlisting}
+	sudo apt-get install ntp
+\end{lstlisting}
+
+Now we want our client machine to use our own NTP host server to be used as the default time server. For this, we need to edit the /etc/ntp.conf file on the client machine.
+
+\begin{lstlisting}
+	sudo nano /etc/ntp.conf
+\end{lstlisting}
+
+Add the following line to the list of servers
+
+\begin{lstlisting}
+	server ACSLServer prefer iburst
+\end{lstlisting}
+
+Finally restart the ntp service and the time should be synced.
+
+\begin{lstlisting}
+	sudo service ntp restart
+\end{lstlisting}
+
+Now your client and server machines are configured to be time-synced. You can view the time synchronization queue by running the following command:
+
+
+\begin{lstlisting}
+	ntpq -ps
+\end{lstlisting}
+
+
 
 \end{document}

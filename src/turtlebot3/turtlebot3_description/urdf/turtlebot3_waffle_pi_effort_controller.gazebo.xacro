@@ -9,8 +9,8 @@
   </gazebo>
 
   <gazebo reference="wheel_left_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
     <kp>500000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.001</minDepth>
@@ -20,8 +20,8 @@
   </gazebo>
 
   <gazebo reference="wheel_right_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
     <kp>500000.0</kp>
     <kd>10.0</kd>
     <minDepth>0.001</minDepth>
@@ -95,7 +95,7 @@
       <topicName>imu</topicName>
       <serviceName>imu_service</serviceName>
       <gaussianNoise>0.0</gaussianNoise>
-      <updateRate>200</updateRate>
+      <updateRate>100</updateRate>
       <imu>
         <noise>
           <type>gaussian</type>
