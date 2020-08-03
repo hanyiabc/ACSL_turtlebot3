@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  9 JUL 2020 22:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  3 AUG 2020 12:18
 entering extended mode
 **"e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
 ("e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
@@ -397,7 +397,7 @@ consecutive:
 ) (../src/turtlebot3_core/turtlebot3_motor_torque_driver.h
 consecutive:
 ) [11]
-<images/xm430_performance.png, id=330, 274.626pt x 247.52475pt>
+<images/xm430_performance.png, id=331, 274.626pt x 247.52475pt>
 File: images/xm430_performance.png Graphic file (type png)
 <use images/xm430_performance.png>
 Package pdftex.def Info: images/xm430_performance.png  used on input line 301.
@@ -406,29 +406,31 @@ Package pdftex.def Info: images/xm430_performance.png  used on input line 301.
 consecutive:
 [12 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/xm430_performance.png>]) (../src/turtlebot3_core/turtlebot3_core.ino
 consecutive:
+) (../src/turtlebot3_core/turtlebot3_core.ino
+consecutive:
 ) [13] [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 385.
  [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 385.
  ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 385.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 385.
 Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
 (rerunfilecheck)             Checksum: 0A2C0FEC23390E6B8B651B00563A638E;536.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 385.
  ) 
 Here is how much of TeX's memory you used:
- 8577 strings out of 480790
- 128508 string characters out of 2907035
+ 8596 strings out of 480790
+ 128868 string characters out of 2907035
  620005 words of memory out of 3000000
- 24153 multiletter control sequences out of 15000+200000
+ 24156 multiletter control sequences out of 15000+200000
  535264 words of font info for 35 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,6n,69p,688b,2079s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.pdf" (16 pages, 509601 bytes).
+Output written on "e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.pdf" (16 pages, 511502 bytes).
 PDF statistics:
- 495 PDF objects out of 1000 (max. 8388607)
- 295 named destinations out of 1000 (max. 500000)
+ 511 PDF objects out of 1000 (max. 8388607)
+ 309 named destinations out of 1000 (max. 500000)
  98 words of extra memory for PDF output out of 10000 (max. 10000000)
 

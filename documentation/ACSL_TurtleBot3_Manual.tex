@@ -175,7 +175,7 @@ Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located i
 
 \newpage
 \section{Repository Introduction}
-The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentioning packages are:
+The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentio ning ones are:
 \begin{itemize}
 	\item[--] hls\_lfcd\_lds\_driver
     \item[--] raspicam\_node
@@ -305,9 +305,16 @@ This function below takes the converted value and write to both motors using the
 \lstinputlisting[style=C++, firstline=227, lastline=249]{../src/turtlebot3_core/turtlebot3_motor_torque_driver.cpp}
 
 Subscribers are added to subscribe to the topics \/left\_torque \/right\_torque. 
-The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. When there is no new message, it will timeout and write zeros to both motors. 
+The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. 
+When there is no new message, it will timeout and write zeros to both motors. 
 
 \lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+
+The Odometry publisher is in the microcontroller. Since the built-in differential drive plugin which provides Odometry was removed to use our own controller,
+An Odometry publisher was added to the system. The source code is below. 
+
+\lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+
 
 \newpage
 
