@@ -12,8 +12,8 @@
 
 
   <node name="pid_left_node" pkg="pid" type="controller" ns="left_wheel">
-      <param name="Kp" value="0.56" />
-      <param name="Ki" value="0.84" />
+      <param name="Kp" value="0.4" />
+      <param name="Ki" value="0.2" />
       <param name="Kd" value="0.0" />
       <param name="upper_limit" value="3.0" />
       <param name="lower_limit" value="-3.0" />
@@ -28,8 +28,8 @@
   </node>
 
   <node name="pid_right_node" pkg="pid" type="controller" ns="right_wheel">
-      <param name="Kp" value="0.56" />
-      <param name="Ki" value="0.84" />
+      <param name="Kp" value="0.4" />
+      <param name="Ki" value="0.2" />
       <param name="Kd" value="0.0" />
       <param name="upper_limit" value="3.0" />
       <param name="lower_limit" value="-3.0" />
