@@ -32,13 +32,13 @@ options = {
   num_subdivisions_per_laser_scan = 1,
   num_point_clouds = 0,
   lookup_transform_timeout_sec = 0.2,
-  submap_publish_period_sec = 0.2,
-  pose_publish_period_sec = 2.5e-3,
+  submap_publish_period_sec = 0.05,
+  pose_publish_period_sec = 1e-3,
   trajectory_publish_period_sec = 10e-3,
   rangefinder_sampling_ratio = 1.,
-  odometry_sampling_ratio = 0.1,
+  odometry_sampling_ratio = 1.,
   fixed_frame_pose_sampling_ratio = 1.,
-  imu_sampling_ratio = 0.1,
+  imu_sampling_ratio = 1.,
   landmarks_sampling_ratio = 1.,
 }
 
