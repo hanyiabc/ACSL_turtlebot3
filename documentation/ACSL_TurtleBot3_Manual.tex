@@ -175,7 +175,7 @@ Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located i
 
 \newpage
 \section{Repository Introduction}
-The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentioning packages are:
+The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentio ning ones are:
 \begin{itemize}
 	\item[--] hls\_lfcd\_lds\_driver
     \item[--] raspicam\_node
@@ -305,9 +305,16 @@ This function below takes the converted value and write to both motors using the
 \lstinputlisting[style=C++, firstline=227, lastline=249]{../src/turtlebot3_core/turtlebot3_motor_torque_driver.cpp}
 
 Subscribers are added to subscribe to the topics \/left\_torque \/right\_torque. 
-The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. When there is no new message, it will timeout and write zeros to both motors. 
+The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. 
+When there is no new message, it will timeout and write zeros to both motors. 
 
 \lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+
+The Odometry publisher is in the microcontroller. Since the built-in differential drive plugin which provides Odometry was removed to use our own controller,
+An Odometry publisher was added to the system. The source code is below. 
+
+\lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+
 
 \newpage
 
@@ -373,6 +380,92 @@ rosrun map_server map_saver -f ~/map
 \end{lstlisting}
 % TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
 % TODO: add graph from tf view_frams to illustrate the TF tree 
-\section{Custom controller in Simulink}
+
+\section{Syncing Time using NTP Server and Client}
+
+Raspberry Pi and Odroid SBCs do not have a hardware clock, and therefore it relies on an active internet connection to fetch the accurate time from Ubuntu time server. However, this is not possible as Linksys router, does not have internet access.\\
+Every time SBC boots up, the time has to be updated. The time on the Remote PC and the SBC have to be synced up in order for the various transformations to work for the purpose of running SLAM and Navigation in the ACSL Lab Environment. Hence, to sync up time between these two machines, NTP protocol is being used.\\
+NTP or Network Time Protocol is a protocol that is used to synchronize all system clocks in a network to use the same time. When we use the term NTP, we are referring to the protocol itself and also the client and server programs running on the networked computers. NTP belongs to the traditional TCP/IP protocol suite and can easily be classified as one of its oldest parts.\\
+When you are initially setting up the clock, it takes six exchanges within 5 to 10 minutes before the clock is set up. Once the clocks in a network are synchronized, the client(s) update their clocks with the server once every 10 minutes. This is usually done through a single exchange of message(transaction). These transactions use port number 123 of your system.\\
+In this section, a step-by-step procedure is described on how to:
+\begin{itemize}
+	\item{Install and configure the NTP server on a Ubuntu machine.}
+	\item{Configure the NTP Client to be time synced with the server.}
+\end{itemize}
+These instructions are taken from \url{https://vitux.com/how-to-install-ntp-server-and-client-on-ubuntu/}. However, it is advised that the following instructions are followed as there are some project specific changes that have been made.
+\subsection{Configure NTP Server on the Remote PC} 
+Open Terminal and run the following commands \textbf{on the remote PC}
+\begin{lstlisting}
+    sudo apt-get update
+    sudo apt-get install ntp
+\end{lstlisting}
+Most likely NTP will already be installed on the machine. After installation, the configuration file needs to be altered and server pools closest to the PC location needs to be added. This step is optional, as most likely the servers will be configured correctly.
+\begin{lstlisting}
+    sudo gedit /etc/ntp.conf
+\end{lstlisting}
+Replace/edit the server pools with the following.
+\begin{lstlisting}
+    	pool 0.us.pool.ntp.org iburst
+	pool 1.us.pool.ntp.org iburst
+	pool 2.us.pool.ntp.org iburst
+	pool 3.us.pool.ntp.org iburst
+\end{lstlisting}
+Save and close the configuration file. In order for the above changes to take effect, you need to restart the NTP server. The time from these servers will be synced with the time on the remote PC. as it has internet access. This will make sure that the NTP server clock is accurate.
+\begin{lstlisting}
+    sudo service ntp restart
+\end{lstlisting}
+Run the following command to check if the NTP server is configured properly. You should see the remote PC connecting to various servers.
+\begin{lstlisting}
+    sudo service ntp status
+\end{lstlisting}
+Finally, the system’s UFW firewall needs to be configured so that incoming connections can access the NTP server at UDP Port number 123. This is the most important step, as it will configure the remote PC to allow client connections.
+\begin{lstlisting}
+    sudo ufw allow from any to any port 123 proto udp
+\end{lstlisting}
+Now the Ubuntu host machine is configured to be used as an NTP server. Please take a note of the IP address of the remote PC \underline{when it is connected to the appropriate router.} IP address of a machine depends on which router it is connected to, and hence is not constant. We will need this address in the next step.
+\subsection{Configure NTP Client on the SBC}
+The \texttt{ntpdate} command will let you manually check your connection configuration with the NTP-server. Only in this case, the server would be the one that we specify. It should already be installed on the SBC, but in case it is not, run the following command \textbf{on the SBC}.
+\begin{lstlisting}
+    sudo apt-get install ntpdate
+\end{lstlisting}
+As the SBC will be a client to the host we set up on the remote PC, we need to modify the hosts file for NTP.
+\begin{lstlisting}
+    sudo gedit /etc/hosts
+\end{lstlisting}
+Now add your NTP server’s IP (remote PC IP address noted in the previous step) and specify a hostname. Assuming that the remote PC IP address is \texttt{192.168.1.183} and the server has to be named \texttt{ACSLServer}, add the following line to this file:
+\begin{lstlisting}
+    192.168.1.183	ACSLServer
+\end{lstlisting}
+Save and close the NTP hosts file. Because we want our client to sync time with the NTP server, the \texttt{timesyncd} service on the client machine needs to be disabled by running the following command.
+\begin{lstlisting}
+	sudo timedatectl set-ntp off
+\end{lstlisting}
+Now, we need to specify this NTP server on the remote PC in the NTP configuration file of the client. If \texttt{NTP} is not installed install it using the following command.
+\begin{lstlisting}
+	sudo apt-get install ntp
+\end{lstlisting}
+Now we want our client machine to use our own NTP host server to be used as the default time server. For this, we need to edit the \texttt{/etc/ntp.conf} file on the client machine.
+\begin{lstlisting}
+	sudo nano /etc/ntp.conf
+\end{lstlisting}
+Add the following line to the file before the list of other servers. There should be a comment indicating the location where new servers can be added, although this is only for readability and functionality shouldn't be affected.
+\begin{lstlisting}
+	server ACSLServer prefer iburst
+\end{lstlisting}
+Finally restart the \texttt{NTP} service and the time should be synced.
+\begin{lstlisting}
+	sudo service ntp restart
+\end{lstlisting}
+Now your client and server machines are configured to be time-synced. You can view the time synchronization queue by running the following command:
+\begin{lstlisting}
+	ntpq -p
+\end{lstlisting}
+If \texttt{ACSLServer} is seen in the list of servers then the client is properly configured.\\
+Finally the timezone needs to be set on the SBC to \texttt{America/New-York}. On the Odroid XU4 running \texttt{Ubuntu} with \texttt{MATE} desktop, it is a simple command line instruction as follows.
+\begin{lstlisting}
+	sudo timedatectl set-timezone America/New-York
+\end{lstlisting}
+This command may not work on the Raspberry Pi 3B+, but the timezone can be changed using the \texttt{raspi-config} utility.\\
+Once the timezones are set, the SBCs are configured properly.
 
 \end{document}

@@ -6,4 +6,6 @@
 \contentsline {section}{\numberline {2}Repository Introduction}{5}{section.2}%
 \contentsline {section}{\numberline {3}Torque Control using Dynamixel}{6}{section.3}%
 \contentsline {section}{\numberline {4}Bring up the Turtlebot}{14}{section.4}%
-\contentsline {section}{\numberline {5}Custom controller in Simulink}{15}{section.5}%
+\contentsline {section}{\numberline {5}Syncing Time using NTP Server and Client}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Configure NTP Server on the Remote PC}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Configure NTP Client on the SBC}{16}{subsection.5.2}%
