@@ -1,6 +1,10 @@
 <launch>
     <arg name="use_sim_time" value="true"/>
     <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch"/>
-    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation_no_map.launch"/>
+
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation_no_map.launch">
+        <arg name="configuration_basename" value="turtlebot3_lds_2d_gazebo.lua"/>
+    </include>
+
     <include file="$(find ros_control)/launch/turtlebot3_control_simulation.launch"/>
 </launch>
