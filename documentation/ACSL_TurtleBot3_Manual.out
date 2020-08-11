@@ -7,5 +7,5 @@
 \BOOKMARK [1][-]{section.3}{Torque Control using Dynamixel}{}% 7
 \BOOKMARK [1][-]{section.4}{Bring up the Turtlebot}{}% 8
 \BOOKMARK [1][-]{section.5}{Syncing Time using NTP Server and Client}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Install and configure NTP Server on the host computer}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.2}{Configure NTP Client to be Time Synced with the NTP Server}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.1}{Configure NTP Server on the Remote PC}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Configure NTP Client on the SBC}{section.5}% 11
