@@ -29,11 +29,11 @@ Then add the following line to the file:
 Refresh environment variables:
 ```source ~/.bashrc```
 
-## Instructions for running velocity effort PID control
+## Instructions for running velocity effort PID control with navigation stack on simulation
 In this configuration, SLAM is running without the initial map, the localization is changed from AMCL to the built-in localization from the SLAM algorithm. 
 Run this command to launch everything including SLAM, navigation.
 
-```roslaunch turtlebot3_navigation turtlebot3_navigation_no_map.launch```
+``` ```
 
 Run this command to publish velocity to the right wheel
 

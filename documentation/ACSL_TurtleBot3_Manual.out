@@ -7,15 +7,25 @@
 \BOOKMARK [3][-]{subsubsection.1.1.4}{Compiling Source Code on Remote PC}{subsection.1.1}% 7
 \BOOKMARK [2][-]{subsection.1.2}{Rasberry Pi SBC Setup}{section.1}% 8
 \BOOKMARK [2][-]{subsection.1.3}{OpenCR Setup}{section.1}% 9
-\BOOKMARK [1][-]{section.2}{Syncing Time using NTP Server and Client}{}% 10
-\BOOKMARK [2][-]{subsection.2.1}{Configure NTP Server on the Remote PC}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.2}{Configure NTP Client on the SBC}{section.2}% 12
-\BOOKMARK [1][-]{section.3}{Bring up the Turtlebot}{}% 13
-\BOOKMARK [1][-]{section.4}{Repository Introduction}{}% 14
-\BOOKMARK [1][-]{section.5}{Torque Control using Dynamixel}{}% 15
-\BOOKMARK [1][-]{section.6}{Turtlebot Graphical User Interface}{}% 16
-\BOOKMARK [2][-]{subsection.6.1}{Qt}{section.6}% 17
-\BOOKMARK [2][-]{subsection.6.2}{GUI Widget Walkthrough}{section.6}% 18
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Model Configuration}{subsection.6.2}% 19
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Controller Configuration}{subsection.6.2}% 20
-\BOOKMARK [3][-]{subsubsection.6.2.3}{2d Navigation Goal}{subsection.6.2}% 21
+\BOOKMARK [1][-]{section.2}{Setting up Wireless File Sharing on an SBC Running Ubuntu}{}% 10
+\BOOKMARK [1][-]{section.3}{Replacing the Raspberry Pi with an alternate SBC}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Hardware Changes}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Software}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{ROS}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Syncing Time using NTP Server and Client}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Configure NTP Server on the Remote PC}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Configure NTP Client on the SBC}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{Bring up the Turtlebot}{}% 18
+\BOOKMARK [1][-]{section.6}{Repository Introduction}{}% 19
+\BOOKMARK [1][-]{section.7}{Torque Control using Dynamixel}{}% 20
+\BOOKMARK [1][-]{section.8}{Turtlebot Graphical User Interface}{}% 21
+\BOOKMARK [2][-]{subsection.8.1}{Qt}{section.8}% 22
+\BOOKMARK [2][-]{subsection.8.2}{GUI Widget Walkthrough}{section.8}% 23
+\BOOKMARK [3][-]{subsubsection.8.2.1}{Model Configuration}{subsection.8.2}% 24
+\BOOKMARK [3][-]{subsubsection.8.2.2}{Controller Configuration}{subsection.8.2}% 25
+\BOOKMARK [3][-]{subsubsection.8.2.3}{2d Navigation Goal}{subsection.8.2}% 26
+\BOOKMARK [1][-]{section.9}{List of ROS Nodes, Topics, Parameters, Transform}{}% 27
+\BOOKMARK [2][-]{subsection.9.1}{List of Important ROS Nodes}{section.9}% 28
+\BOOKMARK [2][-]{subsection.9.2}{List of Topics and Their Types}{section.9}% 29
+\BOOKMARK [2][-]{subsection.9.3}{List of Important Topics and Descriptions}{section.9}% 30
+\BOOKMARK [2][-]{subsection.9.4}{List of Important Parameters and How to Find Them}{section.9}% 31
