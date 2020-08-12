@@ -39,6 +39,7 @@ class FollowPath(State):
     def execute(self, userdata):
         global waypoints
         # Execute waypoints each in sequence
+        #print(waypoints)
         for waypoint in waypoints:
             # Break if preempted
             if waypoints == []:
@@ -157,7 +158,7 @@ class GetPath(State):
         # Wait for published waypoints or saved path  loaded
         while (not self.path_ready and not self.start_journey_bool):
             try:
-                pose = rospy.wait_for_message(topic, PoseWithCovarianceStamped, timeout=1)
+                pose = rospy.wait_for_message(topic, PoseWithCovarianceStamped, timeout=3)
             except rospy.ROSException as e:
                 if 'timeout exceeded' in e.message:
                     continue  # no new waypoint within timeout, looping...
@@ -166,7 +167,7 @@ class GetPath(State):
             rospy.loginfo("Recieved new waypoint")
             waypoints.append(pose)
             # publish waypoint queue as pose array so that you can see them in rviz, etc.
-            self.poseArray_publisher.publish(convert_PoseWithCovArray_to_PoseArray(waypoints))
+        self.poseArray_publisher.publish(convert_PoseWithCovArray_to_PoseArray(waypoints))
 
         # Path is ready! return success and move on to the next state (FOLLOW_PATH)
         return 'success'

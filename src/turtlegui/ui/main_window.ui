@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowDesign</class>
+ <widget class="QMainWindow" name="MainWindowDesign">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>944</width>
+    <height>704</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QRosApp</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/images.qrc">
+    <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
+  </property>
+  <property name="locale">
+   <locale language="English" country="Australia"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout">
+    <item>
+     <widget class="QTabWidget" name="tab_manager">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="locale">
+       <locale language="English" country="Australia"/>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_status">
+       <attribute name="title">
+        <string>Ros Communications</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+	<item>
+	 <widget class="QGroupBox" name="groupbox_launch">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Model Configuration</string>
+          </property>
+          <layout class="QGridLayout" name="gridlayout_launch">
+	   <item row="1" column="1">
+            <widget class="QRadioButton" name="qradio_sim">
+	     <property name="text">
+              <string>Simulation</string>
+             </property>
+	     <property name="checked">
+              <set>true</set>
+             </property>
+            </widget>
+           </item>
+	   <item row="2" column="1">
+            <widget class="QRadioButton" name="qradio_real">
+	     <property name="text">
+              <string>Physical</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="1" column="2">
+            <widget class="QPushButton" name="button_launch">
+             <property name="text">
+              <string>Launch</string>
+             </property>
+            </widget>
+           </item>
+	  </layout>
+         </widget>
+        </item>
+	<item>
+	 <widget class="QGroupBox" name="groupbox_control">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Controller Configuration</string>
+          </property>
+          <layout class="QGridLayout" name="gridlayout_control">
+	   <item row="1" column="1">
+            <widget class="QRadioButton" name="qradio_pid">
+	     <property name="text">
+              <string>PID Controller</string>
+             </property>
+	     <property name="checked">
+              <set>true</set>
+             </property>
+            </widget>
+           </item>
+	   <item row="2" column="1">
+            <widget class="QRadioButton" name="qradio_adap">
+	     <property name="text">
+              <string>Adaptive Controller</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="1" column="2">
+            <widget class="QPushButton" name="button_advanced_controller_options">
+             <property name="text">
+              <string>Advanced Controller Options</string>
+             </property>
+            </widget>
+           </item>
+	  </layout>
+         </widget>
+        </item>
+	<item>
+         <widget class="QGroupBox" name="groupbox_navigation">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>2d Navigation Goal</string>
+          </property>
+          <layout class="QGridLayout" name="gridlayout_navigation">
+	   <item row="2" column="1">
+            <widget class="QLabel" name="qlabel_option1">
+	     <property name="text">
+              <string>Option 1:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLineEdit" name="qline_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+	     <property name="text">
+              <string>X Coordinate</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="2" column="3">
+            <widget class="QLineEdit" name="qline_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+	     <property name="text">
+              <string>Y Coordinate</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="2" column="4">
+            <widget class="QPushButton" name="button_add_pose">
+             <property name="text">
+              <string>Add Pose</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="3" column="1">
+            <widget class="QLabel" name="qlabel_option2">
+	     <property name="text">
+              <string>Option 2:</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="1" column="2">
+            <widget class="QLabel" name="qlabel_xmax">
+	     <property name="text">
+              <string>X Range: (-10,10)</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="1" column="3">
+            <widget class="QLabel" name="qlabel_ymax">
+	     <property name="text">
+              <string>Y Range: (-10,10)</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="5" column="3">
+            <widget class="QPushButton" name="button_publish_path">
+             <property name="text">
+              <string>Publish Path</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="5" column="2">
+            <widget class="QPushButton" name="button_clear_path">
+             <property name="text">
+              <string>Clear Path</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="3" column="2">
+            <widget class="QPushButton" name="button_browse_file">
+             <property name="text">
+              <string>Browse Trajectory File</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="4" column="1">
+            <widget class="QLabel" name="qlabel_empty">
+	     <property name="text">
+              <string></string>
+             </property>
+            </widget>
+           </item>
+	   <item row="5" column="1">
+            <widget class="QLabel" name="qlabel_list_title">
+	     <property name="text">
+              <string>Trajectory Path</string>
+             </property>
+            </widget>
+           </item>
+	   <item row="6" column="1">
+	    <widget class="QListView" name="list_path"/>
+	   </item>
+	  </layout>
+	 </widget>
+	</item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>944</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;App</string>
+    </property>
+    <addaction name="action_Preferences"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAbout_Qt"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <addaction name="menu_File"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dock_status">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>325</width>
+     <height>389</height>
+    </size>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Command Panel</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QFrame" name="frame">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Ros Master</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Ros Master Url</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLineEdit" name="line_edit_master">
+	     <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>http://192.168.1.158:11311/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Ros IP</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QLineEdit" name="line_edit_host">
+	     <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>192.168.1.158</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Ros Hostname</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QLineEdit" name="line_edit_topic">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>unused</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>233</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="quit_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Quit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="action_Preferences">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../resources/images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindowDesign</receiver>
+   <slot>kill_all()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>quit_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindowDesign</receiver>
+   <slot>kill_all()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>859</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>469</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
