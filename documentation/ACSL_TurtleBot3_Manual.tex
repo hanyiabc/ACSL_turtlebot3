@@ -62,77 +62,63 @@
 \newpage
 \section*{Abstract}
 %=====================================================================%
-This guide contains the documentation for the customized \texttt{TurtleBot} developed for Advanced Control Systems Laboratory. The purpose of this Summer 2020 project was to deliver a modular reconfigurable PID controller for the Turtlebot wheel actuators to further the research of ACSL on SLAM, Navigation and Control Algorithms. The entire software has been written using ROS (\texttt{roscpp} and \texttt{rospy} libraries) and is present on 3 different hardware modules. The software is based on the original code written by ROBOTIS for a stock \texttt{Turtlebot3}. The \texttt{Turtlebot3 eManuel} for ROS1 is the best starting point to get an initial understanding of the software.\\
+This guide contains the documentation for the customized \texttt{TurtleBot} developed for Advanced Control Systems Laboratory. The purpose of this Summer 2020 project was to deliver a modular reconfigurable PID controller for the Turtlebot wheel actuators to further the research of ACSL on SLAM, Navigation and Control Algorithms. The entire software has been written using ROS (\texttt{roscpp} and \texttt{rospy} libraries) and is present on 3 different machines. The software is based on the original code written by ROBOTIS for a stock \texttt{Turtlebot3}. The \texttt{Turtlebot3 eManuel} for ROS1 is the best starting point to get an initial understanding of the software.\\
 This guide is not meant to be a comprehensive tutorial for ROS, Ubuntu Shell, Git or any tools used for development like Arduino IDE, Visual Studio Code etc. Understanding of these tools is assumed to be a pre-requisite, and instructions on how to "Bring Up" a new \texttt{TurtleBot3} have been provided. There exists a detailed description of the customizations done to the stock code, without repetitions from external literature. For content outside the guide, links have been provided at the appropriate places for further reading. However, this guide should be enough to get a new \texttt{TurtleBot3} up and running with ACSL Software.
 \addcontentsline{toc}{section}{Abstract}
 %=====================================================================%
 \newpage
 \section{Overview and Setup}
 %=====================================================================%
-TurtleBot3 is a small ROS-based mobile robot. The TurtleBot3 can be customized by changing the source code and addition of new hardware. TurtleBot3 Waffle Pi is equipped with a Raspberry Pi Camera Module (v2), a 360-degree Laser Distance Sensor (LDS) and Dynamixel XM430 210-T motors.\\\\
-TurtleBot3 architecture is described in the following image.\\
-
+TurtleBot3 is a small ROS-based mobile robot. The TurtleBot3 can be customized by changing the source code and addition of new hardware. The TurtleBot3 model used in this project is Waffle Pi. It is equipped with a Raspberry Pi Camera Module (v2), a 360-degree Laser Distance Sensor (LDS) and Dynamixel XM430 210-T motors.\\\\
+\texttt{TurtleBot3} architecture is described in the following image.\\
 \begin{center}
 \includegraphics[width=0.7\linewidth]{images/tb3_architecture.png}\\
 \end{center}
-
-The four major components of TurtleBot3 are 
+The four major components of \texttt{TurtleBot3} are 
 \begin{enumerate}
 	\item {Raspberry Pi 3B+ Single Board Computer (SBC).}
 	\item {OpenCR Embedded System Board.}
 	\item {LDS and Camera Sensors.}
 	\item {Dynamixel Actuators.}
 \end{enumerate}
-
-Raspberry Pi has a WiFi module built onto the board which connects to a computer, known as the Remote PC. Remote PC is used to send commands for SLAM and Navigation to TB3 and visualization of the sensor data is also performed on the remote PC.
-
-There is a one time setup that needs to be performed on the Remote PC, Raspberry Pi and OpenCR board. Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.
- 
+Raspberry Pi has a WiFi module built onto the board which connects to a computer, known as the Remote PC. Remote PC is used to send goal waypoints for SLAM and Navigation to TB3. Visualization of the robot is also performed on the remote PC using a ROS-based tool called \texttt{rviz}.\\
+There is a one time setup that needs to be performed on the Remote PC, Raspberry Pi and OpenCR board. The following sections detail the procedure to setup the software on various components.
+%=====================================================================%
 \subsection{Remote PC Setup}
-
-To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023). 
-The single board computer on Turtlebot3 will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. 
-No problem has yet been found by us on the communication between these 2 releases. 
-
-The following page from ros.org describes the process for adding and installing all necessary packages to your ROS Environment.
-
-\url{http://wiki.ros.org/melodic/Installation/Ubuntu} 
-
-Note that please do not follow the Turtlebot3 guide to configure the ROS environment on the remote PC \textbf{(Step 6.1.1-6.1.3)}. 
-Instead, simply follow the instructions in the link above.
-
-Then, install required dependencies
+%=====================================================================%
+To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023).
+\subsubsection{Quick Installation using Shell Script (recommended)}
+A shell script \texttt{install\_melodic.sh} has been created to ease the installation of ROS and dependent packages on the Remote PC. This is located on the GitHub repo and can be cloned from there. Open a terminal and run the following commands.
 \begin{lstlisting}[style=bash]
-sudo apt install ros-melodic-joy ros-melodic-teleop-twist-joy ros-melodic-teleop-twist-keyboard ros-melodic-laser-proc ros-melodic-rgbd-launch ros-melodic-depthimage-to-laserscan ros-melodic-rosserial-arduino ros-melodic-rosserial-python ros-melodic-rosserial-server ros-melodic-rosserial-client ros-melodic-rosserial-msgs ros-melodic-amcl ros-melodic-map-server ros-melodic-move-base ros-melodic-urdf ros-melodic-xacro ros-melodic-compressed-image-transport ros-melodic-rqt-image-view ros-melodic-gmapping ros-melodic-navigation ros-melodic-interactive-markers
-\end{lstlisting}
-
-\textbf{Warning! We have used other dependencies but we didn't keep documentation, we need to figure out all the deps that we have used.}
-
-The next step is to configure network settings for permanent use. 
-The Remote PC will be controlling the turtlebot pc via wifi using SSH protocol. 
-Steps for configuring the wifi on the remote pc can be found here.
-
-\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration} \\
-
-For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.\\\\
-
-Then, clone and build the git repository. 
-\begin{lstlisting}[style=bash]
-git clone https://github.com/hanyiabc/ASCL_turtlebot3.git
+git clone https://github.com/hanyiabc/ACSL_turtlebot3.git
 cd ASCL_turtlebot3/
-catkin_make
+chmod 755 ./install_melodic.sh && bash ./install_melodic.sh
 \end{lstlisting}
-
-Add this environment variable to .bashrc and refresh the environment variables
+If you face any errors that cannot be resolved, the \texttt{install\_melodic.sh} file is readable and you can execute those commands individually.
+\subsubsection{Manual Installation of ROS Melodic}
+If the shell script installation doesn't succeed, you can also follow instructions on ROS Wiki for setting up ROS Melodic on Ubuntu 18.04 manually. Complete the instructions on the following website.\\\\
+\url{http://wiki.ros.org/melodic/Installation/Ubuntu}\\\\
+Then, install required dependencies by running the last 3 commands in the \texttt{install\_melodic.sh} file. They can be easily found under the "Install Dependencies" section.\\
+Finally clone the repository using the following commands.
+\begin{lstlisting}[style=bash]
+git clone https://github.com/hanyiabc/ACSL_turtlebot3.git
+\end{lstlisting}
+\subsubsection{Network Configuration}
+Steps for configuring the wifi on the remote pc are taken from the following site and requirement specific instructions have been mentioned below.\\\\
+\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration}\\\\
+For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.
+\subsubsection{Compiling Source Code on Remote PC}
+Once the network is setup on the Remote PC, go ahead and build the GitHub repository. This can be done by navigating to the top level folder of the repository \texttt{ASCL\_turtlebot3/} and running \texttt{catkin\_make} in the terminal.\\\\
+Finally add the environment variable for the \texttt{TurtleBot3} model to \texttt{.bashrc} file and source it. Possible values are \textit{waffle, waffle\_pi, burger}. We have our own customized model and hence we have defined our own model name. Run the following commands to add the variables to the \texttt{.bashrc} file.
 \begin{lstlisting}[style=bash]
 echo "export TURTLEBOT3_MODEL=waffle_pi_effort_controller" >> ~/.bashrc
 source ~/.bashrc
 \end{lstlisting}
-On the original Turtlebot code, this environment variable is used to define the model of the Turtlebot, possible values are \textbf{waffle, waffle\_pi, burger}. 
-Difference URDF file is loaded based on this environment variable. 
-For this project however, we defined new URDF files for effort control, so we need to set the environment variable to what we have defined as the name of the model for effort control. 
+A different URDF file (an XML file for the ROS robot model) is loaded based on this environment variable. For this project however, we have defined new URDF file for effort control. By adding the above environment variable, ROS would use the appropriate file to model the robot for visualization and take the appropriate geometrical dimensions/parameters in the code.\\\\
+This completes the Remote PC setup. It is advised to open \texttt{.bashrc} file using \texttt{Gedit} or any other text editor to make sure there are no duplicate commands being run. Having duplicates doesn't lead to any errors, but some variables might get redefined and it is not considered good practice to have multiple commands for setting up the same environment variables or aliases.
 \subsection{Rasberry Pi SBC Setup}
-
+The single board computer on \texttt{TurtleBot3} will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. 
+No problem has yet been found by us on the communication between these 2 releases.
 Now it is time to look at the turtlebot SBC. For the turtlebot 3 Waffle Pi model, the on board PC is a raspberry PI. 
 This step requires a micro SD card with adapter, a monitor with an HDMI input, a USB keyboard and mouse, and a power source for the turtlebot. 
 ROBOTIS provides a prebuilt desktop environment for the turtlebot with ROS kinetic. Instructions for flashing this distribution can be found here (\textbf{Step 6.2.1.2 Install Linux Based on Raspbian, Do not use the other two methods.}).\\
@@ -162,13 +148,15 @@ On Windows, use VNC viewer
 \url{https://www.realvnc.com/en/connect/download/viewer/}
 \subsection{OpenCR Setup}
 
-The original source code for TurtleBot3 used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
+Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.
+
+The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
 
 The source code for OpenCR can be downloaded by cloning the following repository.
 
-\url {https://github.com/hanyiabc/ASCL_turtlebot3.git}
+\url {https://github.com/hanyiabc/ACSL_turtlebot3.git}
 
-Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for TurtleBot3 can be found in the following link.
+Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.
 
 \url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
 %=====================================================================%
@@ -259,6 +247,69 @@ Finally the timezone needs to be set on the SBC to \texttt{America/New-York}. On
 \end{lstlisting}
 This command may not work on the Raspberry Pi 3B+, but the timezone can be changed using the \texttt{raspi-config} utility.\\
 Once the timezones are set, the SBCs are configured properly.
+\newpage
+\section{Bring up the Turtlebot}
+Once the remote PC and Raspberry PI are setup according to the instructions provieded in the previous sections, 
+Follow the instructions below to bring up turtlebot.  \\
+On Remote PC
+\begin{lstlisting}[style=bash]
+    roscore
+\end{lstlisting}
+On SBC
+\begin{lstlisting}[style=bash]
+    roslaunch turtlebot3_bringup turtlebot3_robot.launch
+\end{lstlisting}
+
+On Remote PC, once you followed the instructions for building the workspace and setting up the environment variables,  
+load the environment variables related to this workspace (Note: This has to be done everytime you want to run something from this workspace from a new termianl)
+\begin{lstlisting}[style=bash]
+cd ASCL_turtlebot3/
+source devel/setup.bash
+\end{lstlisting}
+
+To run teleop to control the Turtlebot with keyboard.
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+\end{lstlisting}
+
+To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on the physical robot. 
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_bringup turtlebot3_physical_nav_control.launch 
+\end{lstlisting}
+
+To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_bringup turtlebot3_sim_nav_control.launch 
+\end{lstlisting}
+
+To run SLAM only to draw maps
+Choose a pre-defined Gazebo world from the following:
+
+\begin{itemize}
+    \item[--] turtlebot3\_empty\_world.launch
+    \item[--] turtlebot3\_world.launch
+    \item[--] turtlebot3\_house.launch
+    \item[--] turtlebot3\_stage\_1.launch
+    \item[--] turtlebot3\_stage\_2.launch
+    \item[--] turtlebot3\_stage\_3.launch 
+    \item[--] turtlebot3\_stage\_4.launch
+\end {itemize}
+For example, if \textbf{turtlebot3\_world.launch} is chosen, run the following command to bring up a virtual Turtlebot on Gazebo for simulation
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+\end{lstlisting}
+\newpage
+Then, run the following commands to launch the SLAM nodes and remote control using keyboard. 
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+\end{lstlisting}
+Once you are satisfied with the map, save the map by running
+\begin{lstlisting}[style=bash]
+rosrun map_server map_saver -f ~/map
+\end{lstlisting}
+% TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
+% TODO: add graph from tf view_frams to illustrate the TF tree 
 \newpage
 \section{Repository Introduction}
 The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentio ning ones are:
@@ -400,71 +451,5 @@ The Odometry publisher is in the microcontroller. Since the built-in differentia
 An Odometry publisher was added to the system. The source code is below. 
 
 \lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
-
-
-\newpage
-
-\section{Bring up the Turtlebot}
-Once the remote PC and Raspberry PI are setup according to the instructions provieded in the previous sections, 
-Follow the instructions below to bring up turtlebot.  \\
-On Remote PC
-\begin{lstlisting}[style=bash]
-    roscore
-\end{lstlisting}
-On SBC
-\begin{lstlisting}[style=bash]
-    roslaunch turtlebot3_bringup turtlebot3_robot.launch
-\end{lstlisting}
-
-On Remote PC, once you followed the instructions for building the workspace and setting up the environment variables,  
-load the environment variables related to this workspace (Note: This has to be done everytime you want to run something from this workspace from a new termianl)
-\begin{lstlisting}[style=bash]
-cd ASCL_turtlebot3/
-source devel/setup.bash
-\end{lstlisting}
-
-To run teleop to control the Turtlebot with keyboard.
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
-\end{lstlisting}
-
-To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on the physical robot. 
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_bringup turtlebot3_physical_nav_control.launch 
-\end{lstlisting}
-
-To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_bringup turtlebot3_sim_nav_control.launch 
-\end{lstlisting}
-
-To run SLAM only to draw maps
-Choose a pre-defined Gazebo world from the following:
-
-\begin{itemize}
-    \item[--] turtlebot3\_empty\_world.launch
-    \item[--] turtlebot3\_world.launch
-    \item[--] turtlebot3\_house.launch
-    \item[--] turtlebot3\_stage\_1.launch
-    \item[--] turtlebot3\_stage\_2.launch
-    \item[--] turtlebot3\_stage\_3.launch 
-    \item[--] turtlebot3\_stage\_4.launch
-\end {itemize}
-For example, if \textbf{turtlebot3\_world.launch} is chosen, run the following command to bring up a virtual Turtlebot on Gazebo for simulation
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_gazebo turtlebot3_world.launch
-\end{lstlisting}
-\newpage
-Then, run the following commands to launch the SLAM nodes and remote control using keyboard. 
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
-\end{lstlisting}
-Once you are satisfied with the map, save the map by running
-\begin{lstlisting}[style=bash]
-rosrun map_server map_saver -f ~/map
-\end{lstlisting}
-% TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
-% TODO: add graph from tf view_frams to illustrate the TF tree 
 
 \end{document}
