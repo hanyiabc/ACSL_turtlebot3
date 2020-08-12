@@ -4,10 +4,14 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{xcolor}
-\usepackage[margin=1.0in]{geometry}
+\usepackage{lscape}
+\usepackage[margin=0.75in]{geometry}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{orangered}{RGB}{239,134,64}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 
 \lstdefinestyle{C++}
 {
@@ -26,6 +30,50 @@
   breaklines=true,
   breakatwhitespace=true,
   tabsize=3
+}
+
+\lstdefinestyle{Python}
+{
+  frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\lstdefinestyle{XML} {
+    frame=tb,
+    language=XML,
+    aboveskip=3mm,
+    belowskip=3mm,
+    tabsize=3,
+    showstringspaces=false,
+    extendedchars=true, 
+    breaklines=true,
+    breakatwhitespace=true,
+    emph={},
+    emphstyle=\color{red},
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    commentstyle=\color{gray}\upshape,
+    morestring=[b]",
+    morecomment=[s]{<?}{?>},
+    morecomment=[s][\color{forestgreen}]{<!--}{-->},
+    keywordstyle=\color{orangered},
+    stringstyle=\ttfamily\color{black}\normalfont,
+    tagstyle=\color{darkblue}\bf,
+    morekeywords={attribute,xmlns,version,type,release},
+    otherkeywords={attribute=, xmlns=},
 }
 
 \lstdefinestyle{bash}
@@ -208,15 +256,15 @@ Two launch files are included for controlling the robot in either the simulation
 	\item[--] turtlebot3\_control\_simulation.launch
 \end{itemize}  
 These launch file are not ran directly, instead they are inlcuded by other launch file that we will introduce later.
-The PID gains can be tuned by either changing the parameters in the launch file or use a ros package called rqt\_reconfiture to adjust parameters with sliders at runtime. 
-There are 2 nodes under the \textbf{ros\_control} package. They are \textbf{differential\_driver.py} and \textbf{ros\_control\_node}. 
+The PID gains can be tuned by either changing the parameters in the launch file or use a ros package called rqt\_reconfigure to adjust parameters with sliders at runtime. 
+There are 3 nodes under the \textbf{ros\_control} package. They are \textbf{differential\_driver.py}, \textbf{ros\_control\_odom\_pub} and \textbf{ros\_control\_node}. 
 The \textbf{differential\_driver.py} is a Python ros node that split the incoming \textbf{\//cmd\_vel} messages into left and right velocity for the differential drive robot based on vehicle geometry. 
 The \textbf{\/cmd\_vel} is the standard topic that ROS nav stack used to output the velocity command. It commands the robot in terms of translational velocity and orientation. 
 The \textbf{ros\_control\_node} is a C++ ros node compiled from the soruce file: \textbf{message\_redirect.cpp}. 
-This node simply takes the left and right wheel angular velocities feedbacks from \/joint\_states converts them to linear velocities and publish them into 2 Float64 messages for the PID controller to read.
+This node simply takes the left and right wheel angular velocities feedbacks from \textbf{\/joint\_states} converts them to linear velocities and publish them into 2 Float64 messages for the PID controller to read.
+The \textbf{ros\_control\_odom\_pub} is a C++ ros node compiled from the source file: \textbf{odom\_publisher.cpp}.
 
-
-The directory \textbf{simulink} contains all the MATLAB scrips and Simulink models for controlling the robot with MATLAB 
+The directory \textbf{simulink} contains all the MATLAB scrips and Simulink models for controlling the robot with MATLAB (currently not uisng MATLAB). 
 
 \textbf{turtlebot3\_bringup} contains all the launch file for bringing up the Turtlebot in the SBC and the remote PC. 
 \textbf{turtlebot3\_physical\_nav\_control.launch} was added to the bringup package to provide a convinient one-file launch that will handles everything. 
@@ -227,7 +275,8 @@ This launch file brings up the turtlebot on the remote PC, runs the velocity con
 For Waffle Pi, \textbf{turtlebot3\_waffle\_pi.gazebo.xacro}
 and \textbf{turtlebot3\_waffle\_pi.urdf.xacro}
 are provided by the turtlebot package, however, for effort control, we added 2 more files. 
-They are: \textbf{turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro}
+They are: \\
+\textbf{turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro}
 and \textbf{turtlebot3\_waffle\_pi\_effort\_controller.urdf.xacro}
 These files are derived from the original descriptions and added ability to control effort in both the simulation and the physical robot. 
 
@@ -308,13 +357,32 @@ Subscribers are added to subscribe to the topics \/left\_torque \/right\_torque.
 The following use the function defined above and write the correspounding values to the correct memory location of the Dynamixel motor controller when new message comes in. 
 When there is no new message, it will timeout and write zeros to both motors. 
 
-\lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+\lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino} 
+This Python node will convert the cmd\_vel to the left and right velocities command based on the robot geometry. 
 
-The Odometry publisher is in the microcontroller. Since the built-in differential drive plugin which provides Odometry was removed to use our own controller,
-An Odometry publisher was added to the system. The source code is below. 
+\lstinputlisting[style=Python]{../src/ros_control/src/differential_driver.py}
 
-\lstinputlisting[style=C++, firstline=87, lastline=99]{../src/turtlebot3_core/turtlebot3_core.ino}
+The original Odometry publisher is in the microcontroller. Since the built-in differential drive plugin which provides 
+Odometry that's used in the simulation was replaced by our own controller,
+An Odometry publisher was added to the system to provide the Odometry in the simulation only. The source code is below. 
 
+\lstinputlisting[style=C++]{../src/ros_control/src/odom_publisher.cpp}
+
+This program is adapted from the Odometry publisher on the microcontroller. It takes the information from the simulated IMU and joint states to generate Odometry messages
+for simulation. The orientation is taken from the imu and the position is taken from the joint states. It also publishes the transformations between the
+base frame and the Odometry frame. The covariance matrix in the Odometry messgae is ignored and its elements are all 0s. \\
+
+To control the left and right wheel joint using effort command in the simulation, the URDF and Gazebo descriptions of the robot are also modified as follow. \\
+
+\textbf{src/turtlebot3/turtlebot3\_description/urdf/turtlebot3\_waffle\_pi\_effort\_controller.urdf.xacro:} \\
+\lstinputlisting[style=XML, firstline=219, lastline=239]{../src/turtlebot3/turtlebot3_description/urdf/turtlebot3_waffle_pi_effort_controller.urdf.xacro}
+
+\textbf{src/turtlebot3/turtlebot3\_description/urdf/turtlebot3\_waffle\_pi\_effort\_controller.gazebo.xacro:} \\
+\lstinputlisting[style=XML, firstline=11, lastline=31]{../src/turtlebot3/turtlebot3_description/urdf/turtlebot3_waffle_pi_effort_controller.gazebo.xacro}
+\lstinputlisting[style=XML, firstline=61, lastline=88]{../src/turtlebot3/turtlebot3_description/urdf/turtlebot3_waffle_pi_effort_controller.gazebo.xacro}
+
+A configuration file was added to make commanding effort to left and right wheel joints in Gazebo simulation possible\\
+\textbf{/src/ros\_control/params/bot\_control.yaml} \\
 
 \newpage
 
@@ -505,5 +573,205 @@ Now your client and server machines are configured to be time-synced. You can vi
 \end{lstlisting}
 
 
+\newpage
+\section{List of ROS Nodes, Topics, Parameters, Transform}
+\subsection{List of Important ROS Nodes}
 
+
+% TODO: Mising a few
+\begin{itemize}
+    \item[--] /differential\_driver
+    \item[--] /left\_wheel/pid\_left\_node
+    \item[--] /message\_redirect
+    \item[--] /move\_base
+    \item[--] /odom\_pub
+    \item[--] /right\_wheel/pid\_right\_node
+    \item[--] /robot\_state\_publisher
+    \item[--] /rviz
+    \item[--] /turtlebot3\_slam\_gmapping
+    \item[--] /follow\_waypoints 
+\end{itemize} 
+
+\subsection{List of Topics and Their Types}
+
+\begin{itemize}
+\item[--] /map\_metadata [nav\_msgs/MapMetaData]
+\item[--] /camera/rgb/image\_raw [sensor\_msgs/Image]
+\item[--] /move\_base/current\_goal [geometry\_msgs/PoseStamped]
+\item[--] /move\_base/local\_costmap/footprint [geometry\_msgs/PolygonStamped]
+\item[--] /tf [tf2\_msgs/TFMessage]
+\item[--] /move\_base/local\_costmap/costmap [nav\_msgs/OccupancyGrid]
+\item[--] /odom [nav\_msgs/Odometry]
+\item[--] /joint\_left\_effort\_controller/command [std\_msgs/Float64]
+\item[--] /scan [sensor\_msgs/LaserScan]
+\item[--] /left\_vel\_fb [std\_msgs/Float64]
+\item[--] /camera/rgb/image\_raw/compressed [sensor\_msgs/CompressedImage]
+\item[--] /left\_wheel/pid\_left\_node/parameter\_updates [dynamic\_reconfigure/Config]
+\item[--] /move\_base\_simple/goal [geometry\_msgs/PoseStamped]
+\item[--] /move\_base/DWAPlannerROS/cost\_cloud [sensor\_msgs/PointCloud2]
+\item[--] /move\_base/DWAPlannerROS/trajectory\_cloud [sensor\_msgs/PointCloud2]
+\item[--] /tf\_static [tf2\_msgs/TFMessage]
+\item[--] /imu [sensor\_msgs/Imu]
+\item[--] /map [nav\_msgs/OccupancyGrid]
+\item[--] /move\_base/global\_costmap/footprint [geometry\_msgs/PolygonStamped]
+\item[--] /joint\_right\_effort\_controller/command [std\_msgs/Float64]
+\item[--] /cmd\_vel [geometry\_msgs/Twist]
+\item[--] /move\_base/DWAPlannerROS/local\_plan [nav\_msgs/Path]
+\item[--] /waypoints [geometry\_msgs/PoseArray]
+\item[--] /joint\_states [sensor\_msgs/JointState]
+\item[--] /move\_base/goal [move\_base\_msgs/MoveBaseActionGoal]
+\item[--] /initialpose [geometry\_msgs/PoseWithCovarianceStamped]
+\item[--] /rosout\_agg [rosgraph\_msgs/Log]
+\item[--] /move\_base/GlobalPlanner/plan [nav\_msgs/Path]
+\item[--] /move\_base/DWAPlannerROS/global\_plan [nav\_msgs/Path]
+\item[--] /left\_vel [std\_msgs/Float64]
+\item[--] /right\_wheel/pid\_debug [std\_msgs/Float64MultiArray]
+\item[--] /camera/rgb/image\_raw/compressedDepth [sensor\_msgs/CompressedImage]
+\item[--] /camera/rgb/camera\_info [sensor\_msgs/CameraInfo]
+\item[--] /camera/rgb/image\_raw/theora [theora\_image\_transport/Packet]
+\item[--] /gazebo/link\_states [gazebo\_msgs/LinkStates]
+\item[--] /move\_base/GlobalPlanner/potential [nav\_msgs/OccupancyGrid]
+\item[--] /gazebo/model\_states [gazebo\_msgs/ModelStates]
+\item[--] /clock [rosgraph\_msgs/Clock]
+\item[--] /right\_vel\_fb [std\_msgs/Float64]
+\item[--] /move\_base/cancel [actionlib\_msgs/GoalID]
+\item[--] /right\_vel [std\_msgs/Float64]
+\item[--] /move\_base/global\_costmap/costmap [nav\_msgs/OccupancyGrid]
+\item[--] /left\_torque [std\_msgs/Float64]
+\item[--] /right\_torque [std\_msgs/Float64] 
+\item[--] /battery\_state [sensor\_msgs/BatteryState] 
+\end{itemize} 
+
+\subsection{List of Important Topics and Descriptions}
+
+\begin{table}[h!]
+  \begin{center}
+    %\caption{}
+    \label{tab:table1}
+    \begin{tabular}{l|l}
+      \textbf{Topic Name} & \textbf{Index}\\
+    
+    /camera/rgb/camera\_info & 1 \\
+    /camera/rgb/image\_raw & 2 \\
+    /camera/rgb/image\_raw/compressed & 3 \\
+    /camera/rgb/image\_raw/theora & 4 \\
+    /cmd\_vel & 5 \\
+    /imu & 6 \\
+    /initialpose & 7 \\
+    /joint\_left\_effort\_controller/command & 8 \\
+    /joint\_right\_effort\_controller/command & 9 \\
+    /joint\_states & 10 \\
+    /left\_vel & 11 \\
+    /left\_vel\_fb & 12 \\
+    /left\_wheel/pid\_enable & 13 \\
+    /map & 14 \\
+    /map\_metadata & 15 \\
+    /move\_base/DWAPlannerROS/local\_plan & 16 \\
+    /move\_base/GlobalPlanner/plan & 17 \\
+    /move\_base/global\_costmap/costmap & 18 \\
+    /move\_base/goal & 19 \\
+    /move\_base/local\_costmap/costmap & 20 \\
+    /odom & 21 \\
+    /path\_ready & 22 \\
+    /path\_reset & 23 \\
+    /right\_vel & 24 \\
+    /right\_vel\_fb & 25 \\
+    /right\_wheel/pid\_enable & 26 \\
+    /scan & 27 \\
+    /waypoints & 28 \\
+    /left\_torque & 29 \\
+    /right\_torque & 30 \\
+    /battery\_state & 31 \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+    \begin{center}
+      %\caption{}
+      \label{tab:table2}
+      \begin{tabular}{c|l}
+        \textbf{Index} & \textbf{Descriptions}\\
+      
+      1 & \url{http://docs.ros.org/melodic/api/sensor_msgs/html/msg/CameraInfo.html} \\
+      2 & Raw camera data directly from sensor \\
+      3 & Compressed image \\
+      4 & Compressed image based on therora encoding \\
+      5 & Command Velocity from ROS navigation stack \\
+      6 & IMU Information (acceleration, orientation) \\
+      7 & Originally initial pose estimate of AMCL, instead used for adding waypoints\\
+      8 & Left effort command (only in simmulation) \\
+      9 & Right effort command (only in simmulation)\\
+      10 & Left and right wheel joint states (angular velocity, angular position) \\
+      11 & Left wheel velocity command \\
+      12 & Left wheel velocity feedback \\
+      13 & Left wheel PID controller enable\\
+      14 & Map drawn by SLAM algorithm\\
+      15 & Map mata information (width, height, resoulution) \\
+      16 & Local trajectory to follow by robot generated by the local planner (uses odom frame) \\
+      17 & Global plan generated by the global planner \\
+      18 & Global costmap generated from SLAM map and lidar (uses map frame) \\
+      19 & Current goal to reach\\
+      20 & Local costmap generated from part of the global costmap and lidar (uses odom frame) \\
+      21 & Odometry of the robot (accumulated orientation and position based on the feedabck of the motor and IMU) \\
+      22 & Singal to start following waypoints \\
+      23 & Singla to reset the waypoints \\
+      24 & Right wheel velocity command \\
+      25 & Right wheel velocity feedback \\
+      26 & Right wheel PID controller enable \\
+      27 & Data from lidar (in terms of angle and distance) \\
+      28 & Array of waypoints for visualization purpose \\
+      29 & Left torque command (only in physical robot) \\
+      30 & Right torque command (only in physical robot) \\
+      31 & Battery voltage, designed capacity, percentage left (only in physical robot) \\ 
+      \end{tabular}
+    \end{center}
+  \end{table}
+
+\subsection{List of Important Parameters and How to Find Them}
+
+\begin{table}[h!]
+    \begin{center}
+      %\caption{}
+      \label{tab:table3}
+      \begin{tabular}{l|l}
+        \textbf{Parameters} & \textbf{Location}\\
+      
+      Kp, Ki, Kd in simulation & src/ros\_control/launch/turtlebot3\_control.launch \\
+      Kp, Ki, Kd in physical robot & src/ros\_control/launch/turtlebot3\_control\_simulation.launch \\
+      Local planner parameters & src/turtlebot3/turtlebot3\_navigation/ \\
+      & param/dwa\_local\_planner\_params\_waffle\_pi\_effort\_controller.yaml \\
+      Global planner parameters & src/turtlebot3/turtlebot3\_navigation/param/global\_planner\_params.yaml \\
+      move\_base parameters & src/turtlebot3/turtlebot3\_navigation/param/move\_base\_params.yaml \\
+      Cartographer parameters in physical robot & src/turtlebot3/turtlebot3\_slam/config/turtlebot3\_lds\_2d.lua \\
+      Cartographer parameters in simulation & src/turtlebot3/turtlebot3\_slam/config/turtlebot3\_lds\_2d\_gazebo.lua \\
+      Hector SLAM parameters & src/turtlebot3/turtlebot3\_slam/launch/turtlebot3\_hector.launch \\
+      AMCL parameters & src/turtlebot3/turtlebot3\_navigation/launch/amcl.launch \\
+      Gmapping parameters & src/turtlebot3/turtlebot3\_slam/config/gmapping\_params.yaml \\
+      Common costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/costmap\_common\_params\_waffle\_pi\_effort\_controller.yaml \\
+      Global costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/global\_costmap\_params.yaml \\
+      Local costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/local\_costmap\_params.yaml \\
+      SLAM Method & src/turtlebot3/turtlebot3\_navigation/launch/turtlebot3\_navigation\_no\_map.launch
+
+
+      \end{tabular}
+    \end{center}
+  \end{table}
+
+
+\begin{landscape}
+\newpage
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{images/rosgraph.png}
+\end{figure}
+\end{landscape}
+\begin{landscape}
+\newpage
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{images/frames-1.png}
+\end{figure}
+
+\end{landscape}
 \end{document}

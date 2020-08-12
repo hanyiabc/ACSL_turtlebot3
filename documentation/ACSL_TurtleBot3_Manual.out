@@ -9,3 +9,8 @@
 \BOOKMARK [1][-]{section.5}{Syncing Time using NTP Server and Client}{}% 9
 \BOOKMARK [2][-]{subsection.5.1}{Install and configure NTP Server on the host computer}{section.5}% 10
 \BOOKMARK [2][-]{subsection.5.2}{Configure NTP Client to be Time Synced with the NTP Server}{section.5}% 11
+\BOOKMARK [1][-]{section.6}{List of ROS Nodes, Topics, Parameters, Transform}{}% 12
+\BOOKMARK [2][-]{subsection.6.1}{List of Important ROS Nodes}{section.6}% 13
+\BOOKMARK [2][-]{subsection.6.2}{List of Topics and Their Types}{section.6}% 14
+\BOOKMARK [2][-]{subsection.6.3}{List of Important Topics and Descriptions}{section.6}% 15
+\BOOKMARK [2][-]{subsection.6.4}{List of Important Parameters and How to Find Them}{section.6}% 16
