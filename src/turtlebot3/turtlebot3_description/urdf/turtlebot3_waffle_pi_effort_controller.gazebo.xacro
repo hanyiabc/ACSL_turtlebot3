@@ -58,13 +58,13 @@
     <material>Gazebo/Grey</material>
   </gazebo>
 
-  <!-- <gazebo>
+  <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
-  </gazebo> -->
+  </gazebo>
 
-  <gazebo>
+  <!-- <gazebo>
     <plugin name="turtlebot3_waffle_pi_controller" filename="libgazebo_ros_diff_drive.so">
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
@@ -85,7 +85,7 @@
       <wheelTorque>10</wheelTorque>
       <rosDebugLevel>na</rosDebugLevel>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 
   <gazebo>
     <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
