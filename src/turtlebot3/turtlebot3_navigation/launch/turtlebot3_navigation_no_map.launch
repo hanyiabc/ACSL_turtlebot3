@@ -20,6 +20,8 @@
 
   <arg name="open_rviz" default="true"/>
 
+  <include file="$(find follow_waypoints)/launch/follow_waypoints.launch"/>
+
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
