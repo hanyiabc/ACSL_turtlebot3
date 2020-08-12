@@ -6,6 +6,8 @@ INPUT C:\Program Files\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size10.clo
 INPUT C:\Program Files\MiKTeX\tex\latex\base\size10.clo
+INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hyperref.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\hyperref\hyperref.sty
 INPUT C:\Program Files\MiKTeX\tex\generic\ltxcmds\ltxcmds.sty
@@ -124,18 +126,20 @@ INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentat
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.toc
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 OUTPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.toc
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\tb3_architecture.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_eeprom.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_eeprom.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\dxl_eeprom.png
@@ -204,7 +208,16 @@ INPUT ..\src\turtlebot3\turtlebot3_description\urdf\turtlebot3_waffle_pi_effort_
 INPUT ..\src\turtlebot3\turtlebot3_description\urdf\turtlebot3_waffle_pi_effort_controller.gazebo.xacro
 INPUT ..\src\turtlebot3\turtlebot3_description\urdf\turtlebot3_waffle_pi_effort_controller.gazebo.xacro
 INPUT ..\src\turtlebot3\turtlebot3_description\urdf\turtlebot3_waffle_pi_effort_controller.gazebo.xacro
-INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\gui_screenshot.JPG
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\gui_screenshot.JPG
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\gui_screenshot.JPG
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\gui_screenshot.JPG
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\gui_screenshot.JPG
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\Screenshot from 2020-08-11 11-47-41.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\Screenshot from 2020-08-11 11-47-41.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\Screenshot from 2020-08-11 11-47-41.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\Screenshot from 2020-08-11 11-47-41.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\Screenshot from 2020-08-11 11-47-41.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\rosgraph.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\rosgraph.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\rosgraph.png
@@ -230,6 +243,8 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt8.pfb

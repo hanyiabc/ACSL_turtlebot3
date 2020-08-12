@@ -1,4 +1,5 @@
 \documentclass[12]{article}
+\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{listings}
@@ -106,82 +107,67 @@
 \makeatother
 
 \tableofcontents
+%=====================================================================%
 \newpage
-
 \section*{Abstract}
-   
-This guide documents the changes made to TurtleBot3 software to meet the requirements of ACSL research group. It contains instructions on setting up the robot and code documentation.
-       
+%=====================================================================%
+This guide contains the documentation for the customized \texttt{TurtleBot} developed for Advanced Control Systems Laboratory. The purpose of this Summer 2020 project was to deliver a modular reconfigurable PID controller for the Turtlebot wheel actuators to further the research of ACSL on SLAM, Navigation and Control Algorithms. The entire software has been written using ROS (\texttt{roscpp} and \texttt{rospy} libraries) and is present on 3 different machines. The software is based on the original code written by ROBOTIS for a stock \texttt{Turtlebot3}. The \texttt{Turtlebot3 eManuel} for ROS1 is the best starting point to get an initial understanding of the software.\\
+This guide is not meant to be a comprehensive tutorial for ROS, Ubuntu Shell, Git or any tools used for development like Arduino IDE, Visual Studio Code etc. Understanding of these tools is assumed to be a pre-requisite, and instructions on how to "Bring Up" a new \texttt{TurtleBot3} have been provided. There exists a detailed description of the customizations done to the stock code, without repetitions from external literature. For content outside the guide, links have been provided at the appropriate places for further reading. However, this guide should be enough to get a new \texttt{TurtleBot3} up and running with ACSL Software.
 \addcontentsline{toc}{section}{Abstract}
+%=====================================================================%
 \newpage
-
 \section{Overview and Setup}
-
-TurtleBot3 is a small ROS-based mobile robot. The TurtleBot3 can be customized by changing the source code and addition of new hardware. TurtleBot3 Waffle Pi is equipped with a Raspberry Pi Camera Module (v2), a 360-degree Laser Distance Sensor (LDS) and Dynamixel XM430 210-T motors.
-
-TurtleBot3 architecture is described in the following image.\\
-
+%=====================================================================%
+TurtleBot3 is a small ROS-based mobile robot. The TurtleBot3 can be customized by changing the source code and addition of new hardware. The TurtleBot3 model used in this project is Waffle Pi. It is equipped with a Raspberry Pi Camera Module (v2), a 360-degree Laser Distance Sensor (LDS) and Dynamixel XM430 210-T motors.\\\\
+\texttt{TurtleBot3} architecture is described in the following image.\\
 \begin{center}
 \includegraphics[width=0.7\linewidth]{images/tb3_architecture.png}\\
 \end{center}
-
-The four major components of TurtleBot3 are 
+The four major components of \texttt{TurtleBot3} are 
 \begin{enumerate}
 	\item {Raspberry Pi 3B+ Single Board Computer (SBC).}
 	\item {OpenCR Embedded System Board.}
 	\item {LDS and Camera Sensors.}
 	\item {Dynamixel Actuators.}
 \end{enumerate}
-
-Raspberry Pi has a WiFi module built onto the board which connects to a computer, known as the Remote PC. Remote PC is used to send commands for SLAM and Navigation to TB3 and visualization of the sensor data is also performed on the remote PC.
-
-There is a one time setup that needs to be performed on the Remote PC, Raspberry Pi and OpenCR board. Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.
- 
+Raspberry Pi has a WiFi module built onto the board which connects to a computer, known as the Remote PC. Remote PC is used to send goal waypoints for SLAM and Navigation to TB3. Visualization of the robot is also performed on the remote PC using a ROS-based tool called \texttt{rviz}.\\
+There is a one time setup that needs to be performed on the Remote PC, Raspberry Pi and OpenCR board. The following sections detail the procedure to setup the software on various components.
+%=====================================================================%
 \subsection{Remote PC Setup}
-
-To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023). 
-The single board computer on Turtlebot3 will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. 
-No problem has yet been found by us on the communication between these 2 releases. 
-
-The following page from ros.org describes the process for adding and installing all necessary packages to your ROS Environment.
-
-\url{http://wiki.ros.org/melodic/Installation/Ubuntu} 
-
-Note that please do not follow the Turtlebot3 guide to configure the ROS environment on the remote PC \textbf{(Step 6.1.1-6.1.3)}. 
-Instead, simply follow the instructions in the link above.
-
-Then, install required dependencies
+%=====================================================================%
+To begin you will need to install the appropriate ROS version on your remote PC. The remote PC will be running ROS Melodic (EOL date: May 2023).
+\subsubsection{Quick Installation using Shell Script (recommended)}
+A shell script \texttt{install\_melodic.sh} has been created to ease the installation of ROS and dependent packages on the Remote PC. This is located on the GitHub repo and can be cloned from there. Open a terminal and run the following commands.
 \begin{lstlisting}[style=bash]
-sudo apt install ros-melodic-joy ros-melodic-teleop-twist-joy ros-melodic-teleop-twist-keyboard ros-melodic-laser-proc ros-melodic-rgbd-launch ros-melodic-depthimage-to-laserscan ros-melodic-rosserial-arduino ros-melodic-rosserial-python ros-melodic-rosserial-server ros-melodic-rosserial-client ros-melodic-rosserial-msgs ros-melodic-amcl ros-melodic-map-server ros-melodic-move-base ros-melodic-urdf ros-melodic-xacro ros-melodic-compressed-image-transport ros-melodic-rqt-image-view ros-melodic-gmapping ros-melodic-navigation ros-melodic-interactive-markers
-\end{lstlisting}
-
-\textbf{Warning! We have used other dependencies but we didn't keep documentation, we need to figure out all the deps that we have used.}
-
-The next step is to configure network settings for permanent use. 
-The Remote PC will be controlling the turtlebot pc via wifi using SSH protocol. 
-Steps for configuring the wifi on the remote pc can be found here.
-
-\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration} \\
-
-For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.\\\\
-
-Then, clone and build the git repository. 
-\begin{lstlisting}[style=bash]
-git clone https://github.com/hanyiabc/ASCL_turtlebot3.git
+git clone https://github.com/hanyiabc/ACSL_turtlebot3.git
 cd ASCL_turtlebot3/
-catkin_make
+chmod 755 ./install_melodic.sh && bash ./install_melodic.sh
 \end{lstlisting}
-
-Add this environment variable to .bashrc and refresh the environment variables
+If you face any errors that cannot be resolved, the \texttt{install\_melodic.sh} file is readable and you can execute those commands individually.
+\subsubsection{Manual Installation of ROS Melodic}
+If the shell script installation doesn't succeed, you can also follow instructions on ROS Wiki for setting up ROS Melodic on Ubuntu 18.04 manually. Complete the instructions on the following website.\\\\
+\url{http://wiki.ros.org/melodic/Installation/Ubuntu}\\\\
+Then, install required dependencies by running the last 3 commands in the \texttt{install\_melodic.sh} file. They can be easily found under the "Install Dependencies" section.\\
+Finally clone the repository using the following commands.
+\begin{lstlisting}[style=bash]
+git clone https://github.com/hanyiabc/ACSL_turtlebot3.git
+\end{lstlisting}
+\subsubsection{Network Configuration}
+Steps for configuring the wifi on the remote pc are taken from the following site and requirement specific instructions have been mentioned below.\\\\
+\url {https://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#network-configuration}\\\\
+For this project we will use the Linksys Router on the \textbf{Linksys04294} network. It is helpful to write down the IP address of the remote pc, since you will need it later to setup the turtlebot pc network settings.
+\subsubsection{Compiling Source Code on Remote PC}
+Once the network is setup on the Remote PC, go ahead and build the GitHub repository. This can be done by navigating to the top level folder of the repository \texttt{ASCL\_turtlebot3/} and running \texttt{catkin\_make} in the terminal.\\\\
+Finally add the environment variable for the \texttt{TurtleBot3} model to \texttt{.bashrc} file and source it. Possible values are \textit{waffle, waffle\_pi, burger}. We have our own customized model and hence we have defined our own model name. Run the following commands to add the variables to the \texttt{.bashrc} file.
 \begin{lstlisting}[style=bash]
 echo "export TURTLEBOT3_MODEL=waffle_pi_effort_controller" >> ~/.bashrc
 source ~/.bashrc
 \end{lstlisting}
-On the original Turtlebot code, this environment variable is used to define the model of the Turtlebot, possible values are \textbf{waffle, waffle\_pi, burger}. 
-Difference URDF file is loaded based on this environment variable. 
-For this project however, we defined new URDF files for effort control, so we need to set the environment variable to what we have defined as the name of the model for effort control. 
+A different URDF file (an XML file for the ROS robot model) is loaded based on this environment variable. For this project however, we have defined new URDF file for effort control. By adding the above environment variable, ROS would use the appropriate file to model the robot for visualization and take the appropriate geometrical dimensions/parameters in the code.\\\\
+This completes the Remote PC setup. It is advised to open \texttt{.bashrc} file using \texttt{Gedit} or any other text editor to make sure there are no duplicate commands being run. Having duplicates doesn't lead to any errors, but some variables might get redefined and it is not considered good practice to have multiple commands for setting up the same environment variables or aliases.
 \subsection{Rasberry Pi SBC Setup}
-
+The single board computer on \texttt{TurtleBot3} will be running ROS Kinetic (EOL date: April 2021) for the ease of setup since ROS Melodic requires manual compilation when using Rasbian. 
+No problem has yet been found by us on the communication between these 2 releases.
 Now it is time to look at the turtlebot SBC. For the turtlebot 3 Waffle Pi model, the on board PC is a raspberry PI. 
 This step requires a micro SD card with adapter, a monitor with an HDMI input, a USB keyboard and mouse, and a power source for the turtlebot. 
 ROBOTIS provides a prebuilt desktop environment for the turtlebot with ROS kinetic. Instructions for flashing this distribution can be found here (\textbf{Step 6.2.1.2 Install Linux Based on Raspbian, Do not use the other two methods.}).\\
@@ -211,16 +197,168 @@ On Windows, use VNC viewer
 \url{https://www.realvnc.com/en/connect/download/viewer/}
 \subsection{OpenCR Setup}
 
-The original source code for TurtleBot3 used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
+Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.
+
+The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
 
 The source code for OpenCR can be downloaded by cloning the following repository.
 
-\url {https://github.com/hanyiabc/ASCL_turtlebot3.git}
+\url {https://github.com/hanyiabc/ACSL_turtlebot3.git}
 
-Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for TurtleBot3 can be found in the following link.
+Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.
 
 \url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
+%=====================================================================%
+\newpage
+\section{Syncing Time using NTP Server and Client}
+%=====================================================================%
+Raspberry Pi and Odroid SBCs do not have a hardware clock, and therefore it relies on an active internet connection to fetch the accurate time from Ubuntu time server. However, this is not possible as Linksys router, does not have internet access.\\
+Every time SBC boots up, the time has to be updated. The time on the Remote PC and the SBC have to be synced up in order for the various transformations to work for the purpose of running SLAM and Navigation in the ACSL Lab Environment. Hence, to sync up time between these two machines, NTP protocol is being used.\\
+NTP or Network Time Protocol is a protocol that is used to synchronize all system clocks in a network to use the same time. When we use the term NTP, we are referring to the protocol itself and also the client and server programs running on the networked computers. NTP belongs to the traditional TCP/IP protocol suite and can easily be classified as one of its oldest parts.\\
+When you are initially setting up the clock, it takes six exchanges within 5 to 10 minutes before the clock is set up. Once the clocks in a network are synchronized, the client(s) update their clocks with the server once every 10 minutes. This is usually done through a single exchange of message(transaction). These transactions use port number 123 of your system.\\
+In this section, a step-by-step procedure is described on how to:
+\begin{itemize}
+	\item{Install and configure the NTP server on a Ubuntu machine.}
+	\item{Configure the NTP Client to be time synced with the server.}
+\end{itemize}
+These instructions are taken from \url{https://vitux.com/how-to-install-ntp-server-and-client-on-ubuntu/}. However, it is advised that the following instructions are followed as there are some project specific changes that have been made.
+\subsection{Configure NTP Server on the Remote PC} 
+Open Terminal and run the following commands \textbf{on the remote PC}
+\begin{lstlisting}
+	sudo apt-get update
+	sudo apt-get install ntp
+\end{lstlisting}
+Most likely NTP will already be installed on the machine. After installation, the configuration file needs to be altered and server pools closest to the PC location needs to be added. This step is optional, as most likely the servers will be configured correctly.
+\begin{lstlisting}
+	sudo gedit /etc/ntp.conf
+\end{lstlisting}
+Replace/edit the server pools with the following.
+\begin{lstlisting}
+	pool 0.us.pool.ntp.org iburst
+	pool 1.us.pool.ntp.org iburst
+	pool 2.us.pool.ntp.org iburst
+	pool 3.us.pool.ntp.org iburst
+\end{lstlisting}
+Save and close the configuration file. In order for the above changes to take effect, you need to restart the NTP server. The time from these servers will be synced with the time on the remote PC. as it has internet access. This will make sure that the NTP server clock is accurate.
+\begin{lstlisting}
+    sudo service ntp restart
+\end{lstlisting}
+Run the following command to check if the NTP server is configured properly. You should see the remote PC connecting to various servers.
+\begin{lstlisting}
+    sudo service ntp status
+\end{lstlisting}
+Finally, the system’s UFW firewall needs to be configured so that incoming connections can access the NTP server at UDP Port number 123. This is the most important step, as it will configure the remote PC to allow client connections.
+\begin{lstlisting}
+    sudo ufw allow from any to any port 123 proto udp
+\end{lstlisting}
+Now the Ubuntu host machine is configured to be used as an NTP server. Please take a note of the IP address of the remote PC \underline{when it is connected to the appropriate router.} IP address of a machine depends on which router it is connected to, and hence is not constant. We will need this address in the next step.
+\subsection{Configure NTP Client on the SBC}
+The \texttt{ntpdate} command will let you manually check your connection configuration with the NTP-server. Only in this case, the server would be the one that we specify. It should already be installed on the SBC, but in case it is not, run the following command \textbf{on the SBC}.
+\begin{lstlisting}
+    sudo apt-get install ntpdate
+\end{lstlisting}
+As the SBC will be a client to the host we set up on the remote PC, we need to modify the hosts file for NTP.
+\begin{lstlisting}
+    sudo gedit /etc/hosts
+\end{lstlisting}
+Now add your NTP server’s IP (remote PC IP address noted in the previous step) and specify a hostname. Assuming that the remote PC IP address is \texttt{192.168.1.183} and the server has to be named \texttt{ACSLServer}, add the following line to this file:
+\begin{lstlisting}
+    192.168.1.183	ACSLServer
+\end{lstlisting}
+Save and close the NTP hosts file. Because we want our client to sync time with the NTP server, the \texttt{timesyncd} service on the client machine needs to be disabled by running the following command.
+\begin{lstlisting}
+	sudo timedatectl set-ntp off
+\end{lstlisting}
+Now, we need to specify this NTP server on the remote PC in the NTP configuration file of the client. If \texttt{NTP} is not installed install it using the following command.
+\begin{lstlisting}
+	sudo apt-get install ntp
+\end{lstlisting}
+Now we want our client machine to use our own NTP host server to be used as the default time server. For this, we need to edit the \texttt{/etc/ntp.conf} file on the client machine.
+\begin{lstlisting}
+	sudo nano /etc/ntp.conf
+\end{lstlisting}
+Add the following line to the file before the list of other servers. There should be a comment indicating the location where new servers can be added, although this is only for readability and functionality shouldn't be affected.
+\begin{lstlisting}
+	server ACSLServer prefer iburst
+\end{lstlisting}
+Finally restart the \texttt{NTP} service and the time should be synced.
+\begin{lstlisting}
+	sudo service ntp restart
+\end{lstlisting}
+Now your client and server machines are configured to be time-synced. You can view the time synchronization queue by running the following command:
+\begin{lstlisting}
+ntpq -p
+\end{lstlisting}
+If \texttt{ACSLServer} is seen in the list of servers then the client is properly configured.\\
+Finally the timezone needs to be set on the SBC to \texttt{America/New-York}. On the Odroid XU4 running \texttt{Ubuntu} with \texttt{MATE} desktop, it is a simple command line instruction as follows.
+\begin{lstlisting}
+	sudo timedatectl set-timezone America/New-York
+\end{lstlisting}
+This command may not work on the Raspberry Pi 3B+, but the timezone can be changed using the \texttt{raspi-config} utility.\\
+Once the timezones are set, the SBCs are configured properly.
+\newpage
+\section{Bring up the Turtlebot}
+Once the remote PC and Raspberry PI are setup according to the instructions provieded in the previous sections, 
+Follow the instructions below to bring up turtlebot.  \\
+On Remote PC
+\begin{lstlisting}[style=bash]
+    roscore
+\end{lstlisting}
+On SBC
+\begin{lstlisting}[style=bash]
+    roslaunch turtlebot3_bringup turtlebot3_robot.launch
+\end{lstlisting}
 
+On Remote PC, once you followed the instructions for building the workspace and setting up the environment variables,  
+load the environment variables related to this workspace (Note: This has to be done everytime you want to run something from this workspace from a new termianl)
+\begin{lstlisting}[style=bash]
+cd ASCL_turtlebot3/
+source devel/setup.bash
+\end{lstlisting}
+
+To run teleop to control the Turtlebot with keyboard.
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+\end{lstlisting}
+
+To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on the physical robot. 
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_bringup turtlebot3_physical_nav_control.launch 
+\end{lstlisting}
+
+To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_bringup turtlebot3_sim_nav_control.launch 
+\end{lstlisting}
+
+To run SLAM only to draw maps
+Choose a pre-defined Gazebo world from the following:
+
+\begin{itemize}
+    \item[--] turtlebot3\_empty\_world.launch
+    \item[--] turtlebot3\_world.launch
+    \item[--] turtlebot3\_house.launch
+    \item[--] turtlebot3\_stage\_1.launch
+    \item[--] turtlebot3\_stage\_2.launch
+    \item[--] turtlebot3\_stage\_3.launch 
+    \item[--] turtlebot3\_stage\_4.launch
+\end {itemize}
+For example, if \textbf{turtlebot3\_world.launch} is chosen, run the following command to bring up a virtual Turtlebot on Gazebo for simulation
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
+\end{lstlisting}
+\newpage
+Then, run the following commands to launch the SLAM nodes and remote control using keyboard. 
+\begin{lstlisting}[style=bash]
+roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+\end{lstlisting}
+Once you are satisfied with the map, save the map by running
+\begin{lstlisting}[style=bash]
+rosrun map_server map_saver -f ~/map
+\end{lstlisting}
+% TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
+% TODO: add graph from tf view_frams to illustrate the TF tree 
 \newpage
 \section{Repository Introduction}
 The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentio ning ones are:
@@ -384,194 +522,66 @@ To control the left and right wheel joint using effort command in the simulation
 A configuration file was added to make commanding effort to left and right wheel joints in Gazebo simulation possible\\
 \textbf{/src/ros\_control/params/bot\_control.yaml} \\
 
-\newpage
+\section{Turtlebot Graphical User Interface}
+This section documents the graphical user interface for manipulating the TurtleBot3 in both real world and simulated environments. It contains descriptions for each graphical widget and code documentation. The turtlegui package contains all of the c++ scripts and dependency files responsible for the interface. And once the package is appropriately sourced via the terminal, it can be run with the following command:\\
 
-\section{Bring up the Turtlebot}
-Once the remote PC and Raspberry PI are setup according to the instructions provieded in the previous sections, 
-Follow the instructions below to bring up turtlebot.  \\
-On Remote PC
 \begin{lstlisting}[style=bash]
-    roscore
+rosrun turtlegui turtlegui
 \end{lstlisting}
-On SBC
+\subsection{Qt}
+The interface runs on Qt, a cross-platform graphical toolkit. This module implements a variety of important classes, the first of which is QApplication. The source code for the instantiation of the Turtlebot qt application, in main.cpp, is
+
+%\lstinputlisting[style=C++, firstline=20, lastline=32]{src/main.cpp}
+The QApplication class takes care of a lot of things, most notably the input CLI arguments and the event loop. The event loop is a loop that waits for user input in GUI applications, and is launched on this command
+
+%\lstinputlisting[style=C++, firstline=29, lastline=29]{src/main.cpp}
+Another important Qt class is QWidget, which is used to describe the widgets in the interface. Widgets are the basic building blocks for a GUI application, and are able to respond to user events. All of the graphical elements in the interface inherit from the QWidget class, including QPushButton, QRadioButton, and QLineEdit. Widgets are also responsible for the handling of the signal and slot mechanism. On a high level, signals and slots are used for communication between objects. In GUI programming, when one widget changes, other widgets need to be notified of this change. Rather than hard-wiring the code that generates these events, signals and slots allow for fluid communication between objects.\\ 
+
+As seen in the line of code below, the lastWindowClosed() signal connects to the quit() slot so that when the exit button is clicked in the GUI, the program terminates.
+%\lstinputlisting[style=C++, firstline=28, lastline=28]{src/main.cpp}
+The Qt toolkit is a very useful module for handling the front-end side of programming and allows for a seamless transition to back-end code.
+
+\subsection{GUI Widget Walkthrough}
+This section gives a detailed description for each widget in main window of the interface. A screenshot of the interface can be seen below
+\begin{center}
+\includegraphics[width=0.9\linewidth]{images/gui_screenshot.JPG} \\
+\end{center}
+On startup, a ROS Master is initialized, this provides naming and registration services to the rest of the nodes in the ROS system. It tracks publishers and subscribers to topics as well as services. The role of the Master is to enable individual ROS nodes to locate one another. Once these nodes have located each other they communicate with each other peer-to-peer. All ROS commands are handled implicitly, thus requiring a single terminal window.\\
+
+The three main sections of the GUI are Model Configuration, Controller Configuration, and 2d Navigation Goal.\\
+
+\subsubsection{Model Configuration}
+The first tab contains two QRadiobuttons and one QPushButton that allow the user to specify and launch an environment for the Turtlebot. The simulation launches Gazebo and RVIZ instances for visualization. This is accomplished by running this ROS command:
+%\lstinputlisting[style=C++, firstline=156, lastline=157]{src/main_window.cpp}
+The ROS launch command is blocking, which means once it is executed, another terminal window must be opened to run any additional commands. The ampersand at the end of the command tells the process to run in the background, allowing for more commands to be run in the same window. The real-world option uses the same syntax but launches a different package:
+%\lstinputlisting[style=C++, firstline=156, lastline=157]{src/main_window.cpp}
+
+Once an environment is loaded, never before, the dynamics and path of the turtlebot can be manipulated as seen in the following sections. Since there are multiple ROS processes running in the same terminal, ROS has trouble shutting them all down properly and tends to stall the terminal. In order to expedite the shutdown, the timeout time specified in following file was modified:
+
 \begin{lstlisting}[style=bash]
-    roslaunch turtlebot3_bringup turtlebot3_robot.launch
+/opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py
 \end{lstlisting}
 
-On Remote PC, once you followed the instructions for building the workspace and setting up the environment variables,  
-load the environment variables related to this workspace (Note: This has to be done everytime you want to run something from this workspace from a new termianl)
-\begin{lstlisting}[style=bash]
-cd ASCL_turtlebot3/
-source devel/setup.bash
-\end{lstlisting}
+\subsubsection{Controller Configuration}
+This section allows the user to manipulate the parameters of the turtlebot. Again it contains two QRadiobuttons and one QPushButton for configuring the controller for the Turtlebot. It is important to note that only the PID controller option has been implemented, the Adaptive Controller does not do anything. The update controller parameters button runs on rqt, a software framework of ROS that implements the various GUI tools in the form of plugins. More specifically it uses an rqt metapackage called rqt\_gui, which allows multiple rqt plugins to be docked in a single window. The command that handles the instantiation and reference to this framework is:
+%\lstinputlisting[style=C++, firstline=162, lastline=163]{src/main_window.cpp}
+This launches a new window for viewing all ROS nodes and topics, configuring the PID parameters, and graphically analyzing the error of the PID controller. A screenshot of the window is shown below
+\begin{center}
+\includegraphics[width=0.9\linewidth]{images/Screenshot from 2020-08-11 11-47-41.png} \\
+\end{center}
 
-To run teleop to control the Turtlebot with keyboard.
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
-\end{lstlisting}
+\subsubsection{2d Navigation Goal}
+The turtlebot is able to follow one or more precise waypoints specified by the user via the 2D Navigation Goal section of the interface. Option 1 allows for the publishing of a single waypoint while option 2 lets the user browse for a csv file containing a list of waypoints. The trajectory path inherits the QStringListModel class that keeps track of the robot's current path. Once either option is chosen, the trajectory path will be updated. The clear\_path button simply removes all items from the trajectory path. To get the Turtlebot to actually start moving and following the path, the publish\_path button must be pressed.\\ 
 
-To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on the physical robot. 
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_bringup turtlebot3_physical_nav_control.launch 
-\end{lstlisting}
+This button utilizes the follow\_waypoints package, which handles the low-level robot communication for following a path. Three critical ROS commands are executed, the first of which can be seen below.
 
-To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_bringup turtlebot3_sim_nav_control.launch 
-\end{lstlisting}
+%\lstinputlisting[style=C++, firstline=82, lastline=83]{src/main_window.cpp}
 
-To run SLAM only to draw maps
-Choose a pre-defined Gazebo world from the following:
+This creates three ROS topics, /initialpose, /path\_ready, and /path\_reset. The /path\_reset topic is published when the clear path button is clicked. The input trajectory path is published to the /initialpose topic. This topic is of type geometry\_msgs/PoseWithCovarianceStamped, thus the messages published to this topic have to be of this type. This message type contains two fields, std\_msgs/Header header and geometry\_msgs/PoseWithCovariance pose. The former field is just used for communicate timestamped data in a particular coordinate frame. The latter has two more implicit fields, geometry\_msgs/Pose pose and float64[36] covariance. The pose field represents a pose in free space with uncertainty. The covariance field is a row-major representation of the 6x6 covariance matrix, which specifies the uncertainty of the pose field. The pose field has two more implicit fields, geometry\_msgs/Point position and geometry\_msgs/Quaternion orientation. The former contains the position of a point in free space, with fields: float64 x, float64 y, float64 z. The latter represents an orientation in free space in quaternion form, with fields float64 x, float64 y, float64 z, float64 w. By default, the covariance, orientation, and pose.z are all zero, thus the user only needs to specify an x and y position. It is important to note that if the specified goal is not close to current position of the Turtlebot, it will not move. The trajectory.csv file can be used to get an idea of the coordinate pairs the Turtlebot will be able to move to.\\
 
-\begin{itemize}
-    \item[--] turtlebot3\_empty\_world.launch
-    \item[--] turtlebot3\_world.launch
-    \item[--] turtlebot3\_house.launch
-    \item[--] turtlebot3\_stage\_1.launch
-    \item[--] turtlebot3\_stage\_2.launch
-    \item[--] turtlebot3\_stage\_3.launch 
-    \item[--] turtlebot3\_stage\_4.launch
-\end {itemize}
-For example, if \textbf{turtlebot3\_world.launch} is chosen, run the following command to bring up a virtual Turtlebot on Gazebo for simulation
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_gazebo turtlebot3_world.launch
-\end{lstlisting}
-\newpage
-Then, run the following commands to launch the SLAM nodes and remote control using keyboard. 
-\begin{lstlisting}[style=bash]
-roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
-\end{lstlisting}
-Once you are satisfied with the map, save the map by running
-\begin{lstlisting}[style=bash]
-rosrun map_server map_saver -f ~/map
-\end{lstlisting}
-% TODO: Add figure from rqt_graph to illustrate topics and massages and connection between nodes, 
-% TODO: add graph from tf view_frams to illustrate the TF tree 
-
-\section{Syncing Time using NTP Server and Client}
-
-Raspberry Pi does not have a hardware clock, and therefore it relies on an active internet connection to fetch the accurate time from Ubuntu time server. However, this is not possible as Linksys router, which the raspberry pi will connect to over WiFi, will not have internet access.
-
-Every time pi boots up, the time has to be updated. The time on the Remote PC and the Raspeberry Pi have to be synced up in order for the various transformations to work for the purpose of running SLAM and Navigation in the ACSL Lab Environment. Hence, to sync up time between these two machines, NTP protocol is being used.
-
-NTP or Network Time Protocol is a protocol that is used to synchronize all system clocks in a network to use the same time. When we use the term NTP, we are referring to the protocol itself and also the client and server programs running on the networked computers. NTP belongs to the traditional TCP/IP protocol suite and can easily be classified as one of its oldest parts.
-
-When you are initially setting up the clock, it takes six exchanges within 5 to 10 minutes before the clock is set up. Once the clocks in a network are synchronized, the client(s) update their clocks with the server once every 10 minutes. This is usually done through a single exchange of message(transaction). These transactions use port number 123 of your system.
-
-In this section, a step-by-step procedure is described on how to:
-
-\begin{itemize}
-	\item{Install and configure the NTP server on a Ubuntu machine.}
-	\item{Configure the NTP Client to be time synced with the server.}
-\end{itemize}
-
-\subsection{Install and configure NTP Server on the host computer} 
-
-Open Terminal and run the following commands
-
-\begin{lstlisting}
-    sudo apt-get update
-    sudo apt-get install ntp
-\end{lstlisting}
-
-Most likely ntp will already be installed on the machine. After installation, the configuration file needs to be altered and server pools closest to the PC location needs to be added. This step is optional, as most likely the servers will be configured correctly.
-
-\begin{lstlisting}
-    sudo gedit /etc/ntp.conf
-\end{lstlisting}
-
-Replace the server pools with the following.
-
-\begin{lstlisting}
-    server 0.us.pool.ntp.org
-	server 1.us.pool.ntp.org
-	server 2.us.pool.ntp.org
-	server 3.us.pool.ntp.org
-\end{lstlisting}
-
-Save and close the configuration file. In order for the above changes to take effect, you need to restart the NTP server. 
-
-
-\begin{lstlisting}
-    sudo service ntp restart
-    sudo service ntp status
-\end{lstlisting}
-
-Finally, the system’s UFW firewall needs to be configured so that incoming connections can access the NTP server at UDP Port number 123.
-
-
-\begin{lstlisting}
-    sudo ufw allow from any to any port 123 proto udp
-\end{lstlisting}
-
-Now the Ubuntu host machine is configured to be used as an NTP server.
-
-\subsection{Configure NTP Client to be Time Synced with the NTP Server}
-
-The ntpdate command will let you manually check your connection configuration with the NTP-server. Only in this case, the server would be the one that we specify. It should already be installed on the SBC, but in case it is not, we need to run the following command.
-
-\begin{lstlisting}
-    sudo apt-get install ntpdate
-\end{lstlisting}
-
-As the SBC will be a client to the host we set up on the remote PC, we need to modify the hosts file for NTP.
-
-\begin{lstlisting}
-    sudo gedit /etc/hosts
-\end{lstlisting}
-
-Now add your NTP server’s IP and specify a hostname as follows in this file:
-
-\begin{lstlisting}
-    192.168.1.183 ACSLServer
-\end{lstlisting}
-
-Save and close the NTP hosts file. Running the following command will show the offset between server and client times.
-
-\begin{lstlisting}
-    sudo ntpdate ACSLServer
-\end{lstlisting}
-
-First we need to disable time sync on the client
-\begin{lstlisting}
-	systemctl stop systemd-timesyncd
-	systemctl disable systemd-timesyncd
-\end{lstlisting}
-
-Now to correct this time offset we need to configure NTP on the client machine. 
-
-If ntp is not installed install it using the following command.
-
-\begin{lstlisting}
-	sudo apt-get install ntp
-\end{lstlisting}
-
-Now we want our client machine to use our own NTP host server to be used as the default time server. For this, we need to edit the /etc/ntp.conf file on the client machine.
-
-\begin{lstlisting}
-	sudo nano /etc/ntp.conf
-\end{lstlisting}
-
-Add the following line to the list of servers
-
-\begin{lstlisting}
-	server ACSLServer prefer iburst
-\end{lstlisting}
-
-Finally restart the ntp service and the time should be synced.
-
-\begin{lstlisting}
-	sudo service ntp restart
-\end{lstlisting}
-
-Now your client and server machines are configured to be time-synced. You can view the time synchronization queue by running the following command:
-
-
-\begin{lstlisting}
-	ntpq -ps
-\end{lstlisting}
-
+Once the path is published, another ROS command is executed:
+%\lstinputlisting[style=C++, firstline=89, lastline=89]{src/main_window.cpp}
+This just publishes an empty message to /path\_ready which tells the Turtlebot to start following the path published to /initialpose. Once the Turtlebot reaches the last point in the path, it will stop moving and a new path will have to be specified. The Turtlebot always starts at the origin, and its position is continuously published to the /odom ROS topic. 
 
 \newpage
 \section{List of ROS Nodes, Topics, Parameters, Transform}
@@ -692,7 +702,7 @@ Now your client and server machines are configured to be time-synced. You can vi
       \label{tab:table2}
       \begin{tabular}{c|l}
         \textbf{Index} & \textbf{Descriptions}\\
-      
+    
       1 & \url{http://docs.ros.org/melodic/api/sensor_msgs/html/msg/CameraInfo.html} \\
       2 & Raw camera data directly from sensor \\
       3 & Compressed image \\
@@ -775,3 +785,4 @@ Now your client and server machines are configured to be time-synced. You can vi
 
 \end{landscape}
 \end{document}
+
