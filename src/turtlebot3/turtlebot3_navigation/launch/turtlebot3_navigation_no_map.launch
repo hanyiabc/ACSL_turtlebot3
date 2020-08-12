@@ -6,7 +6,7 @@
   <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
 
   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
-    <arg name="slam_methods" value="hector" />
+    <arg name="slam_methods" value="gmapping" />
     <arg name="open_rviz" value="false" />
     <arg name="configuration_basename" value="$(arg configuration_basename)"/>
   </include>

@@ -35,11 +35,11 @@ options = {
   submap_publish_period_sec = 0.3,
   pose_publish_period_sec = 5e-3,
   trajectory_publish_period_sec = 30e-3,
-  rangefinder_sampling_ratio = 0.2,
-  odometry_sampling_ratio = 0.2,
-  fixed_frame_pose_sampling_ratio = 0.2,
-  imu_sampling_ratio = 0.2,
-  landmarks_sampling_ratio = 0.,
+  rangefinder_sampling_ratio = 0.5,
+  odometry_sampling_ratio = 0.5,
+  fixed_frame_pose_sampling_ratio = 0.5,
+  imu_sampling_ratio = 0.5,
+  landmarks_sampling_ratio = 0.5,
 }
 
 MAP_BUILDER.use_trajectory_builder_2d = true
@@ -47,7 +47,7 @@ MAP_BUILDER.use_trajectory_builder_2d = true
 TRAJECTORY_BUILDER_2D.min_range = 0.1
 TRAJECTORY_BUILDER_2D.max_range = 3.5
 TRAJECTORY_BUILDER_2D.missing_data_ray_length = 3.
-TRAJECTORY_BUILDER_2D.use_imu_data = true
+TRAJECTORY_BUILDER_2D.use_imu_data = false
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
 TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = math.rad(0.1)
 
