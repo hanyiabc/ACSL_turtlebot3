@@ -44,15 +44,21 @@ void QNode::button_publish_path_pressed(std::vector<geometry_msgs::PoseWithCovar
 
 void QNode::run() {
 
-	for(int i = 0; i < pub_msg.size(); i++)
+	ros::Rate loop_rate1(0.5);
+	loop_rate1.sleep();
+	ros::Rate loop_rate(10);
+
+	int i = 0;
+	while (ros::ok() && i < pub_msg.size())
 	{
+		
 		path_publisher.publish(pub_msg[i]);
-		ros::Duration(4.0).sleep();
+		ros::spinOnce();
+		loop_rate.sleep();
+		i++;
 	}
 
-	system("rostopic pub /path_ready std_msgs/Empty -1 &");		//tells Turtlebot to start moving
-	ros::spinOnce();
-
+	system("rostopic pub /path_ready std_msgs/Empty -1 &");
 }
 
 }  // namespace turtlegui
