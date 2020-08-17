@@ -2,8 +2,8 @@
 Repo for ASCL_turtlebot3 code base
 
 # Turtlebot
-Original Author: Walter Peregrim
-Edited by: Yi Han, Adwait Verulkar
+Original Author: [Walter Peregrim](https://github.com/walterperegrim)
+Edited by: [Yi Han](https://github.com/hanyiabc), [Adwait Verulkar](https://github.com/adwaitverulkar), [Casper Gleich](https://github.com/CasperGleich)
 
 # Install dependencies
 The following dependencies need to be installed on the Remote PC in addition to ROS Melodic before the repository can be compiled without errors.
