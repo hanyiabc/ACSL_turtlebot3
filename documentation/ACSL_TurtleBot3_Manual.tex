@@ -89,6 +89,14 @@
 }
 
 \title{ACSL TurtleBot3 e-Manual}
+\author{
+\begin{tabular}{ccc}
+Adwait Verulkar & \hspace{0.2in} &\texttt{adwaitverulkar@vt.edu}\\
+Yi Han & \hspace{0.2in} &\texttt{hanyi@vt.edu}\\
+Walter Peregrim & \hspace{0.2in} &\texttt{peregrim@vt.edu}\\
+Casper Gleich & \hspace{0.2in} &\texttt{casper1@vt.edu}
+\end{tabular}
+}
 
 \date{June 2020}
 \renewcommand\thesection{\arabic{section}}
@@ -100,7 +108,8 @@
     \begin{titlepage}
         \begin{center}
             \includegraphics[width=0.7\linewidth]{images/ACSL_Logo.jpg}\\[4ex]
-            {\huge \bfseries  \@title }\\[52ex]  
+            {\huge \bfseries  \@title}\\[12ex] 
+            {\large \@author}\\[52ex]  
             {\large \@date}
         \end{center}
     \end{titlepage}
@@ -193,15 +202,8 @@ Ubuntu Desktop 18.04 comes with VNC client Remmina.
 On Windows, use VNC viewer
 \url{https://www.realvnc.com/en/connect/download/viewer/}
 \subsection{OpenCR Setup}
-
-Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.
-
-The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software such as Simulink or a custom ROS node.
-
-The source code for OpenCR can be downloaded by cloning the following repository.
-
-\url {https://github.com/hanyiabc/ACSL_turtlebot3.git}
-
+Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.\\
+The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software, which is a custom ROS PID node in this case.\\
 Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.
 
 \url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
