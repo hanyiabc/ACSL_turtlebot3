@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  17 AUG 2020 14:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  17 AUG 2020 15:00
 entering extended mode
 **./ACSL_TurtleBot3_Manual.tex
 (ACSL_TurtleBot3_Manual.tex
@@ -806,10 +806,6 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 937.
 Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
 
 (rerunfilecheck)             Checksum: 8155E3D860D4149D33C66A1495D7A2E3;2415.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 937.
  ) 
 Here is how much of TeX's memory you used:
@@ -833,7 +829,7 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users
 <C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt8.pfb><C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmtt9.pfb>
-Output written on ACSL_TurtleBot3_Manual.pdf (39 pages, 13791556 bytes).
+Output written on ACSL_TurtleBot3_Manual.pdf (39 pages, 13791552 bytes).
 PDF statistics:
  1298 PDF objects out of 1440 (max. 8388607)
  794 named destinations out of 1000 (max. 500000)
