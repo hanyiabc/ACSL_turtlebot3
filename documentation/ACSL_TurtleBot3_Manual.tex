@@ -937,8 +937,10 @@ rosed turtlebot3_bringup turtlebot3_robot.launch
 \end{lstlisting}
 The file should look something like this.
 \lstinputlisting[style=XML, firstline=1, lastline=13]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_robot.launch}
-Copy the following lines from the \texttt{turtlebot3\_control.launch} file, and append it to the above file before the end tag \texttt{</launch>}.\\
-\lstinputlisting[style=XML, firstline=3, lastline=37]{../src/ros_control/launch/turtlebot3_control.launch}
+Add the following line to this file before the end tag \texttt{</launch>}.
+\begin{lstlisting}[style=XML]
+<include file="$(find ros_control)/launch/turtlebot3_control.launch"/>
+\end{lstlisting}
 Finally, edit the launch file \texttt{turtlebot3\_physical\_nav\_control.launch} located in the \texttt{turtlebot3\_bringup} package in the Remote PC and remove the following line from the file.
 \lstinputlisting[style=XML, firstline=4, lastline=4]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_physical_nav_control.launch}
 This should enable \texttt{ros-pid} node and associated custom nodes to run on the SBC.
