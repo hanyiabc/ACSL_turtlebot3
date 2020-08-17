@@ -493,7 +493,7 @@ Simply do a manula update using NTP before lanuching will solve this issue.\\
 To manually update the time and date using NTP (run this on the SBC instead of the remote PC and replace IP\_ADDRESS\_OF\_THE\_REMOTE\_PC with the IP address of the remote PC):
 
 \begin{lstlisting}[style=bash]
-    ntpdate -u IP_ADDRESS_OF_THE_REMOTE_PC
+    sudo ntpdate -u IP_ADDRESS_OF_THE_REMOTE_PC
 \end{lstlisting}
 
 To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
@@ -595,7 +595,7 @@ The localizatin is provide by SLAM instaed of Adaptive Monte Carlo Localizatin. 
 localizatin is provided by AMCL. 
 
 \textbf{turtlebot3\_slam} contains all the configurations and launch files related to running SLAM. 
-Several SLAM algorithms are pre-configured and supporeted but only Gmapping and Cartographer are tested, feel free to test other SLAM algorithms. \\
+Several SLAM algorithms are pre-configured and supporeted but only Gmapping and *Cartographer are tested, feel free to test other SLAM algorithms. \\
 \textbf{turtlebot3\_teleop} containes the node and launch file necessary for keyboard teleop (using keyboad to control the turtlebot). \\
 \textbf{turtlebot3\_core} derives from the original package from the OpenCR library. This is an Arduino sketch and this program is running in the OpenCR microcontroller. This package handles every low-level operation of the physical turtlebot.
 That includes reading sensor information, commanding motor torque, reading encoder information, etc. \\
@@ -607,6 +607,12 @@ This package added the options to set the servos to torque control opearting mod
 
 \textbf{turtlebot3\_gazebo} in located under \textbf{turtlebot3\_simulations}. This package contains all the Gazebo related files necessary for running simulation with Gazebo. 
 It contains a few pre-configured Gazebo world and 3D model for each model of the turtlebot. 
+
+Note: we are encoutering problems running Cartographer with Turtlebot because it enforces a timestamp constraint on the incoming messages. 
+The IMU messages in particular could have same timestamp in 2 consecutive messages, which caues the Cartographer node to throw an exception. 
+A potential fix is to change the source code of Cartographer and make it use "more than or equal" to check the timestamp instead of using "more than".
+Gmapping works totally fine for us. We have only faced these issue when running SLAM with no initial map and with SLAM's built-in localization. 
+We expect that the problems will be gone once we use SLAM for mapping only and then save the map, the uses AMCL for localizatin. 
 
 \section{Torque Control using Dynamixel}
        
@@ -808,16 +814,17 @@ This just publishes an empty message to /path\_ready which tells the Turtlebot t
 
 % TODO: Mising a few
 \begin{itemize}
-    \item[--] /differential\_driver
+    \item[--] /differential\_driver 
     \item[--] /left\_wheel/pid\_left\_node
-    \item[--] /message\_redirect
-    \item[--] /move\_base
-    \item[--] /odom\_pub
+    \item[--] /message\_redirect (used for generating PID feedback)
+    \item[--] /move\_base (navigation stack node)
+    \item[--] /odom\_pub (simulation only)
     \item[--] /right\_wheel/pid\_right\_node
     \item[--] /robot\_state\_publisher
     \item[--] /rviz
-    \item[--] /turtlebot3\_slam\_gmapping
-    \item[--] /follow\_waypoints 
+    \item[--] /turtlebot3\_slam\_gmapping (name will be changed based on the SLAM algorithm) 
+    \item[--] /follow\_waypoints (node for following waypoints)
+    \item[--] /turtlebot\_3\_core (physical robot only)
 \end{itemize} 
 
 \subsection{List of Topics and Their Types}
@@ -980,13 +987,15 @@ This just publishes an empty message to /path\_ready which tells the Turtlebot t
       & costmap\_common\_params\_waffle\_pi\_effort\_controller.yaml \\
       Global costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/global\_costmap\_params.yaml \\
       Local costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/local\_costmap\_params.yaml \\
-      SLAM Method & src/turtlebot3/turtlebot3\_navigation/launch/turtlebot3\_navigation\_no\_map.launch
+      SLAM Method * & src/turtlebot3/turtlebot3\_navigation/launch/turtlebot3\_navigation\_no\_map.launch \\
 
 
       \end{tabular}
     \end{center}
   \end{table}
-
+  
+  * To change SLAM algorithm, change the "slam\_methods" value to the desired SLAM algorithm.
+  \lstinputlisting[style=XML, firstline=9, lastline=9]{../src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation_no_map.launch}
 
 \begin{landscape}
 \newpage

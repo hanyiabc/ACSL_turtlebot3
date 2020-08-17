@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  17 AUG 2020 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  17 AUG 2020 14:55
 entering extended mode
 **"e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
 ("e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/ACSL_TurtleBot3_Manual.tex"
@@ -456,13 +456,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 603--607
 <images/dxl_eeprom.png, id=354, 428.802pt x 500.46976pt>
 File: images/dxl_eeprom.png Graphic file (type png)
 <use images/dxl_eeprom.png>
-Package pdftex.def Info: images/dxl_eeprom.png  used on input line 623.
+Package pdftex.def Info: images/dxl_eeprom.png  used on input line 629.
 (pdftex.def)             Requested size: 354.12144pt x 413.32028pt.
 [14]
 <images/dxl_control_table.png, id=359, 483.60675pt x 357.7365pt>
 File: images/dxl_control_table.png Graphic file (type png)
 <use images/dxl_control_table.png>
-Package pdftex.def Info: images/dxl_control_table.png  used on input line 647.
+Package pdftex.def Info: images/dxl_control_table.png  used on input line 653.
 (pdftex.def)             Requested size: 505.89pt x 374.22607pt.
  [15 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/dxl_eeprom.png>] ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -471,7 +471,7 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) ("C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty"
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 652.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 658.
  (../src/turtlebot3_setup_motor/turtlebot3_setup_motor.ino
 consecutive:
 [16 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/dxl_control_table.png>]) (../src/turtlebot3_setup_motor/turtlebot3_setup_motor.ino
@@ -486,7 +486,7 @@ consecutive:
 <images/xm430_performance.png, id=533, 274.626pt x 247.52475pt>
 File: images/xm430_performance.png Graphic file (type png)
 <use images/xm430_performance.png>
-Package pdftex.def Info: images/xm430_performance.png  used on input line 672.
+Package pdftex.def Info: images/xm430_performance.png  used on input line 678.
 (pdftex.def)             Requested size: 505.89pt x 455.96472pt.
  [19] (../src/turtlebot3_core/turtlebot3_motor_torque_driver.cpp
 consecutive:
@@ -495,12 +495,12 @@ consecutive:
 ) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (../src/ros_control/src/differential_driver.py [21]) (../src/ros_control/src/odom_publisher.cpp [22] [23] [24])
-Underfull \hbox (badness 10000) in paragraph at lines 693--696
+Underfull \hbox (badness 10000) in paragraph at lines 699--702
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 697--698
+Underfull \hbox (badness 10000) in paragraph at lines 703--704
 
  []
 
@@ -509,7 +509,7 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) ("C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty"
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
-Underfull \hbox (badness 10000) in paragraph at lines 699--700
+Underfull \hbox (badness 10000) in paragraph at lines 705--706
 
  []
 
@@ -524,7 +524,7 @@ LaTeX Font Info:    Font shape `OML/cmr/bx/n' in size <10> not available
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 219.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 702--703
+Underfull \hbox (badness 10000) in paragraph at lines 708--709
 
  []
 
@@ -533,12 +533,12 @@ consecutive:
 [25]) (../src/turtlebot3/turtlebot3_description/urdf/turtlebot3_waffle_pi_effort_controller.gazebo.xacro
 consecutive:
 )
-Underfull \hbox (badness 10000) in paragraph at lines 706--708
+Underfull \hbox (badness 10000) in paragraph at lines 712--714
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 710--711
+Underfull \hbox (badness 10000) in paragraph at lines 716--717
 
  []
 
@@ -547,7 +547,7 @@ consecutive:
 [26]) (../src/turtlegui/src/main.cpp
 consecutive:
 )
-Underfull \hbox (badness 10000) in paragraph at lines 724--725
+Underfull \hbox (badness 10000) in paragraph at lines 730--731
 
  []
 
@@ -557,15 +557,15 @@ consecutive:
 <images/gui_screenshot.png, id=944, 706.89093pt x 546.54187pt>
 File: images/gui_screenshot.png Graphic file (type png)
 <use images/gui_screenshot.png>
-Package pdftex.def Info: images/gui_screenshot.png  used on input line 733.
+Package pdftex.def Info: images/gui_screenshot.png  used on input line 739.
 (pdftex.def)             Requested size: 455.2979pt x 352.0206pt.
  [27]
-Underfull \hbox (badness 10000) in paragraph at lines 735--736
+Underfull \hbox (badness 10000) in paragraph at lines 741--742
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 737--738
+Underfull \hbox (badness 10000) in paragraph at lines 743--744
 
  []
 
@@ -579,22 +579,22 @@ consecutive:
 <images/rqt_gui.png, id=978, 2569.6pt x 1445.4pt>
 File: images/rqt_gui.png Graphic file (type png)
 <use images/rqt_gui.png>
-Package pdftex.def Info: images/rqt_gui.png  used on input line 757.
+Package pdftex.def Info: images/rqt_gui.png  used on input line 763.
 (pdftex.def)             Requested size: 455.2979pt x 256.10265pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 762--769
+Underfull \hbox (badness 10000) in paragraph at lines 768--775
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 771--777
+Underfull \hbox (badness 10000) in paragraph at lines 777--783
 
  []
 
 [29 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/rqt_gui.png>] (../src/turtlegui/src/main_window.cpp
 consecutive:
 )
-Underfull \hbox (badness 10000) in paragraph at lines 783--799
+Underfull \hbox (badness 10000) in paragraph at lines 789--805
 
  []
 
@@ -605,7 +605,7 @@ consecutive:
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (21.81226pt too wide) in paragraph at lines 921--956
+Overfull \hbox (21.81226pt too wide) in paragraph at lines 928--963
  [] 
  []
 
@@ -613,47 +613,49 @@ Overfull \hbox (21.81226pt too wide) in paragraph at lines 921--956
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (53.51134pt too wide) in paragraph at lines 965--987
+Overfull \hbox (53.51134pt too wide) in paragraph at lines 972--994
  [] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[32] [33] [34]
-<images/rosgraph.png, id=1014, 2893.05844pt x 1197.72469pt>
+(../src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation_no_map.launch
+consecutive:
+) [32] [33] [34]
+<images/rosgraph.png, id=1016, 2893.05844pt x 1197.72469pt>
 File: images/rosgraph.png Graphic file (type png)
 <use images/rosgraph.png>
-Package pdftex.def Info: images/rosgraph.png  used on input line 995.
+Package pdftex.def Info: images/rosgraph.png  used on input line 1004.
 (pdftex.def)             Requested size: 686.56499pt x 284.22498pt.
  [35 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/rosgraph.png>]
-<images/frames-1.png, id=1020, 6198.15625pt x 2844.6275pt>
+<images/frames-1.png, id=1022, 6198.15625pt x 2844.6275pt>
 File: images/frames-1.png Graphic file (type png)
 <use images/frames-1.png>
-Package pdftex.def Info: images/frames-1.png  used on input line 1002.
+Package pdftex.def Info: images/frames-1.png  used on input line 1011.
 (pdftex.def)             Requested size: 686.56499pt x 315.08026pt.
  [36 <e:/OneDrive - Virginia Tech/Projects/summer2020/ASCL_turtlebot3/documentation/images/frames-1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1006.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1006.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1015.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1015.
  ("e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1006.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1006.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1015.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1015.
 Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
 (rerunfilecheck)             Checksum: 7D77337021AF48995EE1068C3AAE3BC8;2317.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1006.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1015.
  ) 
 Here is how much of TeX's memory you used:
- 9809 strings out of 480790
- 148085 string characters out of 2907035
+ 9822 strings out of 480790
+ 148647 string characters out of 2907035
  630857 words of memory out of 3000000
- 24867 multiletter control sequences out of 15000+200000
+ 24872 multiletter control sequences out of 15000+200000
  538910 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,9n,69p,820b,2116s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\AngelofDeath\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on "e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.pdf" (37 pages, 13724178 bytes).
+Output written on "e:/OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.pdf" (37 pages, 13725751 bytes).
 PDF statistics:
- 1218 PDF objects out of 1440 (max. 8388607)
- 740 named destinations out of 1000 (max. 500000)
+ 1220 PDF objects out of 1440 (max. 8388607)
+ 742 named destinations out of 1000 (max. 500000)
  309 words of extra memory for PDF output out of 10000 (max. 10000000)
 
