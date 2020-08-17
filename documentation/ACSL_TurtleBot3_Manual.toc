@@ -10,7 +10,7 @@
 \contentsline {section}{\numberline {2}Setting up Wireless File Sharing on an SBC Running Ubuntu}{6}{section.2}%
 \contentsline {section}{\numberline {3}Replacing the Raspberry Pi with an alternate SBC}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Hardware Changes}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Software}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Software}{7}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}ROS}{8}{subsection.3.3}%
 \contentsline {section}{\numberline {4}Syncing Time using NTP Server and Client}{9}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Configure NTP Server on the Remote PC}{9}{subsection.4.1}%
@@ -29,3 +29,4 @@
 \contentsline {subsection}{\numberline {9.2}List of Topics and Their Types}{31}{subsection.9.2}%
 \contentsline {subsection}{\numberline {9.3}List of Important Topics and Descriptions}{32}{subsection.9.3}%
 \contentsline {subsection}{\numberline {9.4}List of Important Parameters and How to Find Them}{32}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Transferring PID Controller to SBC [Experimental Future Work]}{37}{section.10}%

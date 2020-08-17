@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{lscape}
 \usepackage[margin=0.75in]{geometry}
+\usepackage{soul}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -204,170 +205,73 @@ On Windows, use VNC viewer
 \subsection{OpenCR Setup}
 Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.\\
 The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software, which is a custom ROS PID node in this case.\\
-Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.
-
-\url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
+Arduino IDE can be used to burn the \texttt{turtlebot3\_core.ino} file located in \texttt{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.\\\\
+\url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}\\\\
+Once Arduino is setup, launch it and check if the port settings are correctly configured.
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{images/arduino_setup.png}\\
+\end{center}
+Connect OpenCR via microUSB to the PC and flash the firmware using this button.\\
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{images/arduino_flash.png}\\
+\end{center}
 \newpage
 \section{Setting up Wireless File Sharing on an SBC Running Ubuntu}
-
-
-The protocol we will be using to share files via wifi is called Samba. To install it follow these steps on the selected SBC.
-
-
+This section is optional. If there are frequent changes to the OpenCR firmware then it makes more sense to flash it using the SBC. However, as there is no internet access in the lab for the TurtleBot SBC, the required binary files need to be transferred over WiFi. The software we will be using to share files via WiFi is called Samba. To install it follow these steps on the selected SBC.
 \begin{lstlisting}
-
-    sudo apt update
-
-    sudo apt install samba
-
+sudo apt update
+sudo apt install samba
 \end{lstlisting}
-
-
 Next, pick the directory you would like to share and copy its path. In this example I will use the \textbf{/odroid/home} directory.
-
 Now open the samba configuration folder. 
-
-
 \begin{lstlisting}
-
-   sudo nano /etc/samba/smb.conf
-
+sudo nano /etc/samba/smb.conf
 \end{lstlisting}
-
-
 Add the following to the end of the document. \textbf{"/odroid/home"} should be entered with the desired share directory.
-
-
 \begin{lstlisting}
-
-    [sambashare]
-
-       comment = Samba on Ubuntu
-
-       path = /odroid/home
-
-       read only = no
-
-       browsable = yes
-
-
+[sambashare]
+comment = Samba on Ubuntu
+path = /odroid/home
+read only = no
+browsable = yes
 \end{lstlisting}
-
-
-Press Ctrl-X, Y, and Enter to save.
-
+Press Ctrl-X, Y, and Enter to save.\\
 Next add the firewall rules for Samba.
-
-
-
 \begin{lstlisting}
-
-    sudo service smbd restart
-
-    sudo ufw allow samba
-
-
+sudo service smbd restart
+sudo ufw allow samba
 \end{lstlisting}
-
-
 Finally setup a user for the Sambashare. This will need to match the name of an account already on the SBC. For this example I will use the \textbf{“Odroid”} user with password \textbf{1234}.
-
-
 \begin{lstlisting}
-
-	
-
-    sudo smbpasswd -a Odroid
-
-    Please Enter Password: 1234
-
-    Retype Password : 1234
-
-
+sudo smbpasswd -a Odroid
+Please Enter Password: 1234
+Retype Password : 1234
 \end{lstlisting}
-
-
-The folder should now be accessible from any device on the same network. To access it go to \textbf{file manager, other locations} and enter this network address
-
-smb://(ip-address of sbc)/sambashare
-
+The folder should now be accessible from any device on the same network. To access it go to \textbf{file manager, other locations} and enter this network address\\\\
+smb://(ip-address of sbc)/sambashare\\\\
 A prompt will appear for entering the user name and password you just setup.
-
-
-
 \newpage
-
 \section{Replacing the Raspberry Pi with an alternate SBC}
-
-
 \subsection{Hardware Changes}
-
-
-Before starting, you will need to attach an additional USB wi-fi device, as well as modify the OpenCR power output cable to fit the J5 barrel connector used by the Odroid. The 5v output port used for the Raspberry Pi will work for the Odroid if the connector is modified.\\
-
-
-
-
-
-
-\includegraphics[width=0.7\linewidth]{images/WIFI_chip.jpg}\\
-
-
-\includegraphics[width=0.7\linewidth]{images/DC_power_cable.jpg}\\
-
-
-\includegraphics[width=0.7\linewidth]{images/ODROID_top.jpg}\\
-
-           
-
-
-The Odroid XU4 has 2 modes for booting from memory. The micro SD card and the eMMMC memory chips. There is a switch near the power port for switching between these 2 modes
-
-
+Before starting, you will need to attach an additional USB wi-fi device, as well as modify the OpenCR power output cable to fit the J5 barrel connector used by the Odroid. The 5v output port used for the Raspberry Pi will work for the Odroid if the connector is modified.\\\\
+\includegraphics[width=0.5\linewidth]{images/WIFI_chip.jpg}
+\includegraphics[width=0.5\linewidth]{images/DC_power_cable.jpg}\\
+The Odroid XU4 has 2 modes for booting from memory. The micro SD card and the eMMMC memory chips. There is a switch near the power port for switching between these 2 modes\\
+\begin{center}
+\includegraphics[width=0.75\linewidth]{images/ODROID_top.jpg}\\
+\end{center}
 \subsection{Software}
-
-
-First you will need to flash a bootable ubuntu 16.04 OS onto the chosen memory device.
-
-A suitable version can be found at
-
- \url{
-
-  https://odroid.in/ubuntu_16.04lts/}
-
-
-
-We used the Ubuntu Mate version
-
-
- \textbf{ubuntu-16.04.3-4.9-mate-odroid-xu4-20171025.img.xz}\\
-
-
-Connect the chosen memory device, and open a flash program such as Etcher and wait for flashing to finish.
-
+First you will need to flash a bootable ubuntu 16.04 OS onto the chosen memory device.\\
+A suitable version can be found at\\\\
+\url{https://odroid.in/ubuntu_16.04lts/}\\\\
+We used the Ubuntu Mate version \textbf{ubuntu-16.04.3-4.9-mate-odroid-xu4-20171025.img.xz}\\
+Connect the chosen memory device, and open a flash program such as Etcher and wait for flashing to finish.\\
 After reconnecting the memory device, you can power up the Odroid. .The default user name is \textbf{Odroid}, and default password is also \textbf{Odroid}.\\
-
-
 \subsection{ROS}
-
-Follow the ROS wiki instructions for installing Ros-Kinetic.
-
-
-\url{
-
-http://wiki.ros.org/kinetic/Installation/Ubuntu}
-
-
-Next install the dependent packages using steps (3) through (5) of 6.2.1.1 Install Linux (Ubuntu MATE) from the turtlebot E-manual.
-
-
-\url{
-
-https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}
-
-
- 
-
+Follow the ROS wiki instructions for installing Ros-Kinetic.\\\\
+\url{http://wiki.ros.org/kinetic/Installation/Ubuntu}\\\\
+Next install the dependent packages using steps (3) through (5) of 6.2.1.1 Install Linux (Ubuntu MATE) from the turtlebot E-manual.\\
+\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}\\\\
 After finishing this step, you will be able to connect to the Odroid via SSH on the remote PC using the command line ssh odroid@192.168.xxx.xxx and using password odroid. 
 %=====================================================================%
 \newpage
@@ -1012,5 +916,32 @@ This just publishes an empty message to /path\_ready which tells the Turtlebot t
 \end{figure}
 
 \end{landscape}
+\newpage
+\section{Transferring PID Controller to SBC [Experimental Future Work]}
+The entire path planning and navigation responsibility is taken care of by the Remote PC in the current configuration of the software. The performance of the software is really good, and no network latency issues were identified. However, it is possible to transfer the control software from the Remote PC to the SBC. \textbf{This implementation has not been tested to work on the TurtleBot3.} Transferring any software from Remote PC to SBC requires three things:
+\begin{itemize}
+	\item{Compiling custom packages, if any, associated with that software in the same workspace of the stock packages.}	
+	\item{Installing required dependencies on the SBC, \ul{if they are available for the linux distro and ROS version running on the TurtleBot SBC.}}
+	\item{Changing the \texttt{*.launch} files on the remote PC and SBC}
+\end{itemize}
+The control on the TurtleBot3 is achieved through the package \texttt{ros\_control}. To run the controller on the SBC, copy the package to the \texttt{catkin\_ws} folder on the SBC. The dependencies required for the package are listed  in the \texttt{CMakeLists.txt} file.
+\lstinputlisting[style=XML, firstline=10, lastline=18]{../src/ros_control/CMakeLists.txt}
+Finally re-compile the workspace by running \texttt{catkin\_make} in the base directory (by default,\texttt{~/catkin\_ws/}).\\
+In addition to the above dependencies, the SBC should have the \texttt{ros-pid} package installed. Run the following command to install it on the SBC.
+\begin{lstlisting}[style=bash]
+sudo apt-get install ros-kinetic-pid
+\end{lstlisting}
+This completes step 1 and 2 of the process. Lastly, we need to modify the appropriate \texttt{*.launch} files. Open \texttt{turtlebot3\_robot.launch} file from the \texttt{turtlebot3\_bringup} package using the following command.
+\begin{lstlisting}[style=bash]
+rosed turtlebot3_bringup turtlebot3_robot.launch
+\end{lstlisting}
+The file should look something like this.
+\lstinputlisting[style=XML, firstline=1, lastline=13]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_robot.launch}
+Copy the following lines from the \texttt{turtlebot3\_control.launch} file, and append it to the above file before the end tag \texttt{</launch>}.\\
+\lstinputlisting[style=XML, firstline=3, lastline=37]{../src/ros_control/launch/turtlebot3_control.launch}
+Finally, edit the launch file \texttt{turtlebot3\_physical\_nav\_control.launch} located in the \texttt{turtlebot3\_bringup} package in the Remote PC and remove the following line from the file.
+\lstinputlisting[style=XML, firstline=4, lastline=4]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_physical_nav_control.launch}
+This should enable \texttt{ros-pid} node and associated custom nodes to run on the SBC.
+
 \end{document}
 
