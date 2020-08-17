@@ -88,6 +88,9 @@ INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
 INPUT C:\Program Files\MiKTeX\tex\generic\iftex\ifvtex.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\soul\soul.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\soul\soul.sty
+INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\ectt1000.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux
@@ -148,6 +151,16 @@ INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_setup.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_setup.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_setup.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_setup.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_setup.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_flash.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_flash.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_flash.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_flash.png
+INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\arduino_flash.png
 INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\WIFI_chip.jpg
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\WIFI_chip.jpg
@@ -279,6 +292,18 @@ INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentat
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\frames-1.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\frames-1.png
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\images\frames-1.png
+INPUT ..\src\ros_control\CMakeLists.txt
+INPUT ..\src\ros_control\CMakeLists.txt
+INPUT ..\src\ros_control\CMakeLists.txt
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_robot.launch
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_robot.launch
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_robot.launch
+INPUT ..\src\ros_control\launch\turtlebot3_control.launch
+INPUT ..\src\ros_control\launch\turtlebot3_control.launch
+INPUT ..\src\ros_control\launch\turtlebot3_control.launch
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_physical_nav_control.launch
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_physical_nav_control.launch
+INPUT ..\src\turtlebot3\turtlebot3_bringup\launch\turtlebot3_physical_nav_control.launch
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.aux
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out
 INPUT e:\OneDrive - Virginia Tech\Projects\summer2020\ASCL_turtlebot3\documentation\ACSL_TurtleBot3_Manual.out
