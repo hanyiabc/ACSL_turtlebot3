@@ -618,7 +618,6 @@ A configuration file was added to make commanding effort to left and right wheel
 
 \section{Turtlebot Graphical User Interface}
 This section documents the graphical user interface for manipulating the TurtleBot3 in both real world and simulated environments. It contains descriptions for each graphical widget and code documentation. The turtlegui package contains all of the c++ scripts and dependency files responsible for the interface. And once the package is appropriately sourced via the terminal, it can be run with the following command:\\
-
 \begin{lstlisting}[style=bash]
 rosrun turtlegui turtlegui
 \end{lstlisting}
@@ -626,47 +625,37 @@ rosrun turtlegui turtlegui
 The interface runs on Qt, a cross-platform graphical toolkit. 
 This module implements a variety of important classes, the first of which is QApplication. 
 The source code for the instantiation of the Turtlebot qt application, in main.cpp, is
-
 \lstinputlisting[style=C++, firstline=20, lastline=32]{../src/turtlegui/src/main.cpp}
 The QApplication class takes care of a lot of things, most notably the input CLI arguments and the event loop. The event loop is a loop that waits for user input in GUI applications, and is launched on this command
-
 \lstinputlisting[style=C++, firstline=29, lastline=29]{../src/turtlegui/src/main.cpp}
 Another important Qt class is QWidget, which is used to describe the widgets in the interface. Widgets are the basic building blocks for a GUI application, and are able to respond to user events. All of the graphical elements in the interface inherit from the QWidget class, including QPushButton, QRadioButton, and QLineEdit. Widgets are also responsible for the handling of the signal and slot mechanism. On a high level, signals and slots are used for communication between objects. In GUI programming, when one widget changes, other widgets need to be notified of this change. Rather than hard-wiring the code that generates these events, signals and slots allow for fluid communication between objects.\\ 
-
 As seen in the line of code below, the lastWindowClosed() signal connects to the quit() slot so that when the exit button is clicked in the GUI, the program terminates.
 \lstinputlisting[style=C++, firstline=28, lastline=28]{../src/turtlegui/src/main.cpp}
 The Qt toolkit is a very useful module for handling the front-end side of programming and allows for a seamless transition to back-end code.
-
 \subsection{GUI Widget Walkthrough}
 This section gives a detailed description for each widget in main window of the interface. A screenshot of the interface can be seen below
 \begin{center}
 \includegraphics[width=0.9\linewidth]{images/gui_screenshot.png} \\
 \end{center}
 On startup, a ROS Master is initialized, this provides naming and registration services to the rest of the nodes in the ROS system. It tracks publishers and subscribers to topics as well as services. The role of the Master is to enable individual ROS nodes to locate one another. Once these nodes have located each other they communicate with each other peer-to-peer. All ROS commands are handled implicitly, thus requiring a single terminal window.\\
-
 The three main sections of the GUI are Model Configuration, Controller Configuration, and 2d Navigation Goal.\\
-
 \subsubsection{Model Configuration}
 The first tab contains two QRadiobuttons and one QPushButton that allow the user to specify and launch an environment for the Turtlebot. The simulation launches Gazebo and RVIZ instances for visualization. This is accomplished by running this ROS command:
-\lstinputlisting[style=C++, firstline=156, lastline=157]{../src/turtlegui/src/main_window.cpp}
-The ROS launch command is blocking, which means once it is executed, another terminal window must be opened to run any additional commands. The ampersand at the end of the command tells the process to run in the background, allowing for more commands to be run in the same window. The real-world option uses the same syntax but launches a different package:
-\lstinputlisting[style=C++, firstline=156, lastline=157]{../src/turtlegui/src/main_window.cpp}
-
+\lstinputlisting[style=C++, firstline=105, lastline=105]{../src/turtlegui/src/main_window.cpp}
+The ROS launch command is blocking, which means once it is executed, another terminal window must be opened to run any additional commands. The ampersand at the end of the command tells the process to run in the background, allowing for more commands to be run in the same window. The real-world option uses the same syntax but launches a different package.\\
+\lstinputlisting[style=C++, firstline=110, lastline=110]{../src/turtlegui/src/main_window.cpp}
 Once an environment is loaded, never before, the dynamics and path of the turtlebot can be manipulated as seen in the following sections. Since there are multiple ROS processes running in the same terminal, ROS has trouble shutting them all down properly and tends to stall the terminal. In order to expedite the shutdown, the timeout time specified in following file was modified:
-
 \begin{lstlisting}[style=bash]
 /opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py
 \end{lstlisting}
-
 \subsubsection{Controller Configuration}
 This section allows the user to manipulate the parameters of the turtlebot. Again it contains two QRadiobuttons and one QPushButton for configuring the controller for the Turtlebot. It is important to note that only the PID controller option has been implemented, the Adaptive Controller does not do anything. The update controller parameters button runs on rqt, a software framework of ROS that implements the various GUI tools in the form of plugins. More specifically it uses an rqt metapackage called rqt\_gui, which allows multiple rqt plugins to be docked in a single window. The command that handles the instantiation and reference to this framework is:
-\lstinputlisting[style=C++, firstline=162, lastline=163]{../src/turtlegui/src/main_window.cpp}
+\lstinputlisting[style=C++, firstline=30, lastline=30]{../src/turtlegui/src/qnode.cpp}
 This launches a new window for viewing all ROS nodes and topics, configuring the PID parameters, and graphically analyzing the error of the PID controller. 
 A screenshot of the window is shown below
 \begin{center}
 \includegraphics[width=0.9\linewidth]{images/rqt_gui.png} \\
 \end{center}
-
 \subsubsection{2d Navigation Goal}
 
 Note that on a new computer, when rqt\_gui run in the first time, it will be a blank screen, 
@@ -676,20 +665,15 @@ From the turtlegui, select "Simulation" then click "Launch"\\
 Click "Advanced Controller Parameters"\\
 In the rqt\_gui windows that poped-up, click "Perspective" on the top menu bar, 
 then click Import to browse for \textbf{rqt\_gui.perspective} located under the root of the ros workspace. \\
-
-
 The turtlebot is able to follow one or more precise waypoints specified by the user via the 2D Navigation Goal section of the interface. 
 Option 1 allows for the publishing of a single waypoint while option 2 lets the user browse for a csv file containing a list of waypoints. 
 The trajectory path inherits the QStringListModel class that keeps track of the robot's current path. 
 Once either option is chosen, the trajectory path will be updated. 
 The clear\_path button simply removes all items from the trajectory path. 
 To get the Turtlebot to actually start moving and following the path, the publish\_path button must be pressed.\\ 
-
 This button utilizes the follow\_waypoints package, which handles the low-level robot communication for following a path. 
 Three critical ROS commands are executed, the first of which can be seen below.
-
-\lstinputlisting[style=C++, firstline=82, lastline=83]{../src/turtlegui/src/main_window.cpp}
-
+\lstinputlisting[style=C++, firstline=31, lastline=31]{../src/turtlegui/src/qnode.cpp}
 This creates three ROS topics, /initialpose, /path\_ready, and /path\_reset. 
 The /path\_reset topic is published when the clear path button is clicked. 
 The input trajectory path is published to the /initialpose topic. 
@@ -706,16 +690,13 @@ The latter represents an orientation in free space in quaternion form, with fiel
 By default, the covariance, orientation, and pose.z are all zero, thus the user only needs to specify an x and y position. 
 It is important to note that if the specified goal is not close to current position of the Turtlebot, it will not move. 
 The trajectory.csv file can be used to get an idea of the coordinate pairs the Turtlebot will be able to move to.\\
-
 Once the path is published, another ROS command is executed:
-\lstinputlisting[style=C++, firstline=89, lastline=89]{../src/turtlegui/src/main_window.cpp}
+\lstinputlisting[style=C++, firstline=61, lastline=61]{../src/turtlegui/src/qnode.cpp}
 This just publishes an empty message to /path\_ready which tells the Turtlebot to start following the path published to /initialpose. Once the Turtlebot reaches the last point in the path, it will stop moving and a new path will have to be specified. The Turtlebot always starts at the origin, and its position is continuously published to the /odom ROS topic. 
 
 \newpage
 \section{List of ROS Nodes, Topics, Parameters, Transform}
 \subsection{List of Important ROS Nodes}
-
-
 % TODO: Mising a few
 \begin{itemize}
     \item[--] /differential\_driver 

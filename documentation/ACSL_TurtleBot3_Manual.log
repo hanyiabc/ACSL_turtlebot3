@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  17 AUG 2020 16:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  18 AUG 2020 17:25
 entering extended mode
 **./ACSL_TurtleBot3_Manual.tex
 (ACSL_TurtleBot3_Manual.tex
@@ -691,66 +691,46 @@ Underfull \hbox (badness 10000) in paragraph at lines 620--621
 consecutive:
 [26]) (../src/turtlegui/src/main.cpp
 consecutive:
-)
-Underfull \hbox (badness 10000) in paragraph at lines 634--635
-
- []
-
-(../src/turtlegui/src/main.cpp
+) (../src/turtlegui/src/main.cpp
 consecutive:
 )
 <images/gui_screenshot.png, id=938, 706.89093pt x 546.54187pt>
 File: images/gui_screenshot.png Graphic file (type png)
 <use images/gui_screenshot.png>
-Package pdftex.def Info: images/gui_screenshot.png  used on input line 643.
+Package pdftex.def Info: images/gui_screenshot.png  used on input line 638.
 (pdftex.def)             Requested size: 455.2979pt x 352.0206pt.
  [27]
+Underfull \hbox (badness 10000) in paragraph at lines 640--642
+
+ []
+
+(../src/turtlegui/src/main_window.cpp
+consecutive:
+)
 Underfull \hbox (badness 10000) in paragraph at lines 645--646
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 647--648
-
- []
-
 (../src/turtlegui/src/main_window.cpp
 consecutive:
-) (../src/turtlegui/src/main_window.cpp
-consecutive:
-) [28 <./images/gui_screenshot.png>] (../src/turtlegui/src/main_window.cpp
+) [28 <./images/gui_screenshot.png>] (../src/turtlegui/src/qnode.cpp
 consecutive:
 )
-<images/rqt_gui.png, id=972, 2569.6pt x 1445.4pt>
+<images/rqt_gui.png, id=970, 2569.6pt x 1445.4pt>
 File: images/rqt_gui.png Graphic file (type png)
 <use images/rqt_gui.png>
-Package pdftex.def Info: images/rqt_gui.png  used on input line 667.
+Package pdftex.def Info: images/rqt_gui.png  used on input line 657.
 (pdftex.def)             Requested size: 455.2979pt x 256.10265pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 672--679
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 681--687
-
- []
-
-[29 <./images/rqt_gui.png>] (../src/turtlegui/src/main_window.cpp
+ (../src/turtlegui/src/qnode.cpp
 consecutive:
-)
-Underfull \hbox (badness 10000) in paragraph at lines 693--709
-
- []
-
-(../src/turtlegui/src/main_window.cpp
+) [29 <./images/rqt_gui.png>] (../src/turtlegui/src/qnode.cpp
 consecutive:
 ) [30] [31]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (21.81226pt too wide) in paragraph at lines 832--867
+Overfull \hbox (21.81226pt too wide) in paragraph at lines 813--848
  [] 
  []
 
@@ -758,7 +738,7 @@ Overfull \hbox (21.81226pt too wide) in paragraph at lines 832--867
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (53.51134pt too wide) in paragraph at lines 876--898
+Overfull \hbox (53.51134pt too wide) in paragraph at lines 857--879
  [] 
  []
 
@@ -770,16 +750,16 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 unch
 consecutive:
 ) [32] [33] [34]
-<images/rosgraph.png, id=1010, 2893.05844pt x 1197.72469pt>
+<images/rosgraph.png, id=1008, 2893.05844pt x 1197.72469pt>
 File: images/rosgraph.png Graphic file (type png)
 <use images/rosgraph.png>
-Package pdftex.def Info: images/rosgraph.png  used on input line 908.
+Package pdftex.def Info: images/rosgraph.png  used on input line 889.
 (pdftex.def)             Requested size: 686.56499pt x 284.22498pt.
  [35 <./images/rosgraph.png>]
-<images/frames-1.png, id=1016, 6198.15625pt x 2844.6275pt>
+<images/frames-1.png, id=1014, 6198.15625pt x 2844.6275pt>
 File: images/frames-1.png Graphic file (type png)
 <use images/frames-1.png>
-Package pdftex.def Info: images/frames-1.png  used on input line 915.
+Package pdftex.def Info: images/frames-1.png  used on input line 896.
 (pdftex.def)             Requested size: 686.56499pt x 315.08026pt.
  [36 <./images/frames-1.png>]
 (../src/ros_control/CMakeLists.txt
@@ -795,22 +775,22 @@ consecutive:
 unch
 consecutive:
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 948.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 929.
  [38]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 948.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 929.
  (ACSL_TurtleBot3_Manual.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 948.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 948.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 929.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 929.
 Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
 
 (rerunfilecheck)             Checksum: 8155E3D860D4149D33C66A1495D7A2E3;2415.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 948.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 929.
  ) 
 Here is how much of TeX's memory you used:
- 10077 strings out of 480790
- 154957 string characters out of 2897301
+ 10080 strings out of 480790
+ 155050 string characters out of 2897301
  634420 words of memory out of 3000000
- 25088 multiletter control sequences out of 15000+200000
+ 25092 multiletter control sequences out of 15000+200000
  539223 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,9n,69p,742b,2116s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -827,9 +807,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users
 <C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt8.pfb><C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmtt9.pfb>
-Output written on ACSL_TurtleBot3_Manual.pdf (39 pages, 13787068 bytes).
+Output written on ACSL_TurtleBot3_Manual.pdf (39 pages, 13787141 bytes).
 PDF statistics:
- 1259 PDF objects out of 1440 (max. 8388607)
- 762 named destinations out of 1000 (max. 500000)
+ 1257 PDF objects out of 1440 (max. 8388607)
+ 760 named destinations out of 1000 (max. 500000)
  327 words of extra memory for PDF output out of 10000 (max. 10000000)
 
