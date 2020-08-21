@@ -23,7 +23,7 @@ void QNode::init()
 		std::map<std::string,std::string> remappings;
 		remappings["__master"] = master_url;
 		remappings["__hostname"] = host_url;
-		ros::init(remappings,"turtlegui");
+		ros::init(init_argc, init_argv, "turtlegui");
 		if ( ! ros::master::check() ) 
 			std::cout << "Cannot find ROS Master:" << std::endl;
 
