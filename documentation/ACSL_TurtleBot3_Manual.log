@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  17 AUG 2020 11:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.20)  18 AUG 2020 17:25
 entering extended mode
 **./ACSL_TurtleBot3_Manual.tex
 (ACSL_TurtleBot3_Manual.tex
@@ -250,7 +250,18 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@dimlist=\toks19
 
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
-
+(C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/soul\soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks20
+\SOUL@lasttoken=\toks21
+\SOUL@cmds=\toks22
+\SOUL@buffer=\toks23
+\SOUL@token=\toks24
+\SOUL@spaceskip=\skip50
+\SOUL@ttwidth=\dimen153
+\SOUL@uldp=\dimen154
+\SOUL@ulht=\dimen155
+)
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 mode.def
 File: l3backend-pdfmode.def 2020-06-29 L3 backend support: PDF mode
@@ -264,24 +275,24 @@ LaTeX Warning: Unused global option(s):
 (ACSL_TurtleBot3_Manual.aux)
 \openout1 = `ACSL_TurtleBot3_Manual.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 106.
+LaTeX Font Info:    ... okay on input line 106.
 \AtBeginShipoutBox=\box48
-Package hyperref Info: Link coloring OFF on input line 105.
+Package hyperref Info: Link coloring OFF on input line 106.
 
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -295,9 +306,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count197
 )
-LaTeX Info: Redefining \ref on input line 105.
-LaTeX Info: Redefining \pageref on input line 105.
-LaTeX Info: Redefining \nameref on input line 105.
+LaTeX Info: Redefining \ref on input line 106.
+LaTeX Info: Redefining \pageref on input line 106.
+LaTeX Info: Redefining \nameref on input line 106.
  (ACSL_TurtleBot3_Manual.out) (ACSL_TurtleBot3_Manual.out)
 \@outlinefile=\write3
 \openout3 = `ACSL_TurtleBot3_Manual.out'.
@@ -307,16 +318,16 @@ LaTeX Info: Redefining \nameref on input line 105.
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count198
-\scratchdimen=\dimen153
+\scratchdimen=\dimen156
 \scratchbox=\box49
 \nofMPsegments=\count199
 \nofMParguments=\count266
-\everyMPshowfont=\toks20
+\everyMPshowfont=\toks25
 \MPscratchCnt=\count267
-\MPscratchDim=\dimen154
+\MPscratchDim=\dimen157
 \MPnumerator=\count268
 \makeMPintoPDFobject=\count269
-\everyMPtoPDFconversion=\toks21
+\everyMPtoPDFconversion=\toks26
 )
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -360,17 +371,17 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<images/ACSL_Logo.jpg, id=127, 319.1925pt x 198.14024pt>
+<images/ACSL_Logo.jpg, id=131, 319.1925pt x 198.14024pt>
 File: images/ACSL_Logo.jpg Graphic file (type jpg)
 <use images/ACSL_Logo.jpg>
-Package pdftex.def Info: images/ACSL_Logo.jpg  used on input line 110.
+Package pdftex.def Info: images/ACSL_Logo.jpg  used on input line 111.
 (pdftex.def)             Requested size: 354.12144pt x 219.82336pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 112.
+(Font)              <12> on input line 113.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 112.
+(Font)              <8> on input line 113.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 112.
+(Font)              <6> on input line 113.
 [1
 
 {C:/Users/verul/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./images/ACSL_L
@@ -387,21 +398,21 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.120 \newpage
+l.121 \newpage
                [1] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 130--132
+Underfull \hbox (badness 10000) in paragraph at lines 131--133
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--132
+Underfull \hbox (badness 10000) in paragraph at lines 131--133
 
  []
 
-<images/tb3_architecture.png, id=178, 714.2685pt x 192.72pt>
+<images/tb3_architecture.png, id=183, 714.2685pt x 192.72pt>
 File: images/tb3_architecture.png Graphic file (type png)
 <use images/tb3_architecture.png>
-Package pdftex.def Info: images/tb3_architecture.png  used on input line 133.
+Package pdftex.def Info: images/tb3_architecture.png  used on input line 134.
 (pdftex.def)             Requested size: 354.12144pt x 95.54813pt.
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -410,115 +421,177 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <7> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 152.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 153.
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--161
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 157--161
+Underfull \hbox (badness 10000) in paragraph at lines 158--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--168
+Underfull \hbox (badness 10000) in paragraph at lines 158--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--168
+Underfull \hbox (badness 10000) in paragraph at lines 166--169
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--169
 
  []
 
 [3 <./images/tb3_architecture.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 169--171
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--177
+Underfull \hbox (badness 10000) in paragraph at lines 176--178
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--185
+Underfull \hbox (badness 10000) in paragraph at lines 179--186
 
  []
 
 
-Overfull \hbox (10.10551pt too wide) in paragraph at lines 178--185
+Overfull \hbox (10.10551pt too wide) in paragraph at lines 179--186
 []$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / platform 
 / turtlebot3 / raspberry _ pi _ 3 _ setup / #raspberry-[]pi-[]3-[]setup$[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--185
+Underfull \hbox (badness 10000) in paragraph at lines 179--186
 
  []
 
-[4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--211
 
  []
 
-<images/WIFI_chip.jpg, id=260, 4047.12pt x 3035.34pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--211
+
+ []
+
+[4]
+<images/arduino_setup.png, id=222, 484.81125pt x 329.43076pt>
+File: images/arduino_setup.png Graphic file (type png)
+<use images/arduino_setup.png>
+Package pdftex.def Info: images/arduino_setup.png  used on input line 212.
+(pdftex.def)             Requested size: 252.94499pt x 171.87802pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+
+ []
+
+<images/arduino_flash.png, id=223, 423.38174pt x 287.27325pt>
+File: images/arduino_flash.png Graphic file (type png)
+<use images/arduino_flash.png>
+Package pdftex.def Info: images/arduino_flash.png  used on input line 216.
+(pdftex.def)             Requested size: 252.94499pt x 171.62886pt.
+[5 <./images/arduino_setup.png> <./images/arduino_flash.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 250--253
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--253
+
+ []
+
+[6]
+<images/WIFI_chip.jpg, id=254, 4047.12pt x 3035.34pt>
 File: images/WIFI_chip.jpg Graphic file (type jpg)
 <use images/WIFI_chip.jpg>
-Package pdftex.def Info: images/WIFI_chip.jpg  used on input line 313.
-(pdftex.def)             Requested size: 354.12144pt x 265.57307pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 313--314
-
- []
-
-<images/DC_power_cable.jpg, id=261, 4047.12pt x 3035.34pt>
+Package pdftex.def Info: images/WIFI_chip.jpg  used on input line 257.
+(pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
+<images/DC_power_cable.jpg, id=255, 4047.12pt x 3035.34pt>
 File: images/DC_power_cable.jpg Graphic file (type jpg)
 <use images/DC_power_cable.jpg>
-Package pdftex.def Info: images/DC_power_cable.jpg  used on input line 316.
-(pdftex.def)             Requested size: 354.12144pt x 265.57307pt.
+Package pdftex.def Info: images/DC_power_cable.jpg  used on input line 258.
+(pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
+Underfull \hbox (badness 10000) in paragraph at lines 256--260
 
  []
 
-<images/ODROID_top.jpg, id=262, 4047.12pt x 3035.34pt>
+
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 256--260
+[] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--260
+
+ []
+
+<images/ODROID_top.jpg, id=256, 4047.12pt x 3035.34pt>
 File: images/ODROID_top.jpg Graphic file (type jpg)
 <use images/ODROID_top.jpg>
-Package pdftex.def Info: images/ODROID_top.jpg  used on input line 319.
-(pdftex.def)             Requested size: 354.12144pt x 265.57307pt.
+Package pdftex.def Info: images/ODROID_top.jpg  used on input line 261.
+(pdftex.def)             Requested size: 379.4175pt x 284.56242pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-
- []
-
-[7 <./images/WIFI_chip.jpg> <./images/DC_power_cable.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 264--270
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+Underfull \hbox (badness 10000) in paragraph at lines 264--270
 
  []
 
 
-Overfull \hbox (25.10551pt too wide) in paragraph at lines 366--367
-[][]$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / platfor
-m / turtlebot3 / raspberry _ pi _ 3 _ setup / #raspberry-[]pi-[]3-[]setup$[] 
+Underfull \hbox (badness 10000) in paragraph at lines 264--270
+
  []
 
-[8 <./images/ODROID_top.jpg>] [9] [10] [11] [12] [13]
-<images/dxl_eeprom.png, id=352, 428.802pt x 500.46976pt>
+[7 <./images/WIFI_chip.jpg> <./images/DC_power_cable.jpg> <./images/ODROID_top.
+jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 271--277
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--277
+
+ []
+
+
+Overfull \hbox (10.10551pt too wide) in paragraph at lines 271--277
+[]$\OT1/cmtt/m/n/10 https : / / emanual . robotis . com / docs / en / platform 
+/ turtlebot3 / raspberry _ pi _ 3 _ setup / #raspberry-[]pi-[]3-[]setup$[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--277
+
+ []
+
+[8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 501--506
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 507--511
+
+ []
+
+<images/dxl_eeprom.png, id=348, 428.802pt x 500.46976pt>
 File: images/dxl_eeprom.png Graphic file (type png)
 <use images/dxl_eeprom.png>
-Package pdftex.def Info: images/dxl_eeprom.png  used on input line 600.
+Package pdftex.def Info: images/dxl_eeprom.png  used on input line 533.
 (pdftex.def)             Requested size: 354.12144pt x 413.32028pt.
- [14]
-<images/dxl_control_table.png, id=357, 483.60675pt x 357.7365pt>
+[14]
+<images/dxl_control_table.png, id=353, 483.60675pt x 357.7365pt>
 File: images/dxl_control_table.png Graphic file (type png)
 <use images/dxl_control_table.png>
-Package pdftex.def Info: images/dxl_control_table.png  used on input line 624.
+Package pdftex.def Info: images/dxl_control_table.png  used on input line 557.
 (pdftex.def)             Requested size: 505.89pt x 374.22607pt.
  [15 <./images/dxl_eeprom.png>]
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -531,7 +604,7 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 629.
+nput line 562.
 
 (../src/turtlebot3_setup_motor/turtlebot3_setup_motor.ino
 consecutive:
@@ -545,10 +618,10 @@ consecutive:
 ) (../src/turtlebot3_core/turtlebot3_motor_torque_driver.h
 consecutive:
 )
-<images/xm430_performance.png, id=531, 274.626pt x 247.52475pt>
+<images/xm430_performance.png, id=527, 274.626pt x 247.52475pt>
 File: images/xm430_performance.png Graphic file (type png)
 <use images/xm430_performance.png>
-Package pdftex.def Info: images/xm430_performance.png  used on input line 649.
+Package pdftex.def Info: images/xm430_performance.png  used on input line 582.
 (pdftex.def)             Requested size: 505.89pt x 455.96472pt.
  [19] (../src/turtlebot3_core/turtlebot3_motor_torque_driver.cpp
 consecutive:
@@ -559,12 +632,12 @@ consecutive:
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (../src/ros_control/src/differential_driver.py [21])
 (../src/ros_control/src/odom_publisher.cpp [22] [23] [24])
-Underfull \hbox (badness 10000) in paragraph at lines 670--673
+Underfull \hbox (badness 10000) in paragraph at lines 603--606
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 674--675
+Underfull \hbox (badness 10000) in paragraph at lines 607--608
 
  []
 
@@ -574,7 +647,7 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 (C:\Users\verul\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
-Underfull \hbox (badness 10000) in paragraph at lines 676--677
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
 
  []
 
@@ -592,7 +665,7 @@ LaTeX Font Info:    Font shape `OML/cmr/bx/n' in size <10> not available
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 219.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 679--680
+Underfull \hbox (badness 10000) in paragraph at lines 612--613
 
  []
 
@@ -605,58 +678,59 @@ consecutive:
 roller.gazebo.xacro
 consecutive:
 )
-Underfull \hbox (badness 10000) in paragraph at lines 683--685
+Underfull \hbox (badness 10000) in paragraph at lines 616--618
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 687--688
+Underfull \hbox (badness 10000) in paragraph at lines 620--621
 
  []
 
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 699--700
+(../src/turtlegui/src/main.cpp
+consecutive:
+[26]) (../src/turtlegui/src/main.cpp
+consecutive:
+) (../src/turtlegui/src/main.cpp
+consecutive:
+)
+<images/gui_screenshot.png, id=938, 706.89093pt x 546.54187pt>
+File: images/gui_screenshot.png Graphic file (type png)
+<use images/gui_screenshot.png>
+Package pdftex.def Info: images/gui_screenshot.png  used on input line 638.
+(pdftex.def)             Requested size: 455.2979pt x 352.0206pt.
+ [27]
+Underfull \hbox (badness 10000) in paragraph at lines 640--642
 
  []
 
-<images/gui_screenshot.JPG, id=942, 607.89609pt x 481.04718pt>
-File: images/gui_screenshot.JPG Graphic file (type jpg)
-<use images/gui_screenshot.JPG>
-Package pdftex.def Info: images/gui_screenshot.JPG  used on input line 708.
-(pdftex.def)             Requested size: 455.2979pt x 360.30005pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 710--711
+(../src/turtlegui/src/main_window.cpp
+consecutive:
+)
+Underfull \hbox (badness 10000) in paragraph at lines 645--646
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
-
- []
-
-[27 <./images/gui_screenshot.JPG>]
-<images/Screenshot from 2020-08-11 11-47-41.png, id=947, 2569.6pt x 1445.4pt>
-File: images/Screenshot from 2020-08-11 11-47-41.png Graphic file (type png)
-<use images/Screenshot from 2020-08-11 11-47-41.png>
-Package pdftex.def Info: images/Screenshot from 2020-08-11 11-47-41.png  used o
-n input line 731.
+(../src/turtlegui/src/main_window.cpp
+consecutive:
+) [28 <./images/gui_screenshot.png>] (../src/turtlegui/src/qnode.cpp
+consecutive:
+)
+<images/rqt_gui.png, id=970, 2569.6pt x 1445.4pt>
+File: images/rqt_gui.png Graphic file (type png)
+<use images/rqt_gui.png>
+Package pdftex.def Info: images/rqt_gui.png  used on input line 657.
 (pdftex.def)             Requested size: 455.2979pt x 256.10265pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 735--736
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 741--742
-
- []
-
-[28 <./images/Screenshot from 2020-08-11 11-47-41.png>] [29] [30]
+ (../src/turtlegui/src/qnode.cpp
+consecutive:
+) [29 <./images/rqt_gui.png>] (../src/turtlegui/src/qnode.cpp
+consecutive:
+) [30] [31]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (21.81226pt too wide) in paragraph at lines 864--899
+Overfull \hbox (21.81226pt too wide) in paragraph at lines 813--848
  [] 
  []
 
@@ -664,45 +738,62 @@ Overfull \hbox (21.81226pt too wide) in paragraph at lines 864--899
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (150.64482pt too wide) in paragraph at lines 908--929
+Overfull \hbox (53.51134pt too wide) in paragraph at lines 857--879
  [] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[31] [32] [33]
-<images/rosgraph.png, id=977, 2893.05844pt x 1197.72469pt>
+
+(../src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation_no_map.la
+unch
+consecutive:
+) [32] [33] [34]
+<images/rosgraph.png, id=1008, 2893.05844pt x 1197.72469pt>
 File: images/rosgraph.png Graphic file (type png)
 <use images/rosgraph.png>
-Package pdftex.def Info: images/rosgraph.png  used on input line 937.
+Package pdftex.def Info: images/rosgraph.png  used on input line 889.
 (pdftex.def)             Requested size: 686.56499pt x 284.22498pt.
- [34 <./images/rosgraph.png>]
-<images/frames-1.png, id=983, 6198.15625pt x 2844.6275pt>
+ [35 <./images/rosgraph.png>]
+<images/frames-1.png, id=1014, 6198.15625pt x 2844.6275pt>
 File: images/frames-1.png Graphic file (type png)
 <use images/frames-1.png>
-Package pdftex.def Info: images/frames-1.png  used on input line 944.
+Package pdftex.def Info: images/frames-1.png  used on input line 896.
 (pdftex.def)             Requested size: 686.56499pt x 315.08026pt.
- [35 <./images/frames-1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 948.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 948.
+ [36 <./images/frames-1.png>]
+(../src/ros_control/CMakeLists.txt
+consecutive:
+) (../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_robot.launch)
+[37
 
-(ACSL_TurtleBot3_Manual.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 948.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 948.
+
+
+
+]
+(../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_physical_nav_control.la
+unch
+consecutive:
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 929.
+ [38]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 929.
+ (ACSL_TurtleBot3_Manual.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 929.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 929.
 Package rerunfilecheck Info: File `ACSL_TurtleBot3_Manual.out' has not changed.
 
-(rerunfilecheck)             Checksum: 7D77337021AF48995EE1068C3AAE3BC8;2317.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 948.
+(rerunfilecheck)             Checksum: 8155E3D860D4149D33C66A1495D7A2E3;2415.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 929.
  ) 
 Here is how much of TeX's memory you used:
- 9698 strings out of 480790
- 148120 string characters out of 2897301
- 630857 words of memory out of 3000000
- 24809 multiletter control sequences out of 15000+200000
- 538910 words of font info for 47 fonts, out of 3000000 for 9000
+ 10080 strings out of 480790
+ 155050 string characters out of 2897301
+ 634420 words of memory out of 3000000
+ 25092 multiletter control sequences out of 15000+200000
+ 539223 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,9n,69p,1602b,2116s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,9n,69p,742b,2116s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\verul\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -716,9 +807,9 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users
 <C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
 tt8.pfb><C:/Users/verul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmtt9.pfb>
-Output written on ACSL_TurtleBot3_Manual.pdf (36 pages, 13788358 bytes).
+Output written on ACSL_TurtleBot3_Manual.pdf (39 pages, 13787141 bytes).
 PDF statistics:
- 1171 PDF objects out of 1200 (max. 8388607)
- 707 named destinations out of 1000 (max. 500000)
- 309 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1257 PDF objects out of 1440 (max. 8388607)
+ 760 named destinations out of 1000 (max. 500000)
+ 327 words of extra memory for PDF output out of 10000 (max. 10000000)
 

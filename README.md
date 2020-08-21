@@ -9,9 +9,8 @@ Edited by: [Yi Han](https://github.com/hanyiabc), [Adwait Verulkar](https://gith
 The following dependencies need to be installed on the Remote PC in addition to ROS Melodic before the repository can be compiled without errors.
 ```
 sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-joy ros-melodic-teleop-twist-keyboard ros-melodic-laser-proc ros-melodic-rgbd-launch ros-melodic-depthimage-to-laserscan ros-melodic-rosserial-arduino ros-melodic-rosserial-python ros-melodic-rosserial-server ros-melodic-rosserial-client ros-melodic-rosserial-msgs ros-melodic-amcl ros-melodic-map-server ros-melodic-move-base ros-melodic-urdf ros-melodic-xacro ros-melodic-compressed-image-transport ros-melodic-rqt-image-view ros-melodic-gmapping ros-melodic-navigation ros-melodic-interactive-markers
-sudo apt-get install ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-ros-msgs ros-melodic-cartographer-rviz
-sudo apt-get install ros-melodic-pid ros-melodic-qt-build
-sudo apt-get install qt4-default
+ros-melodic-cartographer ros-melodic-cartographer-ros ros-melodic-cartographer-ros-msgs ros-melodic-cartographer-rviz ros-melodic-pid ros-melodic-qt-build
+qt4-default
 ```
 
 # To build for the first time
@@ -25,7 +24,7 @@ source devel/setup.bash
 
 TurtleBot3 has three models, Burger, Waffle, and Waffle Pi, 
 so you have to set which model you want to use before you launch TurtleBot3. 
-We added an additional model based on the Waffle Pi model. The new model supports differential drive controller and velocity effort PID control 
+We added an additional model based on the Waffle Pi model. The new model supports customized differential drive controller and velocity effort PID control 
 
 Type:
 

@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{lscape}
 \usepackage[margin=0.75in]{geometry}
+\usepackage{soul}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -204,170 +205,73 @@ On Windows, use VNC viewer
 \subsection{OpenCR Setup}
 Most of the software is located in the form of a binary file that is burnt to the EEPROM of the STM32F746 chip on the OpenCR board. As the software used for ACSL projects is custom, it is burnt using Arduino IDE.\\
 The original source code for \texttt{TurtleBot3} used the inbuilt PID controller of the Dynamixel XM430 210-T actuators. However, to benchmark the performance of the controllers, the control is shifted from the motors to higher level software, which is a custom ROS PID node in this case.\\
-Arduino IDE can be used to burn the \textbf{turtlebot3\_core.ino} file located in \textbf{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.
-
-\url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}
+Arduino IDE can be used to burn the \texttt{turtlebot3\_core.ino} file located in \texttt{ACSL\_turtlebot3/src/turtlebot3\_core} directory. Instructions for setting up the Arduino IDE for \texttt{TurtleBot3} can be found in the following link.\\\\
+\url {https://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide}\\\\
+Once Arduino is setup, launch it and check if the port settings are correctly configured.
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{images/arduino_setup.png}\\
+\end{center}
+Connect OpenCR via microUSB to the PC and flash the firmware using this button.\\
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{images/arduino_flash.png}\\
+\end{center}
 \newpage
 \section{Setting up Wireless File Sharing on an SBC Running Ubuntu}
-
-
-The protocol we will be using to share files via wifi is called Samba. To install it follow these steps on the selected SBC.
-
-
+This section is optional. If there are frequent changes to the OpenCR firmware then it makes more sense to flash it using the SBC. However, as there is no internet access in the lab for the TurtleBot SBC, the required binary files need to be transferred over WiFi. The software we will be using to share files via WiFi is called Samba. To install it follow these steps on the selected SBC.
 \begin{lstlisting}
-
-    sudo apt update
-
-    sudo apt install samba
-
+sudo apt update
+sudo apt install samba
 \end{lstlisting}
-
-
 Next, pick the directory you would like to share and copy its path. In this example I will use the \textbf{/odroid/home} directory.
-
 Now open the samba configuration folder. 
-
-
 \begin{lstlisting}
-
-   sudo nano /etc/samba/smb.conf
-
+sudo nano /etc/samba/smb.conf
 \end{lstlisting}
-
-
 Add the following to the end of the document. \textbf{"/odroid/home"} should be entered with the desired share directory.
-
-
 \begin{lstlisting}
-
-    [sambashare]
-
-       comment = Samba on Ubuntu
-
-       path = /odroid/home
-
-       read only = no
-
-       browsable = yes
-
-
+[sambashare]
+comment = Samba on Ubuntu
+path = /odroid/home
+read only = no
+browsable = yes
 \end{lstlisting}
-
-
-Press Ctrl-X, Y, and Enter to save.
-
+Press Ctrl-X, Y, and Enter to save.\\
 Next add the firewall rules for Samba.
-
-
-
 \begin{lstlisting}
-
-    sudo service smbd restart
-
-    sudo ufw allow samba
-
-
+sudo service smbd restart
+sudo ufw allow samba
 \end{lstlisting}
-
-
 Finally setup a user for the Sambashare. This will need to match the name of an account already on the SBC. For this example I will use the \textbf{“Odroid”} user with password \textbf{1234}.
-
-
 \begin{lstlisting}
-
-	
-
-    sudo smbpasswd -a Odroid
-
-    Please Enter Password: 1234
-
-    Retype Password : 1234
-
-
+sudo smbpasswd -a Odroid
+Please Enter Password: 1234
+Retype Password : 1234
 \end{lstlisting}
-
-
-The folder should now be accessible from any device on the same network. To access it go to \textbf{file manager, other locations} and enter this network address
-
-smb://(ip-address of sbc)/sambashare
-
+The folder should now be accessible from any device on the same network. To access it go to \textbf{file manager, other locations} and enter this network address\\\\
+smb://(ip-address of sbc)/sambashare\\\\
 A prompt will appear for entering the user name and password you just setup.
-
-
-
 \newpage
-
 \section{Replacing the Raspberry Pi with an alternate SBC}
-
-
 \subsection{Hardware Changes}
-
-
-Before starting, you will need to attach an additional USB wi-fi device, as well as modify the OpenCR power output cable to fit the J5 barrel connector used by the Odroid. The 5v output port used for the Raspberry Pi will work for the Odroid if the connector is modified.\\
-
-
-
-
-
-
-\includegraphics[width=0.7\linewidth]{images/WIFI_chip.jpg}\\
-
-
-\includegraphics[width=0.7\linewidth]{images/DC_power_cable.jpg}\\
-
-
-\includegraphics[width=0.7\linewidth]{images/ODROID_top.jpg}\\
-
-           
-
-
-The Odroid XU4 has 2 modes for booting from memory. The micro SD card and the eMMMC memory chips. There is a switch near the power port for switching between these 2 modes
-
-
+Before starting, you will need to attach an additional USB wi-fi device, as well as modify the OpenCR power output cable to fit the J5 barrel connector used by the Odroid. The 5v output port used for the Raspberry Pi will work for the Odroid if the connector is modified.\\\\
+\includegraphics[width=0.5\linewidth]{images/WIFI_chip.jpg}
+\includegraphics[width=0.5\linewidth]{images/DC_power_cable.jpg}\\
+The Odroid XU4 has 2 modes for booting from memory. The micro SD card and the eMMMC memory chips. There is a switch near the power port for switching between these 2 modes\\
+\begin{center}
+\includegraphics[width=0.75\linewidth]{images/ODROID_top.jpg}\\
+\end{center}
 \subsection{Software}
-
-
-First you will need to flash a bootable ubuntu 16.04 OS onto the chosen memory device.
-
-A suitable version can be found at
-
- \url{
-
-  https://odroid.in/ubuntu_16.04lts/}
-
-
-
-We used the Ubuntu Mate version
-
-
- \textbf{ubuntu-16.04.3-4.9-mate-odroid-xu4-20171025.img.xz}\\
-
-
-Connect the chosen memory device, and open a flash program such as Etcher and wait for flashing to finish.
-
+First you will need to flash a bootable ubuntu 16.04 OS onto the chosen memory device.\\
+A suitable version can be found at\\\\
+\url{https://odroid.in/ubuntu_16.04lts/}\\\\
+We used the Ubuntu Mate version \textbf{ubuntu-16.04.3-4.9-mate-odroid-xu4-20171025.img.xz}\\
+Connect the chosen memory device, and open a flash program such as Etcher and wait for flashing to finish.\\
 After reconnecting the memory device, you can power up the Odroid. .The default user name is \textbf{Odroid}, and default password is also \textbf{Odroid}.\\
-
-
 \subsection{ROS}
-
-Follow the ROS wiki instructions for installing Ros-Kinetic.
-
-
-\url{
-
-http://wiki.ros.org/kinetic/Installation/Ubuntu}
-
-
-Next install the dependent packages using steps (3) through (5) of 6.2.1.1 Install Linux (Ubuntu MATE) from the turtlebot E-manual.
-
-
-\url{
-
-https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}
-
-
- 
-
+Follow the ROS wiki instructions for installing Ros-Kinetic.\\\\
+\url{http://wiki.ros.org/kinetic/Installation/Ubuntu}\\\\
+Next install the dependent packages using steps (3) through (5) of 6.2.1.1 Install Linux (Ubuntu MATE) from the turtlebot E-manual.\\
+\url{https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup}\\\\
 After finishing this step, you will be able to connect to the Odroid via SSH on the remote PC using the command line ssh odroid@192.168.xxx.xxx and using password odroid. 
 %=====================================================================%
 \newpage
@@ -487,6 +391,15 @@ To run the navigation with PID velocity effort controller and SLAM (with localiz
 roslaunch turtlebot3_bringup turtlebot3_physical_nav_control.launch 
 \end{lstlisting}
 
+Note that the user might need to re-sync the time using NTP between the SBC and remote PC. Since SBC is not powered during shutdown, 
+the time might be out of sync and this will cause error on the TF package from ROS since ROS uses time to track the transformations between each frames. Thus causing problem to the navigation stack. 
+Simply do a manula update using NTP before lanuching will solve this issue.\\
+To manually update the time and date using NTP (run this on the SBC instead of the remote PC and replace IP\_ADDRESS\_OF\_THE\_REMOTE\_PC with the IP address of the remote PC):
+
+\begin{lstlisting}[style=bash]
+    sudo ntpdate -u IP_ADDRESS_OF_THE_REMOTE_PC
+\end{lstlisting}
+
 To run the navigation with PID velocity effort controller and SLAM (with localizatin provided by SLAM and no initial map required) on Gazebo for simulation.  
 \begin{lstlisting}[style=bash]
 roslaunch turtlebot3_bringup turtlebot3_sim_nav_control.launch 
@@ -522,7 +435,7 @@ rosrun map_server map_saver -f ~/map
 % TODO: add graph from tf view_frams to illustrate the TF tree 
 \newpage
 \section{Repository Introduction}
-The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentio ning ones are:
+The repository is a catkin workspace. A catkin workspace has a src folder that contains multiple packages. The worth-mentioning ones are:
 \begin{itemize}
 	\item[--] hls\_lfcd\_lds\_driver
     \item[--] raspicam\_node
@@ -538,6 +451,7 @@ The repository is a catkin workspace. A catkin workspace has a src folder that c
     \item[--] turtlebot3\_core
     \item[--] turtlebot3\_setup\_motor
     \item[--] turtlebot3\_simulations
+        \item[--] turtlebot3\_gazebo
 \end{itemize} 
 
 Not all packages are catkin package. \textbf{simulink}, \textbf{turtlebot3\_core} \textbf{turtlebot3\_setup\_motor} are all just directories. 
@@ -584,6 +498,25 @@ A new launch file \textbf{turtlebot3\_navigation\_no\_map.launch} was created. T
 The localizatin is provide by SLAM instaed of Adaptive Monte Carlo Localizatin. The default launch file \textbf{turtlebot3\_navigation.launch} will run navigation assuming that a SLAM map has been drawn by running SLAM before. In this configuration, 
 localizatin is provided by AMCL. 
 
+\textbf{turtlebot3\_slam} contains all the configurations and launch files related to running SLAM. 
+Several SLAM algorithms are pre-configured and supporeted but only Gmapping and *Cartographer are tested, feel free to test other SLAM algorithms. \\
+\textbf{turtlebot3\_teleop} containes the node and launch file necessary for keyboard teleop (using keyboad to control the turtlebot). \\
+\textbf{turtlebot3\_core} derives from the original package from the OpenCR library. This is an Arduino sketch and this program is running in the OpenCR microcontroller. This package handles every low-level operation of the physical turtlebot.
+That includes reading sensor information, commanding motor torque, reading encoder information, etc. \\
+
+\textbf{turtlebot3\_setup\_motor} is also an Arduino sketch that needs to run on the microcontroller, however, 
+this only need to be ran once for each new set of Turtlebot motors. 
+This package derives from the original turtlebot3\_setup\_motor from the OpenCR library. The original library sets the servos to velocity control operating mode. 
+This package added the options to set the servos to torque control opearting mode. \\
+
+\textbf{turtlebot3\_gazebo} in located under \textbf{turtlebot3\_simulations}. This package contains all the Gazebo related files necessary for running simulation with Gazebo. 
+It contains a few pre-configured Gazebo world and 3D model for each model of the turtlebot. 
+
+Note: we are encoutering problems running Cartographer with Turtlebot because it enforces a timestamp constraint on the incoming messages. 
+The IMU messages in particular could have same timestamp in 2 consecutive messages, which caues the Cartographer node to throw an exception. 
+A potential fix is to change the source code of Cartographer and make it use "more than or equal" to check the timestamp instead of using "more than".
+Gmapping works totally fine for us. We have only faced these issue when running SLAM with no initial map and with SLAM's built-in localization. 
+We expect that the problems will be gone once we use SLAM for mapping only and then save the map, the uses AMCL for localizatin. 
 
 \section{Torque Control using Dynamixel}
        
@@ -685,82 +618,98 @@ A configuration file was added to make commanding effort to left and right wheel
 
 \section{Turtlebot Graphical User Interface}
 This section documents the graphical user interface for manipulating the TurtleBot3 in both real world and simulated environments. It contains descriptions for each graphical widget and code documentation. The turtlegui package contains all of the c++ scripts and dependency files responsible for the interface. And once the package is appropriately sourced via the terminal, it can be run with the following command:\\
-
 \begin{lstlisting}[style=bash]
 rosrun turtlegui turtlegui
 \end{lstlisting}
 \subsection{Qt}
-The interface runs on Qt, a cross-platform graphical toolkit. This module implements a variety of important classes, the first of which is QApplication. The source code for the instantiation of the Turtlebot qt application, in main.cpp, is
-
-%\lstinputlisting[style=C++, firstline=20, lastline=32]{src/main.cpp}
+The interface runs on Qt, a cross-platform graphical toolkit. 
+This module implements a variety of important classes, the first of which is QApplication. 
+The source code for the instantiation of the Turtlebot qt application, in main.cpp, is
+\lstinputlisting[style=C++, firstline=20, lastline=32]{../src/turtlegui/src/main.cpp}
 The QApplication class takes care of a lot of things, most notably the input CLI arguments and the event loop. The event loop is a loop that waits for user input in GUI applications, and is launched on this command
-
-%\lstinputlisting[style=C++, firstline=29, lastline=29]{src/main.cpp}
+\lstinputlisting[style=C++, firstline=29, lastline=29]{../src/turtlegui/src/main.cpp}
 Another important Qt class is QWidget, which is used to describe the widgets in the interface. Widgets are the basic building blocks for a GUI application, and are able to respond to user events. All of the graphical elements in the interface inherit from the QWidget class, including QPushButton, QRadioButton, and QLineEdit. Widgets are also responsible for the handling of the signal and slot mechanism. On a high level, signals and slots are used for communication between objects. In GUI programming, when one widget changes, other widgets need to be notified of this change. Rather than hard-wiring the code that generates these events, signals and slots allow for fluid communication between objects.\\ 
-
 As seen in the line of code below, the lastWindowClosed() signal connects to the quit() slot so that when the exit button is clicked in the GUI, the program terminates.
-%\lstinputlisting[style=C++, firstline=28, lastline=28]{src/main.cpp}
+\lstinputlisting[style=C++, firstline=28, lastline=28]{../src/turtlegui/src/main.cpp}
 The Qt toolkit is a very useful module for handling the front-end side of programming and allows for a seamless transition to back-end code.
-
 \subsection{GUI Widget Walkthrough}
 This section gives a detailed description for each widget in main window of the interface. A screenshot of the interface can be seen below
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/gui_screenshot.JPG} \\
+\includegraphics[width=0.9\linewidth]{images/gui_screenshot.png} \\
 \end{center}
 On startup, a ROS Master is initialized, this provides naming and registration services to the rest of the nodes in the ROS system. It tracks publishers and subscribers to topics as well as services. The role of the Master is to enable individual ROS nodes to locate one another. Once these nodes have located each other they communicate with each other peer-to-peer. All ROS commands are handled implicitly, thus requiring a single terminal window.\\
-
 The three main sections of the GUI are Model Configuration, Controller Configuration, and 2d Navigation Goal.\\
-
 \subsubsection{Model Configuration}
 The first tab contains two QRadiobuttons and one QPushButton that allow the user to specify and launch an environment for the Turtlebot. The simulation launches Gazebo and RVIZ instances for visualization. This is accomplished by running this ROS command:
-%\lstinputlisting[style=C++, firstline=156, lastline=157]{src/main_window.cpp}
-The ROS launch command is blocking, which means once it is executed, another terminal window must be opened to run any additional commands. The ampersand at the end of the command tells the process to run in the background, allowing for more commands to be run in the same window. The real-world option uses the same syntax but launches a different package:
-%\lstinputlisting[style=C++, firstline=156, lastline=157]{src/main_window.cpp}
-
+\lstinputlisting[style=C++, firstline=105, lastline=105]{../src/turtlegui/src/main_window.cpp}
+The ROS launch command is blocking, which means once it is executed, another terminal window must be opened to run any additional commands. The ampersand at the end of the command tells the process to run in the background, allowing for more commands to be run in the same window. The real-world option uses the same syntax but launches a different package.\\
+\lstinputlisting[style=C++, firstline=110, lastline=110]{../src/turtlegui/src/main_window.cpp}
 Once an environment is loaded, never before, the dynamics and path of the turtlebot can be manipulated as seen in the following sections. Since there are multiple ROS processes running in the same terminal, ROS has trouble shutting them all down properly and tends to stall the terminal. In order to expedite the shutdown, the timeout time specified in following file was modified:
-
 \begin{lstlisting}[style=bash]
 /opt/ros/melodic/lib/python2.7/dist-packages/roslaunch/nodeprocess.py
 \end{lstlisting}
-
 \subsubsection{Controller Configuration}
 This section allows the user to manipulate the parameters of the turtlebot. Again it contains two QRadiobuttons and one QPushButton for configuring the controller for the Turtlebot. It is important to note that only the PID controller option has been implemented, the Adaptive Controller does not do anything. The update controller parameters button runs on rqt, a software framework of ROS that implements the various GUI tools in the form of plugins. More specifically it uses an rqt metapackage called rqt\_gui, which allows multiple rqt plugins to be docked in a single window. The command that handles the instantiation and reference to this framework is:
-%\lstinputlisting[style=C++, firstline=162, lastline=163]{src/main_window.cpp}
-This launches a new window for viewing all ROS nodes and topics, configuring the PID parameters, and graphically analyzing the error of the PID controller. A screenshot of the window is shown below
+\lstinputlisting[style=C++, firstline=30, lastline=30]{../src/turtlegui/src/qnode.cpp}
+This launches a new window for viewing all ROS nodes and topics, configuring the PID parameters, and graphically analyzing the error of the PID controller. 
+A screenshot of the window is shown below
 \begin{center}
-\includegraphics[width=0.9\linewidth]{images/Screenshot from 2020-08-11 11-47-41.png} \\
+\includegraphics[width=0.9\linewidth]{images/rqt_gui.png} \\
 \end{center}
-
 \subsubsection{2d Navigation Goal}
-The turtlebot is able to follow one or more precise waypoints specified by the user via the 2D Navigation Goal section of the interface. Option 1 allows for the publishing of a single waypoint while option 2 lets the user browse for a csv file containing a list of waypoints. The trajectory path inherits the QStringListModel class that keeps track of the robot's current path. Once either option is chosen, the trajectory path will be updated. The clear\_path button simply removes all items from the trajectory path. To get the Turtlebot to actually start moving and following the path, the publish\_path button must be pressed.\\ 
 
-This button utilizes the follow\_waypoints package, which handles the low-level robot communication for following a path. Three critical ROS commands are executed, the first of which can be seen below.
-
-%\lstinputlisting[style=C++, firstline=82, lastline=83]{src/main_window.cpp}
-
-This creates three ROS topics, /initialpose, /path\_ready, and /path\_reset. The /path\_reset topic is published when the clear path button is clicked. The input trajectory path is published to the /initialpose topic. This topic is of type geometry\_msgs/PoseWithCovarianceStamped, thus the messages published to this topic have to be of this type. This message type contains two fields, std\_msgs/Header header and geometry\_msgs/PoseWithCovariance pose. The former field is just used for communicate timestamped data in a particular coordinate frame. The latter has two more implicit fields, geometry\_msgs/Pose pose and float64[36] covariance. The pose field represents a pose in free space with uncertainty. The covariance field is a row-major representation of the 6x6 covariance matrix, which specifies the uncertainty of the pose field. The pose field has two more implicit fields, geometry\_msgs/Point position and geometry\_msgs/Quaternion orientation. The former contains the position of a point in free space, with fields: float64 x, float64 y, float64 z. The latter represents an orientation in free space in quaternion form, with fields float64 x, float64 y, float64 z, float64 w. By default, the covariance, orientation, and pose.z are all zero, thus the user only needs to specify an x and y position. It is important to note that if the specified goal is not close to current position of the Turtlebot, it will not move. The trajectory.csv file can be used to get an idea of the coordinate pairs the Turtlebot will be able to move to.\\
-
+Note that on a new computer, when rqt\_gui run in the first time, it will be a blank screen, 
+the user would have to import a perspective manually to load this pre-configured perspective.
+Simply follow the steps below to load the perspective: \\
+From the turtlegui, select "Simulation" then click "Launch"\\
+Click "Advanced Controller Parameters"\\
+In the rqt\_gui windows that poped-up, click "Perspective" on the top menu bar, 
+then click Import to browse for \textbf{rqt\_gui.perspective} located under the root of the ros workspace. \\
+The turtlebot is able to follow one or more precise waypoints specified by the user via the 2D Navigation Goal section of the interface. 
+Option 1 allows for the publishing of a single waypoint while option 2 lets the user browse for a csv file containing a list of waypoints. 
+The trajectory path inherits the QStringListModel class that keeps track of the robot's current path. 
+Once either option is chosen, the trajectory path will be updated. 
+The clear\_path button simply removes all items from the trajectory path. 
+To get the Turtlebot to actually start moving and following the path, the publish\_path button must be pressed.\\ 
+This button utilizes the follow\_waypoints package, which handles the low-level robot communication for following a path. 
+Three critical ROS commands are executed, the first of which can be seen below.
+\lstinputlisting[style=C++, firstline=31, lastline=31]{../src/turtlegui/src/qnode.cpp}
+This creates three ROS topics, /initialpose, /path\_ready, and /path\_reset. 
+The /path\_reset topic is published when the clear path button is clicked. 
+The input trajectory path is published to the /initialpose topic. 
+This topic is of type geometry\_msgs/PoseWithCovarianceStamped, 
+thus the messages published to this topic have to be of this type. 
+This message type contains two fields, std\_msgs/Header header and geometry\_msgs/PoseWithCovariance pose. 
+The former field is just used for communicate timestamped data in a particular coordinate frame. 
+The latter has two more implicit fields, geometry\_msgs/Pose pose and float64[36] covariance. 
+The pose field represents a pose in free space with uncertainty. 
+The covariance field is a row-major representation of the 6x6 covariance matrix, which specifies the uncertainty of the pose field. 
+The pose field has two more implicit fields, geometry\_msgs/Point position and geometry\_msgs/Quaternion orientation. 
+The former contains the position of a point in free space, with fields: float64 x, float64 y, float64 z. 
+The latter represents an orientation in free space in quaternion form, with fields float64 x, float64 y, float64 z, float64 w. 
+By default, the covariance, orientation, and pose.z are all zero, thus the user only needs to specify an x and y position. 
+It is important to note that if the specified goal is not close to current position of the Turtlebot, it will not move. 
+The trajectory.csv file can be used to get an idea of the coordinate pairs the Turtlebot will be able to move to.\\
 Once the path is published, another ROS command is executed:
-%\lstinputlisting[style=C++, firstline=89, lastline=89]{src/main_window.cpp}
+\lstinputlisting[style=C++, firstline=61, lastline=61]{../src/turtlegui/src/qnode.cpp}
 This just publishes an empty message to /path\_ready which tells the Turtlebot to start following the path published to /initialpose. Once the Turtlebot reaches the last point in the path, it will stop moving and a new path will have to be specified. The Turtlebot always starts at the origin, and its position is continuously published to the /odom ROS topic. 
 
 \newpage
 \section{List of ROS Nodes, Topics, Parameters, Transform}
 \subsection{List of Important ROS Nodes}
-
-
 % TODO: Mising a few
 \begin{itemize}
-    \item[--] /differential\_driver
+    \item[--] /differential\_driver 
     \item[--] /left\_wheel/pid\_left\_node
-    \item[--] /message\_redirect
-    \item[--] /move\_base
-    \item[--] /odom\_pub
+    \item[--] /message\_redirect (used for generating PID feedback)
+    \item[--] /move\_base (navigation stack node)
+    \item[--] /odom\_pub (simulation only)
     \item[--] /right\_wheel/pid\_right\_node
     \item[--] /robot\_state\_publisher
     \item[--] /rviz
-    \item[--] /turtlebot3\_slam\_gmapping
-    \item[--] /follow\_waypoints 
+    \item[--] /turtlebot3\_slam\_gmapping (name will be changed based on the SLAM algorithm) 
+    \item[--] /follow\_waypoints (node for following waypoints)
+    \item[--] /turtlebot\_3\_core (physical robot only)
 \end{itemize} 
 
 \subsection{List of Topics and Their Types}
@@ -914,21 +863,24 @@ This just publishes an empty message to /path\_ready which tells the Turtlebot t
       & param/dwa\_local\_planner\_params\_waffle\_pi\_effort\_controller.yaml \\
       Global planner parameters & src/turtlebot3/turtlebot3\_navigation/param/global\_planner\_params.yaml \\
       move\_base parameters & src/turtlebot3/turtlebot3\_navigation/param/move\_base\_params.yaml \\
-      Cartographer parameters in physical robot & src/turtlebot3/turtlebot3\_slam/config/turtlebot3\_lds\_2d.lua \\
+      Cartographer parameters physical robot & src/turtlebot3/turtlebot3\_slam/config/turtlebot3\_lds\_2d.lua \\
       Cartographer parameters in simulation & src/turtlebot3/turtlebot3\_slam/config/turtlebot3\_lds\_2d\_gazebo.lua \\
       Hector SLAM parameters & src/turtlebot3/turtlebot3\_slam/launch/turtlebot3\_hector.launch \\
       AMCL parameters & src/turtlebot3/turtlebot3\_navigation/launch/amcl.launch \\
       Gmapping parameters & src/turtlebot3/turtlebot3\_slam/config/gmapping\_params.yaml \\
-      Common costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/costmap\_common\_params\_waffle\_pi\_effort\_controller.yaml \\
+      Common costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/ \\
+      & costmap\_common\_params\_waffle\_pi\_effort\_controller.yaml \\
       Global costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/global\_costmap\_params.yaml \\
       Local costmap parameters & src/turtlebot3/turtlebot3\_navigation/param/local\_costmap\_params.yaml \\
-      SLAM Method & src/turtlebot3/turtlebot3\_navigation/launch/turtlebot3\_navigation\_no\_map.launch
+      SLAM Method * & src/turtlebot3/turtlebot3\_navigation/launch/turtlebot3\_navigation\_no\_map.launch \\
 
 
       \end{tabular}
     \end{center}
   \end{table}
-
+  
+  * To change SLAM algorithm, change the "slam\_methods" value to the desired SLAM algorithm.
+  \lstinputlisting[style=XML, firstline=9, lastline=9]{../src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation_no_map.launch}
 
 \begin{landscape}
 \newpage
@@ -945,5 +897,34 @@ This just publishes an empty message to /path\_ready which tells the Turtlebot t
 \end{figure}
 
 \end{landscape}
+\newpage
+\section{Transferring PID Controller to SBC [Experimental Future Work]}
+The entire path planning and navigation responsibility is taken care of by the Remote PC in the current configuration of the software. The performance of the software is really good, and no network latency issues were identified. However, it is possible to transfer the control software from the Remote PC to the SBC. \textbf{This implementation has not been tested to work on the TurtleBot3.} Transferring any software from Remote PC to SBC requires three things:
+\begin{itemize}
+	\item{Compiling custom packages, if any, associated with that software in the same workspace of the stock packages.}	
+	\item{Installing required dependencies on the SBC, \ul{if they are available for the linux distro and ROS version running on the TurtleBot SBC.}}
+	\item{Changing the \texttt{*.launch} files on the remote PC and SBC}
+\end{itemize}
+The control on the TurtleBot3 is achieved through the package \texttt{ros\_control}. To run the controller on the SBC, copy the package to the \texttt{catkin\_ws} folder on the SBC. The dependencies required for the package are listed  in the \texttt{CMakeLists.txt} file.
+\lstinputlisting[style=XML, firstline=10, lastline=18]{../src/ros_control/CMakeLists.txt}
+Finally re-compile the workspace by running \texttt{catkin\_make} in the base directory (by default,\texttt{~/catkin\_ws/}).\\
+In addition to the above dependencies, the SBC should have the \texttt{ros-pid} package installed. Run the following command to install it on the SBC.
+\begin{lstlisting}[style=bash]
+sudo apt-get install ros-kinetic-pid
+\end{lstlisting}
+This completes step 1 and 2 of the process. Lastly, we need to modify the appropriate \texttt{*.launch} files. Open \texttt{turtlebot3\_robot.launch} file from the \texttt{turtlebot3\_bringup} package using the following command.
+\begin{lstlisting}[style=bash]
+rosed turtlebot3_bringup turtlebot3_robot.launch
+\end{lstlisting}
+The file should look something like this.
+\lstinputlisting[style=XML, firstline=1, lastline=13]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_robot.launch}
+Add the following line to this file before the end tag \texttt{</launch>}.
+\begin{lstlisting}[style=XML]
+<include file="$(find ros_control)/launch/turtlebot3_control.launch"/>
+\end{lstlisting}
+Finally, edit the launch file \texttt{turtlebot3\_physical\_nav\_control.launch} located in the \texttt{turtlebot3\_bringup} package in the Remote PC and remove the following line from the file.
+\lstinputlisting[style=XML, firstline=4, lastline=4]{../src/turtlebot3/turtlebot3_bringup/launch/turtlebot3_physical_nav_control.launch}
+This should enable \texttt{ros-pid} node and associated custom nodes to run on the SBC.
+
 \end{document}
 

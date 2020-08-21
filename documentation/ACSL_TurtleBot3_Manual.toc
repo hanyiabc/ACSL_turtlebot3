@@ -10,7 +10,7 @@
 \contentsline {section}{\numberline {2}Setting up Wireless File Sharing on an SBC Running Ubuntu}{6}{section.2}%
 \contentsline {section}{\numberline {3}Replacing the Raspberry Pi with an alternate SBC}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Hardware Changes}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Software}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Software}{7}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}ROS}{8}{subsection.3.3}%
 \contentsline {section}{\numberline {4}Syncing Time using NTP Server and Client}{9}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Configure NTP Server on the Remote PC}{9}{subsection.4.1}%
@@ -22,10 +22,11 @@
 \contentsline {subsection}{\numberline {8.1}Qt}{26}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}GUI Widget Walkthrough}{27}{subsection.8.2}%
 \contentsline {subsubsection}{\numberline {8.2.1}Model Configuration}{28}{subsubsection.8.2.1}%
-\contentsline {subsubsection}{\numberline {8.2.2}Controller Configuration}{28}{subsubsection.8.2.2}%
-\contentsline {subsubsection}{\numberline {8.2.3}2d Navigation Goal}{28}{subsubsection.8.2.3}%
-\contentsline {section}{\numberline {9}List of ROS Nodes, Topics, Parameters, Transform}{30}{section.9}%
-\contentsline {subsection}{\numberline {9.1}List of Important ROS Nodes}{30}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}List of Topics and Their Types}{30}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}List of Important Topics and Descriptions}{31}{subsection.9.3}%
-\contentsline {subsection}{\numberline {9.4}List of Important Parameters and How to Find Them}{31}{subsection.9.4}%
+\contentsline {subsubsection}{\numberline {8.2.2}Controller Configuration}{29}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}2d Navigation Goal}{29}{subsubsection.8.2.3}%
+\contentsline {section}{\numberline {9}List of ROS Nodes, Topics, Parameters, Transform}{31}{section.9}%
+\contentsline {subsection}{\numberline {9.1}List of Important ROS Nodes}{31}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}List of Topics and Their Types}{31}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}List of Important Topics and Descriptions}{32}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}List of Important Parameters and How to Find Them}{32}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Transferring PID Controller to SBC [Experimental Future Work]}{37}{section.10}%
